@@ -23,6 +23,8 @@ addUserToWorkspace($workspace_uuid, $workspace_user_input): object
 
 Add user to workspace
 
+Adds an existing user to the workspace with a specified role. Admin only.
+
 ### Example
 
 ```php
@@ -143,6 +145,8 @@ deleteWorkspace($workspace_uuid): object
 
 Delete workspace
 
+Permanently deletes a single workspace and all its associated data. Admin only.
+
 ### Example
 
 ```php
@@ -200,6 +204,8 @@ deleteWorkspacesBulk($delete_workspaces_bulk_request): object
 ```
 
 Delete workspaces (bulk)
+
+Permanently deletes one or more workspaces and all their associated data. Admin only.
 
 ### Example
 
@@ -259,6 +265,8 @@ getWorkspace($workspace_uuid): \PostBoostClient\Model\Workspace
 
 Get workspace
 
+Returns a single workspace by UUID including its subscription status. Admin only.
+
 ### Example
 
 ```php
@@ -312,7 +320,7 @@ try {
 ## `listWorkspaces()`
 
 ```php
-listWorkspaces($keyword, $subscription_status, $access_status): \PostBoostClient\Model\ListWorkspaces200Response
+listWorkspaces($keyword, $subscription_status, $access_status, $page): \PostBoostClient\Model\ListWorkspaces200Response
 ```
 
 List workspaces
@@ -339,9 +347,10 @@ $apiInstance = new PostBoostClient\Api\WorkspacesApi(
 $keyword = 'keyword_example'; // string
 $subscription_status = 'subscription_status_example'; // string
 $access_status = 'access_status_example'; // string
+$page = 1; // int | Page number (15 items per page).
 
 try {
-    $result = $apiInstance->listWorkspaces($keyword, $subscription_status, $access_status);
+    $result = $apiInstance->listWorkspaces($keyword, $subscription_status, $access_status, $page);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling WorkspacesApi->listWorkspaces: ', $e->getMessage(), PHP_EOL;
@@ -355,6 +364,7 @@ try {
 | **keyword** | **string**|  | [optional] |
 | **subscription_status** | **string**|  | [optional] |
 | **access_status** | **string**|  | [optional] |
+| **page** | **int**| Page number (15 items per page). | [optional] [default to 1] |
 
 ### Return type
 
@@ -380,6 +390,8 @@ removeUserFromWorkspace($workspace_uuid, $remove_user_from_workspace_request): o
 ```
 
 Remove user from workspace
+
+Removes a user's access to the workspace. The user account is not deleted. Admin only.
 
 ### Example
 
@@ -441,6 +453,8 @@ updateWorkspace($workspace_uuid, $workspace_input): object
 
 Update workspace
 
+Updates a workspace's name, color, or access status. Admin only.
+
 ### Example
 
 ```php
@@ -500,6 +514,8 @@ updateWorkspaceUser($workspace_uuid, $workspace_user_input): object
 ```
 
 Update user role in workspace
+
+Changes a user's role or permissions within the workspace. Admin only.
 
 ### Example
 

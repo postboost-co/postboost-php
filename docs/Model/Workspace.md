@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**uuid** | **string** |  | [optional]
-**name** | **string** |  | [optional]
-**hex_color** | **string** |  | [optional]
+**uuid** | **string** |  |
+**name** | **string** |  |
+**hex_color** | **string** |  |
 **owner** | [**\PostBoostClient\Model\User**](User.md) |  | [optional]
-**access_status** | **string** |  | [optional]
-**created_at** | **\DateTime** |  | [optional]
+**access_status** | **string** |  |
+**created_at** | **\DateTime** |  |
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

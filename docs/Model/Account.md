@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** |  | [optional]
-**uuid** | **string** |  | [optional]
-**name** | **string** |  | [optional]
-**username** | **string** |  | [optional]
+**id** | **int** |  |
+**uuid** | **string** |  |
+**name** | **string** |  |
+**username** | **string** |  |
 **image** | **string** |  | [optional]
-**provider** | **string** |  | [optional]
-**data** | **object** | Provider-specific metadata. | [optional]
-**authorized** | **bool** |  | [optional]
-**created_at** | **\DateTime** |  | [optional]
+**provider** | **string** |  |
+**data** | **object** | Provider-specific metadata. |
+**authorized** | **bool** |  |
+**created_at** | **\DateTime** |  |
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

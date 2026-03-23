@@ -148,7 +148,7 @@ class ReceiptsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PostBoostClient\Model\Receipt|object|object
+     * @return \PostBoostClient\Model\Receipt|object|object|object
      */
     public function createReceipt($receipt_input, string $contentType = self::contentTypes['createReceipt'][0])
     {
@@ -166,7 +166,7 @@ class ReceiptsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PostBoostClient\Model\Receipt|object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PostBoostClient\Model\Receipt|object|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function createReceiptWithHttpInfo($receipt_input, string $contentType = self::contentTypes['createReceipt'][0])
     {
@@ -196,7 +196,7 @@ class ReceiptsApi
 
 
             switch($statusCode) {
-                case 200:
+                case 201:
                     if ('\PostBoostClient\Model\Receipt' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
@@ -224,6 +224,33 @@ class ReceiptsApi
                         $response->getHeaders()
                     ];
                 case 401:
+                    if ('object' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('object' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
                     if ('object' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
@@ -322,7 +349,7 @@ class ReceiptsApi
 
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 200:
+                case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\PostBoostClient\Model\Receipt',
@@ -331,6 +358,14 @@ class ReceiptsApi
                     $e->setResponseObject($data);
                     break;
                 case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',
@@ -529,7 +564,7 @@ class ReceiptsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return object|object|object
+     * @return object|object|object|object
      */
     public function deleteReceipt($receipt_uuid, string $contentType = self::contentTypes['deleteReceipt'][0])
     {
@@ -547,7 +582,7 @@ class ReceiptsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of object|object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of object|object|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteReceiptWithHttpInfo($receipt_uuid, string $contentType = self::contentTypes['deleteReceipt'][0])
     {
@@ -605,6 +640,33 @@ class ReceiptsApi
                         $response->getHeaders()
                     ];
                 case 401:
+                    if ('object' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('object' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
                     if ('object' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
@@ -712,6 +774,14 @@ class ReceiptsApi
                     $e->setResponseObject($data);
                     break;
                 case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',
@@ -911,7 +981,7 @@ class ReceiptsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return object|object
+     * @return object|object|object
      */
     public function deleteReceiptsBulk($delete_receipts_bulk_request, string $contentType = self::contentTypes['deleteReceiptsBulk'][0])
     {
@@ -929,7 +999,7 @@ class ReceiptsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of object|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteReceiptsBulkWithHttpInfo($delete_receipts_bulk_request, string $contentType = self::contentTypes['deleteReceiptsBulk'][0])
     {
@@ -1013,6 +1083,33 @@ class ReceiptsApi
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
+                case 403:
+                    if ('object' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('object' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
             }
 
             if ($statusCode < 200 || $statusCode > 299) {
@@ -1067,6 +1164,14 @@ class ReceiptsApi
                     $e->setResponseObject($data);
                     break;
                 case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',
@@ -1257,7 +1362,7 @@ class ReceiptsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PostBoostClient\Model\Receipt|object|object
+     * @return \PostBoostClient\Model\Receipt|object|object|object
      */
     public function getReceipt($receipt_uuid, string $contentType = self::contentTypes['getReceipt'][0])
     {
@@ -1275,7 +1380,7 @@ class ReceiptsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PostBoostClient\Model\Receipt|object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PostBoostClient\Model\Receipt|object|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function getReceiptWithHttpInfo($receipt_uuid, string $contentType = self::contentTypes['getReceipt'][0])
     {
@@ -1333,6 +1438,33 @@ class ReceiptsApi
                         $response->getHeaders()
                     ];
                 case 401:
+                    if ('object' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('object' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
                     if ('object' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
@@ -1440,6 +1572,14 @@ class ReceiptsApi
                     $e->setResponseObject($data);
                     break;
                 case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',
@@ -1636,15 +1776,16 @@ class ReceiptsApi
      *
      * @param  string $workspace_uuid workspace_uuid (optional)
      * @param  string $invoice_number invoice_number (optional)
+     * @param  int $page Page number (15 items per page). (optional, default to 1)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listReceipts'] to see the possible values for this operation
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PostBoostClient\Model\ListReceipts200Response|object
+     * @return \PostBoostClient\Model\ListReceipts200Response|object|object
      */
-    public function listReceipts($workspace_uuid = null, $invoice_number = null, string $contentType = self::contentTypes['listReceipts'][0])
+    public function listReceipts($workspace_uuid = null, $invoice_number = null, $page = 1, string $contentType = self::contentTypes['listReceipts'][0])
     {
-        list($response) = $this->listReceiptsWithHttpInfo($workspace_uuid, $invoice_number, $contentType);
+        list($response) = $this->listReceiptsWithHttpInfo($workspace_uuid, $invoice_number, $page, $contentType);
         return $response;
     }
 
@@ -1655,15 +1796,16 @@ class ReceiptsApi
      *
      * @param  string $workspace_uuid (optional)
      * @param  string $invoice_number (optional)
+     * @param  int $page Page number (15 items per page). (optional, default to 1)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listReceipts'] to see the possible values for this operation
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PostBoostClient\Model\ListReceipts200Response|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PostBoostClient\Model\ListReceipts200Response|object|object, HTTP status code, HTTP response headers (array of strings)
      */
-    public function listReceiptsWithHttpInfo($workspace_uuid = null, $invoice_number = null, string $contentType = self::contentTypes['listReceipts'][0])
+    public function listReceiptsWithHttpInfo($workspace_uuid = null, $invoice_number = null, $page = 1, string $contentType = self::contentTypes['listReceipts'][0])
     {
-        $request = $this->listReceiptsRequest($workspace_uuid, $invoice_number, $contentType);
+        $request = $this->listReceiptsRequest($workspace_uuid, $invoice_number, $page, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1717,6 +1859,33 @@ class ReceiptsApi
                         $response->getHeaders()
                     ];
                 case 401:
+                    if ('object' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('object' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
                     if ('object' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
@@ -1804,6 +1973,14 @@ class ReceiptsApi
                     );
                     $e->setResponseObject($data);
                     break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
             }
             throw $e;
         }
@@ -1816,14 +1993,15 @@ class ReceiptsApi
      *
      * @param  string $workspace_uuid (optional)
      * @param  string $invoice_number (optional)
+     * @param  int $page Page number (15 items per page). (optional, default to 1)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listReceipts'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function listReceiptsAsync($workspace_uuid = null, $invoice_number = null, string $contentType = self::contentTypes['listReceipts'][0])
+    public function listReceiptsAsync($workspace_uuid = null, $invoice_number = null, $page = 1, string $contentType = self::contentTypes['listReceipts'][0])
     {
-        return $this->listReceiptsAsyncWithHttpInfo($workspace_uuid, $invoice_number, $contentType)
+        return $this->listReceiptsAsyncWithHttpInfo($workspace_uuid, $invoice_number, $page, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1838,15 +2016,16 @@ class ReceiptsApi
      *
      * @param  string $workspace_uuid (optional)
      * @param  string $invoice_number (optional)
+     * @param  int $page Page number (15 items per page). (optional, default to 1)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listReceipts'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function listReceiptsAsyncWithHttpInfo($workspace_uuid = null, $invoice_number = null, string $contentType = self::contentTypes['listReceipts'][0])
+    public function listReceiptsAsyncWithHttpInfo($workspace_uuid = null, $invoice_number = null, $page = 1, string $contentType = self::contentTypes['listReceipts'][0])
     {
         $returnType = '\PostBoostClient\Model\ListReceipts200Response';
-        $request = $this->listReceiptsRequest($workspace_uuid, $invoice_number, $contentType);
+        $request = $this->listReceiptsRequest($workspace_uuid, $invoice_number, $page, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1889,13 +2068,15 @@ class ReceiptsApi
      *
      * @param  string $workspace_uuid (optional)
      * @param  string $invoice_number (optional)
+     * @param  int $page Page number (15 items per page). (optional, default to 1)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listReceipts'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function listReceiptsRequest($workspace_uuid = null, $invoice_number = null, string $contentType = self::contentTypes['listReceipts'][0])
+    public function listReceiptsRequest($workspace_uuid = null, $invoice_number = null, $page = 1, string $contentType = self::contentTypes['listReceipts'][0])
     {
+
 
 
 
@@ -1921,6 +2102,15 @@ class ReceiptsApi
             $invoice_number,
             'invoice_number', // param base name
             'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $page,
+            'page', // param base name
+            'integer', // openApiType
             'form', // style
             true, // explode
             false // required
@@ -1997,7 +2187,7 @@ class ReceiptsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return object|object|object
+     * @return object|object|object|object
      */
     public function updateReceipt($receipt_uuid, $receipt_update_input, string $contentType = self::contentTypes['updateReceipt'][0])
     {
@@ -2016,7 +2206,7 @@ class ReceiptsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of object|object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of object|object|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function updateReceiptWithHttpInfo($receipt_uuid, $receipt_update_input, string $contentType = self::contentTypes['updateReceipt'][0])
     {
@@ -2074,6 +2264,33 @@ class ReceiptsApi
                         $response->getHeaders()
                     ];
                 case 401:
+                    if ('object' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('object' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
                     if ('object' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
@@ -2181,6 +2398,14 @@ class ReceiptsApi
                     $e->setResponseObject($data);
                     break;
                 case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',

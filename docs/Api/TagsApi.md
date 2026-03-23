@@ -19,6 +19,8 @@ createTag($workspace_uuid, $tag_input): \PostBoostClient\Model\Tag
 
 Create tag
 
+Creates a new color-coded tag in the workspace for organizing posts.
+
 ### Example
 
 ```php
@@ -78,6 +80,8 @@ deleteTag($workspace_uuid, $tag_uuid): object
 ```
 
 Delete tag
+
+Permanently deletes a tag. Posts that had this tag attached are unaffected.
 
 ### Example
 
@@ -139,6 +143,8 @@ getTag($workspace_uuid, $tag_uuid): \PostBoostClient\Model\Tag
 
 Get tag
 
+Returns a single tag by UUID.
+
 ### Example
 
 ```php
@@ -199,6 +205,8 @@ listTags($workspace_uuid): \PostBoostClient\Model\ListTags200Response
 
 List tags
 
+Returns all tags defined in the workspace.
+
 ### Example
 
 ```php
@@ -256,6 +264,8 @@ updateTag($workspace_uuid, $tag_uuid, $tag_input): object
 ```
 
 Update tag
+
+Updates a tag's name or color.
 
 ### Example
 

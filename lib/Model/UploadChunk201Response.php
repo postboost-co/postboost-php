@@ -1,6 +1,6 @@
 <?php
 /**
- * UploadChunk200Response
+ * UploadChunk201Response
  *
  * PHP version 7.4
  *
@@ -33,7 +33,7 @@ use \ArrayAccess;
 use \PostBoostClient\ObjectSerializer;
 
 /**
- * UploadChunk200Response Class Doc Comment
+ * UploadChunk201Response Class Doc Comment
  *
  * @category Class
  * @package  PostBoostClient
@@ -41,7 +41,7 @@ use \PostBoostClient\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class UploadChunk200Response implements ModelInterface, ArrayAccess, \JsonSerializable
+class UploadChunk201Response implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +50,7 @@ class UploadChunk200Response implements ModelInterface, ArrayAccess, \JsonSerial
       *
       * @var string
       */
-    protected static $openAPIModelName = 'uploadChunk_200_response';
+    protected static $openAPIModelName = 'uploadChunk_201_response';
 
     /**
       * Array of property to type mappings. Used for (de)serialization

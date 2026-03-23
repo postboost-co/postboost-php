@@ -296,6 +296,18 @@ class Tag implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if ($this->container['uuid'] === null) {
+            $invalidProperties[] = "'uuid' can't be null";
+        }
+        if ($this->container['name'] === null) {
+            $invalidProperties[] = "'name' can't be null";
+        }
+        if ($this->container['hex_color'] === null) {
+            $invalidProperties[] = "'hex_color' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -314,7 +326,7 @@ class Tag implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets id
      *
-     * @return int|null
+     * @return int
      */
     public function getId()
     {
@@ -324,7 +336,7 @@ class Tag implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param int|null $id id
+     * @param int $id id
      *
      * @return self
      */
@@ -341,7 +353,7 @@ class Tag implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets uuid
      *
-     * @return string|null
+     * @return string
      */
     public function getUuid()
     {
@@ -351,7 +363,7 @@ class Tag implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets uuid
      *
-     * @param string|null $uuid uuid
+     * @param string $uuid uuid
      *
      * @return self
      */
@@ -368,7 +380,7 @@ class Tag implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets name
      *
-     * @return string|null
+     * @return string
      */
     public function getName()
     {
@@ -378,7 +390,7 @@ class Tag implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets name
      *
-     * @param string|null $name name
+     * @param string $name name
      *
      * @return self
      */
@@ -395,7 +407,7 @@ class Tag implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets hex_color
      *
-     * @return string|null
+     * @return string
      */
     public function getHexColor()
     {
@@ -405,7 +417,7 @@ class Tag implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets hex_color
      *
-     * @param string|null $hex_color hex_color
+     * @param string $hex_color hex_color
      *
      * @return self
      */

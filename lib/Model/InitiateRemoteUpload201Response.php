@@ -1,6 +1,6 @@
 <?php
 /**
- * InitiateRemoteUpload200Response
+ * InitiateRemoteUpload201Response
  *
  * PHP version 7.4
  *
@@ -33,7 +33,7 @@ use \ArrayAccess;
 use \PostBoostClient\ObjectSerializer;
 
 /**
- * InitiateRemoteUpload200Response Class Doc Comment
+ * InitiateRemoteUpload201Response Class Doc Comment
  *
  * @category Class
  * @package  PostBoostClient
@@ -41,7 +41,7 @@ use \PostBoostClient\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class InitiateRemoteUpload200Response implements ModelInterface, ArrayAccess, \JsonSerializable
+class InitiateRemoteUpload201Response implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +50,7 @@ class InitiateRemoteUpload200Response implements ModelInterface, ArrayAccess, \J
       *
       * @var string
       */
-    protected static $openAPIModelName = 'initiateRemoteUpload_200_response';
+    protected static $openAPIModelName = 'initiateRemoteUpload_201_response';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -355,6 +355,21 @@ class InitiateRemoteUpload200Response implements ModelInterface, ArrayAccess, \J
     {
         $invalidProperties = [];
 
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if ($this->container['uuid'] === null) {
+            $invalidProperties[] = "'uuid' can't be null";
+        }
+        if ($this->container['name'] === null) {
+            $invalidProperties[] = "'name' can't be null";
+        }
+        if ($this->container['mime_type'] === null) {
+            $invalidProperties[] = "'mime_type' can't be null";
+        }
+        if ($this->container['type'] === null) {
+            $invalidProperties[] = "'type' can't be null";
+        }
         $allowedValues = $this->getTypeAllowableValues();
         if (!is_null($this->container['type']) && !in_array($this->container['type'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -364,6 +379,15 @@ class InitiateRemoteUpload200Response implements ModelInterface, ArrayAccess, \J
             );
         }
 
+        if ($this->container['url'] === null) {
+            $invalidProperties[] = "'url' can't be null";
+        }
+        if ($this->container['is_video'] === null) {
+            $invalidProperties[] = "'is_video' can't be null";
+        }
+        if ($this->container['created_at'] === null) {
+            $invalidProperties[] = "'created_at' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -382,7 +406,7 @@ class InitiateRemoteUpload200Response implements ModelInterface, ArrayAccess, \J
     /**
      * Gets id
      *
-     * @return int|null
+     * @return int
      */
     public function getId()
     {
@@ -392,7 +416,7 @@ class InitiateRemoteUpload200Response implements ModelInterface, ArrayAccess, \J
     /**
      * Sets id
      *
-     * @param int|null $id id
+     * @param int $id id
      *
      * @return self
      */
@@ -409,7 +433,7 @@ class InitiateRemoteUpload200Response implements ModelInterface, ArrayAccess, \J
     /**
      * Gets uuid
      *
-     * @return string|null
+     * @return string
      */
     public function getUuid()
     {
@@ -419,7 +443,7 @@ class InitiateRemoteUpload200Response implements ModelInterface, ArrayAccess, \J
     /**
      * Sets uuid
      *
-     * @param string|null $uuid uuid
+     * @param string $uuid uuid
      *
      * @return self
      */
@@ -436,7 +460,7 @@ class InitiateRemoteUpload200Response implements ModelInterface, ArrayAccess, \J
     /**
      * Gets name
      *
-     * @return string|null
+     * @return string
      */
     public function getName()
     {
@@ -446,7 +470,7 @@ class InitiateRemoteUpload200Response implements ModelInterface, ArrayAccess, \J
     /**
      * Sets name
      *
-     * @param string|null $name name
+     * @param string $name name
      *
      * @return self
      */
@@ -463,7 +487,7 @@ class InitiateRemoteUpload200Response implements ModelInterface, ArrayAccess, \J
     /**
      * Gets mime_type
      *
-     * @return string|null
+     * @return string
      */
     public function getMimeType()
     {
@@ -473,7 +497,7 @@ class InitiateRemoteUpload200Response implements ModelInterface, ArrayAccess, \J
     /**
      * Sets mime_type
      *
-     * @param string|null $mime_type mime_type
+     * @param string $mime_type mime_type
      *
      * @return self
      */
@@ -490,7 +514,7 @@ class InitiateRemoteUpload200Response implements ModelInterface, ArrayAccess, \J
     /**
      * Gets type
      *
-     * @return string|null
+     * @return string
      */
     public function getType()
     {
@@ -500,7 +524,7 @@ class InitiateRemoteUpload200Response implements ModelInterface, ArrayAccess, \J
     /**
      * Sets type
      *
-     * @param string|null $type type
+     * @param string $type type
      *
      * @return self
      */
@@ -527,7 +551,7 @@ class InitiateRemoteUpload200Response implements ModelInterface, ArrayAccess, \J
     /**
      * Gets url
      *
-     * @return string|null
+     * @return string
      */
     public function getUrl()
     {
@@ -537,7 +561,7 @@ class InitiateRemoteUpload200Response implements ModelInterface, ArrayAccess, \J
     /**
      * Sets url
      *
-     * @param string|null $url url
+     * @param string $url url
      *
      * @return self
      */
@@ -581,7 +605,7 @@ class InitiateRemoteUpload200Response implements ModelInterface, ArrayAccess, \J
     /**
      * Gets is_video
      *
-     * @return bool|null
+     * @return bool
      */
     public function getIsVideo()
     {
@@ -591,7 +615,7 @@ class InitiateRemoteUpload200Response implements ModelInterface, ArrayAccess, \J
     /**
      * Sets is_video
      *
-     * @param bool|null $is_video is_video
+     * @param bool $is_video is_video
      *
      * @return self
      */
@@ -608,7 +632,7 @@ class InitiateRemoteUpload200Response implements ModelInterface, ArrayAccess, \J
     /**
      * Gets created_at
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -618,7 +642,7 @@ class InitiateRemoteUpload200Response implements ModelInterface, ArrayAccess, \J
     /**
      * Sets created_at
      *
-     * @param \DateTime|null $created_at created_at
+     * @param \DateTime $created_at created_at
      *
      * @return self
      */

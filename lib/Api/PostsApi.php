@@ -207,7 +207,7 @@ class PostsApi
 
 
             switch($statusCode) {
-                case 200:
+                case 201:
                     if ('\PostBoostClient\Model\ScheduleResult' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
@@ -333,7 +333,7 @@ class PostsApi
 
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 200:
+                case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\PostBoostClient\Model\ScheduleResult',
@@ -1046,7 +1046,7 @@ class PostsApi
 
 
             switch($statusCode) {
-                case 200:
+                case 201:
                     if ('\PostBoostClient\Model\Post' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
@@ -1172,7 +1172,7 @@ class PostsApi
 
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 200:
+                case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\PostBoostClient\Model\Post',

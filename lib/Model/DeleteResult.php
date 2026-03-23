@@ -289,6 +289,15 @@ class DeleteResult implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['deleted'] === null) {
+            $invalidProperties[] = "'deleted' can't be null";
+        }
+        if ($this->container['deleted_from_app'] === null) {
+            $invalidProperties[] = "'deleted_from_app' can't be null";
+        }
+        if ($this->container['to_trash'] === null) {
+            $invalidProperties[] = "'to_trash' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -307,7 +316,7 @@ class DeleteResult implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets deleted
      *
-     * @return bool|null
+     * @return bool
      */
     public function getDeleted()
     {
@@ -317,7 +326,7 @@ class DeleteResult implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets deleted
      *
-     * @param bool|null $deleted deleted
+     * @param bool $deleted deleted
      *
      * @return self
      */
@@ -334,7 +343,7 @@ class DeleteResult implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets deleted_from_app
      *
-     * @return bool|null
+     * @return bool
      */
     public function getDeletedFromApp()
     {
@@ -344,7 +353,7 @@ class DeleteResult implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets deleted_from_app
      *
-     * @param bool|null $deleted_from_app deleted_from_app
+     * @param bool $deleted_from_app deleted_from_app
      *
      * @return self
      */
@@ -361,7 +370,7 @@ class DeleteResult implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets to_trash
      *
-     * @return bool|null
+     * @return bool
      */
     public function getToTrash()
     {
@@ -371,7 +380,7 @@ class DeleteResult implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets to_trash
      *
-     * @param bool|null $to_trash to_trash
+     * @param bool $to_trash to_trash
      *
      * @return self
      */

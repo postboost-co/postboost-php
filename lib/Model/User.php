@@ -310,6 +310,21 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if ($this->container['name'] === null) {
+            $invalidProperties[] = "'name' can't be null";
+        }
+        if ($this->container['email'] === null) {
+            $invalidProperties[] = "'email' can't be null";
+        }
+        if ($this->container['is_admin'] === null) {
+            $invalidProperties[] = "'is_admin' can't be null";
+        }
+        if ($this->container['created_at'] === null) {
+            $invalidProperties[] = "'created_at' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -328,7 +343,7 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets id
      *
-     * @return int|null
+     * @return int
      */
     public function getId()
     {
@@ -338,7 +353,7 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param int|null $id id
+     * @param int $id id
      *
      * @return self
      */
@@ -355,7 +370,7 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets name
      *
-     * @return string|null
+     * @return string
      */
     public function getName()
     {
@@ -365,7 +380,7 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets name
      *
-     * @param string|null $name name
+     * @param string $name name
      *
      * @return self
      */
@@ -382,7 +397,7 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets email
      *
-     * @return string|null
+     * @return string
      */
     public function getEmail()
     {
@@ -392,7 +407,7 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets email
      *
-     * @param string|null $email email
+     * @param string $email email
      *
      * @return self
      */
@@ -409,7 +424,7 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets is_admin
      *
-     * @return bool|null
+     * @return bool
      */
     public function getIsAdmin()
     {
@@ -419,7 +434,7 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets is_admin
      *
-     * @param bool|null $is_admin is_admin
+     * @param bool $is_admin is_admin
      *
      * @return self
      */
@@ -463,7 +478,7 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets created_at
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -473,7 +488,7 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets created_at
      *
-     * @param \DateTime|null $created_at created_at
+     * @param \DateTime $created_at created_at
      *
      * @return self
      */

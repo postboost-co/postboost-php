@@ -327,6 +327,18 @@ class Workspace implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['uuid'] === null) {
+            $invalidProperties[] = "'uuid' can't be null";
+        }
+        if ($this->container['name'] === null) {
+            $invalidProperties[] = "'name' can't be null";
+        }
+        if ($this->container['hex_color'] === null) {
+            $invalidProperties[] = "'hex_color' can't be null";
+        }
+        if ($this->container['access_status'] === null) {
+            $invalidProperties[] = "'access_status' can't be null";
+        }
         $allowedValues = $this->getAccessStatusAllowableValues();
         if (!is_null($this->container['access_status']) && !in_array($this->container['access_status'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -336,6 +348,9 @@ class Workspace implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
+        if ($this->container['created_at'] === null) {
+            $invalidProperties[] = "'created_at' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -354,7 +369,7 @@ class Workspace implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets uuid
      *
-     * @return string|null
+     * @return string
      */
     public function getUuid()
     {
@@ -364,7 +379,7 @@ class Workspace implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets uuid
      *
-     * @param string|null $uuid uuid
+     * @param string $uuid uuid
      *
      * @return self
      */
@@ -381,7 +396,7 @@ class Workspace implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets name
      *
-     * @return string|null
+     * @return string
      */
     public function getName()
     {
@@ -391,7 +406,7 @@ class Workspace implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets name
      *
-     * @param string|null $name name
+     * @param string $name name
      *
      * @return self
      */
@@ -408,7 +423,7 @@ class Workspace implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets hex_color
      *
-     * @return string|null
+     * @return string
      */
     public function getHexColor()
     {
@@ -418,7 +433,7 @@ class Workspace implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets hex_color
      *
-     * @param string|null $hex_color hex_color
+     * @param string $hex_color hex_color
      *
      * @return self
      */
@@ -462,7 +477,7 @@ class Workspace implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets access_status
      *
-     * @return string|null
+     * @return string
      */
     public function getAccessStatus()
     {
@@ -472,7 +487,7 @@ class Workspace implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets access_status
      *
-     * @param string|null $access_status access_status
+     * @param string $access_status access_status
      *
      * @return self
      */
@@ -499,7 +514,7 @@ class Workspace implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets created_at
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -509,7 +524,7 @@ class Workspace implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets created_at
      *
-     * @param \DateTime|null $created_at created_at
+     * @param \DateTime $created_at created_at
      *
      * @return self
      */

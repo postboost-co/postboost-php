@@ -324,6 +324,21 @@ class Subscription implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['name'] === null) {
+            $invalidProperties[] = "'name' can't be null";
+        }
+        if ($this->container['platform_subscription_id'] === null) {
+            $invalidProperties[] = "'platform_subscription_id' can't be null";
+        }
+        if ($this->container['platform_plan_id'] === null) {
+            $invalidProperties[] = "'platform_plan_id' can't be null";
+        }
+        if ($this->container['status'] === null) {
+            $invalidProperties[] = "'status' can't be null";
+        }
+        if ($this->container['recurring'] === null) {
+            $invalidProperties[] = "'recurring' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -342,7 +357,7 @@ class Subscription implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets name
      *
-     * @return string|null
+     * @return string
      */
     public function getName()
     {
@@ -352,7 +367,7 @@ class Subscription implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets name
      *
-     * @param string|null $name name
+     * @param string $name name
      *
      * @return self
      */
@@ -369,7 +384,7 @@ class Subscription implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets platform_subscription_id
      *
-     * @return string|null
+     * @return string
      */
     public function getPlatformSubscriptionId()
     {
@@ -379,7 +394,7 @@ class Subscription implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets platform_subscription_id
      *
-     * @param string|null $platform_subscription_id platform_subscription_id
+     * @param string $platform_subscription_id platform_subscription_id
      *
      * @return self
      */
@@ -396,7 +411,7 @@ class Subscription implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets platform_plan_id
      *
-     * @return string|null
+     * @return string
      */
     public function getPlatformPlanId()
     {
@@ -406,7 +421,7 @@ class Subscription implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets platform_plan_id
      *
-     * @param string|null $platform_plan_id platform_plan_id
+     * @param string $platform_plan_id platform_plan_id
      *
      * @return self
      */
@@ -423,7 +438,7 @@ class Subscription implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets status
      *
-     * @return \PostBoostClient\Model\SubscriptionStatus|null
+     * @return \PostBoostClient\Model\SubscriptionStatus
      */
     public function getStatus()
     {
@@ -433,7 +448,7 @@ class Subscription implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets status
      *
-     * @param \PostBoostClient\Model\SubscriptionStatus|null $status status
+     * @param \PostBoostClient\Model\SubscriptionStatus $status status
      *
      * @return self
      */
@@ -450,7 +465,7 @@ class Subscription implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets recurring
      *
-     * @return bool|null
+     * @return bool
      */
     public function getRecurring()
     {
@@ -460,7 +475,7 @@ class Subscription implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets recurring
      *
-     * @param bool|null $recurring recurring
+     * @param bool $recurring recurring
      *
      * @return self
      */

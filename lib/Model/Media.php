@@ -348,6 +348,21 @@ class Media implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if ($this->container['uuid'] === null) {
+            $invalidProperties[] = "'uuid' can't be null";
+        }
+        if ($this->container['name'] === null) {
+            $invalidProperties[] = "'name' can't be null";
+        }
+        if ($this->container['mime_type'] === null) {
+            $invalidProperties[] = "'mime_type' can't be null";
+        }
+        if ($this->container['type'] === null) {
+            $invalidProperties[] = "'type' can't be null";
+        }
         $allowedValues = $this->getTypeAllowableValues();
         if (!is_null($this->container['type']) && !in_array($this->container['type'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -357,6 +372,15 @@ class Media implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
+        if ($this->container['url'] === null) {
+            $invalidProperties[] = "'url' can't be null";
+        }
+        if ($this->container['is_video'] === null) {
+            $invalidProperties[] = "'is_video' can't be null";
+        }
+        if ($this->container['created_at'] === null) {
+            $invalidProperties[] = "'created_at' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -375,7 +399,7 @@ class Media implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets id
      *
-     * @return int|null
+     * @return int
      */
     public function getId()
     {
@@ -385,7 +409,7 @@ class Media implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param int|null $id id
+     * @param int $id id
      *
      * @return self
      */
@@ -402,7 +426,7 @@ class Media implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets uuid
      *
-     * @return string|null
+     * @return string
      */
     public function getUuid()
     {
@@ -412,7 +436,7 @@ class Media implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets uuid
      *
-     * @param string|null $uuid uuid
+     * @param string $uuid uuid
      *
      * @return self
      */
@@ -429,7 +453,7 @@ class Media implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets name
      *
-     * @return string|null
+     * @return string
      */
     public function getName()
     {
@@ -439,7 +463,7 @@ class Media implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets name
      *
-     * @param string|null $name name
+     * @param string $name name
      *
      * @return self
      */
@@ -456,7 +480,7 @@ class Media implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets mime_type
      *
-     * @return string|null
+     * @return string
      */
     public function getMimeType()
     {
@@ -466,7 +490,7 @@ class Media implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets mime_type
      *
-     * @param string|null $mime_type mime_type
+     * @param string $mime_type mime_type
      *
      * @return self
      */
@@ -483,7 +507,7 @@ class Media implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets type
      *
-     * @return string|null
+     * @return string
      */
     public function getType()
     {
@@ -493,7 +517,7 @@ class Media implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets type
      *
-     * @param string|null $type type
+     * @param string $type type
      *
      * @return self
      */
@@ -520,7 +544,7 @@ class Media implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets url
      *
-     * @return string|null
+     * @return string
      */
     public function getUrl()
     {
@@ -530,7 +554,7 @@ class Media implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets url
      *
-     * @param string|null $url url
+     * @param string $url url
      *
      * @return self
      */
@@ -574,7 +598,7 @@ class Media implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets is_video
      *
-     * @return bool|null
+     * @return bool
      */
     public function getIsVideo()
     {
@@ -584,7 +608,7 @@ class Media implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets is_video
      *
-     * @param bool|null $is_video is_video
+     * @param bool $is_video is_video
      *
      * @return self
      */
@@ -601,7 +625,7 @@ class Media implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets created_at
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -611,7 +635,7 @@ class Media implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets created_at
      *
-     * @param \DateTime|null $created_at created_at
+     * @param \DateTime $created_at created_at
      *
      * @return self
      */

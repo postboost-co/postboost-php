@@ -338,6 +338,30 @@ class Receipt implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['uuid'] === null) {
+            $invalidProperties[] = "'uuid' can't be null";
+        }
+        if ($this->container['transaction_id'] === null) {
+            $invalidProperties[] = "'transaction_id' can't be null";
+        }
+        if ($this->container['invoice_number'] === null) {
+            $invalidProperties[] = "'invoice_number' can't be null";
+        }
+        if ($this->container['amount'] === null) {
+            $invalidProperties[] = "'amount' can't be null";
+        }
+        if ($this->container['tax'] === null) {
+            $invalidProperties[] = "'tax' can't be null";
+        }
+        if ($this->container['currency'] === null) {
+            $invalidProperties[] = "'currency' can't be null";
+        }
+        if ($this->container['paid_at'] === null) {
+            $invalidProperties[] = "'paid_at' can't be null";
+        }
+        if ($this->container['created_at'] === null) {
+            $invalidProperties[] = "'created_at' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -356,7 +380,7 @@ class Receipt implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets uuid
      *
-     * @return string|null
+     * @return string
      */
     public function getUuid()
     {
@@ -366,7 +390,7 @@ class Receipt implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets uuid
      *
-     * @param string|null $uuid uuid
+     * @param string $uuid uuid
      *
      * @return self
      */
@@ -383,7 +407,7 @@ class Receipt implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets transaction_id
      *
-     * @return string|null
+     * @return string
      */
     public function getTransactionId()
     {
@@ -393,7 +417,7 @@ class Receipt implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets transaction_id
      *
-     * @param string|null $transaction_id transaction_id
+     * @param string $transaction_id transaction_id
      *
      * @return self
      */
@@ -410,7 +434,7 @@ class Receipt implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets invoice_number
      *
-     * @return string|null
+     * @return string
      */
     public function getInvoiceNumber()
     {
@@ -420,7 +444,7 @@ class Receipt implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets invoice_number
      *
-     * @param string|null $invoice_number invoice_number
+     * @param string $invoice_number invoice_number
      *
      * @return self
      */
@@ -437,7 +461,7 @@ class Receipt implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets amount
      *
-     * @return float|null
+     * @return float
      */
     public function getAmount()
     {
@@ -447,7 +471,7 @@ class Receipt implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets amount
      *
-     * @param float|null $amount amount
+     * @param float $amount amount
      *
      * @return self
      */
@@ -464,7 +488,7 @@ class Receipt implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets tax
      *
-     * @return float|null
+     * @return float
      */
     public function getTax()
     {
@@ -474,7 +498,7 @@ class Receipt implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets tax
      *
-     * @param float|null $tax tax
+     * @param float $tax tax
      *
      * @return self
      */
@@ -491,7 +515,7 @@ class Receipt implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets currency
      *
-     * @return string|null
+     * @return string
      */
     public function getCurrency()
     {
@@ -501,7 +525,7 @@ class Receipt implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets currency
      *
-     * @param string|null $currency currency
+     * @param string $currency currency
      *
      * @return self
      */
@@ -572,7 +596,7 @@ class Receipt implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets paid_at
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getPaidAt()
     {
@@ -582,7 +606,7 @@ class Receipt implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets paid_at
      *
-     * @param \DateTime|null $paid_at paid_at
+     * @param \DateTime $paid_at paid_at
      *
      * @return self
      */
@@ -599,7 +623,7 @@ class Receipt implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets created_at
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -609,7 +633,7 @@ class Receipt implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets created_at
      *
-     * @param \DateTime|null $created_at created_at
+     * @param \DateTime $created_at created_at
      *
      * @return self
      */

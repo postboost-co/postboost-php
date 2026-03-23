@@ -1,6 +1,6 @@
 <?php
 /**
- * InitiateRemoteUpload200ResponseOneOfTest
+ * InitiateRemoteUpload201ResponseOneOfTest
  *
  * PHP version 7.4
  *
@@ -32,15 +32,15 @@ namespace PostBoostClient\Test\Model;
 use PHPUnit\Framework\TestCase;
 
 /**
- * InitiateRemoteUpload200ResponseOneOfTest Class Doc Comment
+ * InitiateRemoteUpload201ResponseOneOfTest Class Doc Comment
  *
  * @category    Class
- * @description InitiateRemoteUpload200ResponseOneOf
+ * @description InitiateRemoteUpload201ResponseOneOf
  * @package     PostBoostClient
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech
  */
-class InitiateRemoteUpload200ResponseOneOfTest extends TestCase
+class InitiateRemoteUpload201ResponseOneOfTest extends TestCase
 {
 
     /**
@@ -72,9 +72,9 @@ class InitiateRemoteUpload200ResponseOneOfTest extends TestCase
     }
 
     /**
-     * Test "InitiateRemoteUpload200ResponseOneOf"
+     * Test "InitiateRemoteUpload201ResponseOneOf"
      */
-    public function testInitiateRemoteUpload200ResponseOneOf()
+    public function testInitiateRemoteUpload201ResponseOneOf()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');

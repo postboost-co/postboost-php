@@ -462,7 +462,7 @@ class MediaApi
 
 
             switch($statusCode) {
-                case 200:
+                case 201:
                     if ('\PostBoostClient\Model\Media' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
@@ -588,7 +588,7 @@ class MediaApi
 
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 200:
+                case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\PostBoostClient\Model\Media',
@@ -1950,7 +1950,7 @@ class MediaApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PostBoostClient\Model\InitiateChunkedUpload200Response|object|object
+     * @return \PostBoostClient\Model\InitiateChunkedUpload201Response|object|object
      */
     public function initiateChunkedUpload($workspace_uuid, $initiate_chunked_upload_request, string $contentType = self::contentTypes['initiateChunkedUpload'][0])
     {
@@ -1969,7 +1969,7 @@ class MediaApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PostBoostClient\Model\InitiateChunkedUpload200Response|object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PostBoostClient\Model\InitiateChunkedUpload201Response|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function initiateChunkedUploadWithHttpInfo($workspace_uuid, $initiate_chunked_upload_request, string $contentType = self::contentTypes['initiateChunkedUpload'][0])
     {
@@ -1999,12 +1999,12 @@ class MediaApi
 
 
             switch($statusCode) {
-                case 200:
-                    if ('\PostBoostClient\Model\InitiateChunkedUpload200Response' === '\SplFileObject') {
+                case 201:
+                    if ('\PostBoostClient\Model\InitiateChunkedUpload201Response' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
-                        if ('\PostBoostClient\Model\InitiateChunkedUpload200Response' !== 'string') {
+                        if ('\PostBoostClient\Model\InitiateChunkedUpload201Response' !== 'string') {
                             try {
                                 $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
                             } catch (\JsonException $exception) {
@@ -2022,7 +2022,7 @@ class MediaApi
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\PostBoostClient\Model\InitiateChunkedUpload200Response', []),
+                        ObjectSerializer::deserialize($content, '\PostBoostClient\Model\InitiateChunkedUpload201Response', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -2095,7 +2095,7 @@ class MediaApi
                 );
             }
 
-            $returnType = '\PostBoostClient\Model\InitiateChunkedUpload200Response';
+            $returnType = '\PostBoostClient\Model\InitiateChunkedUpload201Response';
             if ($returnType === '\SplFileObject') {
                 $content = $response->getBody(); //stream goes to serializer
             } else {
@@ -2125,10 +2125,10 @@ class MediaApi
 
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 200:
+                case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\PostBoostClient\Model\InitiateChunkedUpload200Response',
+                        '\PostBoostClient\Model\InitiateChunkedUpload201Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2190,7 +2190,7 @@ class MediaApi
      */
     public function initiateChunkedUploadAsyncWithHttpInfo($workspace_uuid, $initiate_chunked_upload_request, string $contentType = self::contentTypes['initiateChunkedUpload'][0])
     {
-        $returnType = '\PostBoostClient\Model\InitiateChunkedUpload200Response';
+        $returnType = '\PostBoostClient\Model\InitiateChunkedUpload201Response';
         $request = $this->initiateChunkedUploadRequest($workspace_uuid, $initiate_chunked_upload_request, $contentType);
 
         return $this->client
@@ -2351,7 +2351,7 @@ class MediaApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PostBoostClient\Model\InitiateRemoteUpload200Response|object|object
+     * @return \PostBoostClient\Model\InitiateRemoteUpload201Response|object|object
      */
     public function initiateRemoteUpload($workspace_uuid, $initiate_remote_upload_request, string $contentType = self::contentTypes['initiateRemoteUpload'][0])
     {
@@ -2370,7 +2370,7 @@ class MediaApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PostBoostClient\Model\InitiateRemoteUpload200Response|object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PostBoostClient\Model\InitiateRemoteUpload201Response|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function initiateRemoteUploadWithHttpInfo($workspace_uuid, $initiate_remote_upload_request, string $contentType = self::contentTypes['initiateRemoteUpload'][0])
     {
@@ -2400,12 +2400,12 @@ class MediaApi
 
 
             switch($statusCode) {
-                case 200:
-                    if ('\PostBoostClient\Model\InitiateRemoteUpload200Response' === '\SplFileObject') {
+                case 201:
+                    if ('\PostBoostClient\Model\InitiateRemoteUpload201Response' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
-                        if ('\PostBoostClient\Model\InitiateRemoteUpload200Response' !== 'string') {
+                        if ('\PostBoostClient\Model\InitiateRemoteUpload201Response' !== 'string') {
                             try {
                                 $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
                             } catch (\JsonException $exception) {
@@ -2423,7 +2423,7 @@ class MediaApi
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\PostBoostClient\Model\InitiateRemoteUpload200Response', []),
+                        ObjectSerializer::deserialize($content, '\PostBoostClient\Model\InitiateRemoteUpload201Response', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -2496,7 +2496,7 @@ class MediaApi
                 );
             }
 
-            $returnType = '\PostBoostClient\Model\InitiateRemoteUpload200Response';
+            $returnType = '\PostBoostClient\Model\InitiateRemoteUpload201Response';
             if ($returnType === '\SplFileObject') {
                 $content = $response->getBody(); //stream goes to serializer
             } else {
@@ -2526,10 +2526,10 @@ class MediaApi
 
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 200:
+                case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\PostBoostClient\Model\InitiateRemoteUpload200Response',
+                        '\PostBoostClient\Model\InitiateRemoteUpload201Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2591,7 +2591,7 @@ class MediaApi
      */
     public function initiateRemoteUploadAsyncWithHttpInfo($workspace_uuid, $initiate_remote_upload_request, string $contentType = self::contentTypes['initiateRemoteUpload'][0])
     {
-        $returnType = '\PostBoostClient\Model\InitiateRemoteUpload200Response';
+        $returnType = '\PostBoostClient\Model\InitiateRemoteUpload201Response';
         $request = $this->initiateRemoteUploadRequest($workspace_uuid, $initiate_remote_upload_request, $contentType);
 
         return $this->client
@@ -3537,7 +3537,7 @@ class MediaApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PostBoostClient\Model\UploadChunk200Response|object|object
+     * @return \PostBoostClient\Model\UploadChunk201Response|object|object
      */
     public function uploadChunk($workspace_uuid, $upload_uuid, $chunk, $chunk_index, string $contentType = self::contentTypes['uploadChunk'][0])
     {
@@ -3558,7 +3558,7 @@ class MediaApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PostBoostClient\Model\UploadChunk200Response|object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PostBoostClient\Model\UploadChunk201Response|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function uploadChunkWithHttpInfo($workspace_uuid, $upload_uuid, $chunk, $chunk_index, string $contentType = self::contentTypes['uploadChunk'][0])
     {
@@ -3588,12 +3588,12 @@ class MediaApi
 
 
             switch($statusCode) {
-                case 200:
-                    if ('\PostBoostClient\Model\UploadChunk200Response' === '\SplFileObject') {
+                case 201:
+                    if ('\PostBoostClient\Model\UploadChunk201Response' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
-                        if ('\PostBoostClient\Model\UploadChunk200Response' !== 'string') {
+                        if ('\PostBoostClient\Model\UploadChunk201Response' !== 'string') {
                             try {
                                 $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
                             } catch (\JsonException $exception) {
@@ -3611,7 +3611,7 @@ class MediaApi
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\PostBoostClient\Model\UploadChunk200Response', []),
+                        ObjectSerializer::deserialize($content, '\PostBoostClient\Model\UploadChunk201Response', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -3684,7 +3684,7 @@ class MediaApi
                 );
             }
 
-            $returnType = '\PostBoostClient\Model\UploadChunk200Response';
+            $returnType = '\PostBoostClient\Model\UploadChunk201Response';
             if ($returnType === '\SplFileObject') {
                 $content = $response->getBody(); //stream goes to serializer
             } else {
@@ -3714,10 +3714,10 @@ class MediaApi
 
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 200:
+                case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\PostBoostClient\Model\UploadChunk200Response',
+                        '\PostBoostClient\Model\UploadChunk201Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3783,7 +3783,7 @@ class MediaApi
      */
     public function uploadChunkAsyncWithHttpInfo($workspace_uuid, $upload_uuid, $chunk, $chunk_index, string $contentType = self::contentTypes['uploadChunk'][0])
     {
-        $returnType = '\PostBoostClient\Model\UploadChunk200Response';
+        $returnType = '\PostBoostClient\Model\UploadChunk201Response';
         $request = $this->uploadChunkRequest($workspace_uuid, $upload_uuid, $chunk, $chunk_index, $contentType);
 
         return $this->client
@@ -4028,7 +4028,7 @@ class MediaApi
 
 
             switch($statusCode) {
-                case 200:
+                case 201:
                     if ('\PostBoostClient\Model\Media' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
@@ -4154,7 +4154,7 @@ class MediaApi
 
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 200:
+                case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\PostBoostClient\Model\Media',

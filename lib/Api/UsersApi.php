@@ -148,7 +148,7 @@ class UsersApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PostBoostClient\Model\User|object|object
+     * @return \PostBoostClient\Model\User|object|object|object
      */
     public function createUser($user_input, string $contentType = self::contentTypes['createUser'][0])
     {
@@ -166,7 +166,7 @@ class UsersApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PostBoostClient\Model\User|object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PostBoostClient\Model\User|object|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function createUserWithHttpInfo($user_input, string $contentType = self::contentTypes['createUser'][0])
     {
@@ -196,7 +196,7 @@ class UsersApi
 
 
             switch($statusCode) {
-                case 200:
+                case 201:
                     if ('\PostBoostClient\Model\User' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
@@ -224,6 +224,33 @@ class UsersApi
                         $response->getHeaders()
                     ];
                 case 401:
+                    if ('object' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('object' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
                     if ('object' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
@@ -322,7 +349,7 @@ class UsersApi
 
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 200:
+                case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\PostBoostClient\Model\User',
@@ -331,6 +358,14 @@ class UsersApi
                     $e->setResponseObject($data);
                     break;
                 case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',
@@ -529,7 +564,7 @@ class UsersApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return object|\PostBoostClient\Model\DeleteUser400Response|object
+     * @return object|\PostBoostClient\Model\DeleteUser400Response|object|object
      */
     public function deleteUser($user_id, string $contentType = self::contentTypes['deleteUser'][0])
     {
@@ -547,7 +582,7 @@ class UsersApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of object|\PostBoostClient\Model\DeleteUser400Response|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of object|\PostBoostClient\Model\DeleteUser400Response|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteUserWithHttpInfo($user_id, string $contentType = self::contentTypes['deleteUser'][0])
     {
@@ -658,6 +693,33 @@ class UsersApi
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
+                case 403:
+                    if ('object' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('object' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
             }
 
             if ($statusCode < 200 || $statusCode > 299) {
@@ -720,6 +782,14 @@ class UsersApi
                     $e->setResponseObject($data);
                     break;
                 case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',
@@ -911,7 +981,7 @@ class UsersApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return object|object
+     * @return object|object|object
      */
     public function deleteUsersBulk($delete_users_bulk_request, string $contentType = self::contentTypes['deleteUsersBulk'][0])
     {
@@ -929,7 +999,7 @@ class UsersApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of object|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteUsersBulkWithHttpInfo($delete_users_bulk_request, string $contentType = self::contentTypes['deleteUsersBulk'][0])
     {
@@ -1013,6 +1083,33 @@ class UsersApi
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
+                case 403:
+                    if ('object' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('object' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
             }
 
             if ($statusCode < 200 || $statusCode > 299) {
@@ -1067,6 +1164,14 @@ class UsersApi
                     $e->setResponseObject($data);
                     break;
                 case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',
@@ -1257,7 +1362,7 @@ class UsersApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PostBoostClient\Model\User|object|object
+     * @return \PostBoostClient\Model\User|object|object|object
      */
     public function getUser($user_id, string $contentType = self::contentTypes['getUser'][0])
     {
@@ -1275,7 +1380,7 @@ class UsersApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PostBoostClient\Model\User|object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PostBoostClient\Model\User|object|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function getUserWithHttpInfo($user_id, string $contentType = self::contentTypes['getUser'][0])
     {
@@ -1333,6 +1438,33 @@ class UsersApi
                         $response->getHeaders()
                     ];
                 case 401:
+                    if ('object' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('object' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
                     if ('object' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
@@ -1440,6 +1572,14 @@ class UsersApi
                     $e->setResponseObject($data);
                     break;
                 case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',
@@ -1635,15 +1775,16 @@ class UsersApi
      * List users
      *
      * @param  string $keyword Search by name or email. (optional)
+     * @param  int $page Page number (15 items per page). (optional, default to 1)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listUsers'] to see the possible values for this operation
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \PostBoostClient\Model\ListUsers200Response|object|object
      */
-    public function listUsers($keyword = null, string $contentType = self::contentTypes['listUsers'][0])
+    public function listUsers($keyword = null, $page = 1, string $contentType = self::contentTypes['listUsers'][0])
     {
-        list($response) = $this->listUsersWithHttpInfo($keyword, $contentType);
+        list($response) = $this->listUsersWithHttpInfo($keyword, $page, $contentType);
         return $response;
     }
 
@@ -1653,15 +1794,16 @@ class UsersApi
      * List users
      *
      * @param  string $keyword Search by name or email. (optional)
+     * @param  int $page Page number (15 items per page). (optional, default to 1)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listUsers'] to see the possible values for this operation
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \PostBoostClient\Model\ListUsers200Response|object|object, HTTP status code, HTTP response headers (array of strings)
      */
-    public function listUsersWithHttpInfo($keyword = null, string $contentType = self::contentTypes['listUsers'][0])
+    public function listUsersWithHttpInfo($keyword = null, $page = 1, string $contentType = self::contentTypes['listUsers'][0])
     {
-        $request = $this->listUsersRequest($keyword, $contentType);
+        $request = $this->listUsersRequest($keyword, $page, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1848,14 +1990,15 @@ class UsersApi
      * List users
      *
      * @param  string $keyword Search by name or email. (optional)
+     * @param  int $page Page number (15 items per page). (optional, default to 1)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listUsers'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function listUsersAsync($keyword = null, string $contentType = self::contentTypes['listUsers'][0])
+    public function listUsersAsync($keyword = null, $page = 1, string $contentType = self::contentTypes['listUsers'][0])
     {
-        return $this->listUsersAsyncWithHttpInfo($keyword, $contentType)
+        return $this->listUsersAsyncWithHttpInfo($keyword, $page, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1869,15 +2012,16 @@ class UsersApi
      * List users
      *
      * @param  string $keyword Search by name or email. (optional)
+     * @param  int $page Page number (15 items per page). (optional, default to 1)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listUsers'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function listUsersAsyncWithHttpInfo($keyword = null, string $contentType = self::contentTypes['listUsers'][0])
+    public function listUsersAsyncWithHttpInfo($keyword = null, $page = 1, string $contentType = self::contentTypes['listUsers'][0])
     {
         $returnType = '\PostBoostClient\Model\ListUsers200Response';
-        $request = $this->listUsersRequest($keyword, $contentType);
+        $request = $this->listUsersRequest($keyword, $page, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1919,13 +2063,15 @@ class UsersApi
      * Create request for operation 'listUsers'
      *
      * @param  string $keyword Search by name or email. (optional)
+     * @param  int $page Page number (15 items per page). (optional, default to 1)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listUsers'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function listUsersRequest($keyword = null, string $contentType = self::contentTypes['listUsers'][0])
+    public function listUsersRequest($keyword = null, $page = 1, string $contentType = self::contentTypes['listUsers'][0])
     {
+
 
 
 
@@ -1941,6 +2087,15 @@ class UsersApi
             $keyword,
             'keyword', // param base name
             'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $page,
+            'page', // param base name
+            'integer', // openApiType
             'form', // style
             true, // explode
             false // required
@@ -2017,7 +2172,7 @@ class UsersApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return object|object|object
+     * @return object|object|object|object
      */
     public function updateUser($user_id, $user_update_input, string $contentType = self::contentTypes['updateUser'][0])
     {
@@ -2036,7 +2191,7 @@ class UsersApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of object|object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of object|object|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function updateUserWithHttpInfo($user_id, $user_update_input, string $contentType = self::contentTypes['updateUser'][0])
     {
@@ -2094,6 +2249,33 @@ class UsersApi
                         $response->getHeaders()
                     ];
                 case 401:
+                    if ('object' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('object' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
                     if ('object' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
@@ -2201,6 +2383,14 @@ class UsersApi
                     $e->setResponseObject($data);
                     break;
                 case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',

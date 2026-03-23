@@ -161,7 +161,7 @@ class SubscriptionsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return object|object
+     * @return object|object|object
      */
     public function addGenericSubscription($workspace_uuid, $add_generic_subscription_request, string $contentType = self::contentTypes['addGenericSubscription'][0])
     {
@@ -180,7 +180,7 @@ class SubscriptionsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of object|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function addGenericSubscriptionWithHttpInfo($workspace_uuid, $add_generic_subscription_request, string $contentType = self::contentTypes['addGenericSubscription'][0])
     {
@@ -210,7 +210,7 @@ class SubscriptionsApi
 
 
             switch($statusCode) {
-                case 200:
+                case 201:
                     if ('object' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
@@ -238,6 +238,33 @@ class SubscriptionsApi
                         $response->getHeaders()
                     ];
                 case 401:
+                    if ('object' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('object' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
                     if ('object' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
@@ -309,7 +336,7 @@ class SubscriptionsApi
 
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 200:
+                case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',
@@ -318,6 +345,14 @@ class SubscriptionsApi
                     $e->setResponseObject($data);
                     break;
                 case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',
@@ -526,7 +561,7 @@ class SubscriptionsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return object|object
+     * @return object|object|object
      */
     public function cancelSubscription($workspace_uuid, string $contentType = self::contentTypes['cancelSubscription'][0])
     {
@@ -544,7 +579,7 @@ class SubscriptionsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of object|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function cancelSubscriptionWithHttpInfo($workspace_uuid, string $contentType = self::contentTypes['cancelSubscription'][0])
     {
@@ -628,6 +663,33 @@ class SubscriptionsApi
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
+                case 403:
+                    if ('object' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('object' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
             }
 
             if ($statusCode < 200 || $statusCode > 299) {
@@ -682,6 +744,14 @@ class SubscriptionsApi
                     $e->setResponseObject($data);
                     break;
                 case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',
@@ -874,7 +944,7 @@ class SubscriptionsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return object|object
+     * @return object|object|object
      */
     public function changeSubscriptionPlan($workspace_uuid, $change_subscription_plan_request, string $contentType = self::contentTypes['changeSubscriptionPlan'][0])
     {
@@ -893,7 +963,7 @@ class SubscriptionsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of object|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function changeSubscriptionPlanWithHttpInfo($workspace_uuid, $change_subscription_plan_request, string $contentType = self::contentTypes['changeSubscriptionPlan'][0])
     {
@@ -977,6 +1047,33 @@ class SubscriptionsApi
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
+                case 403:
+                    if ('object' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('object' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
             }
 
             if ($statusCode < 200 || $statusCode > 299) {
@@ -1031,6 +1128,14 @@ class SubscriptionsApi
                     $e->setResponseObject($data);
                     break;
                 case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',
@@ -1240,7 +1345,7 @@ class SubscriptionsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PostBoostClient\Model\CheckoutSubscription200Response|object
+     * @return \PostBoostClient\Model\CheckoutSubscription200Response|object|object
      */
     public function checkoutSubscription($workspace_uuid, $checkout_subscription_request, string $contentType = self::contentTypes['checkoutSubscription'][0])
     {
@@ -1259,7 +1364,7 @@ class SubscriptionsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PostBoostClient\Model\CheckoutSubscription200Response|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PostBoostClient\Model\CheckoutSubscription200Response|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function checkoutSubscriptionWithHttpInfo($workspace_uuid, $checkout_subscription_request, string $contentType = self::contentTypes['checkoutSubscription'][0])
     {
@@ -1343,6 +1448,33 @@ class SubscriptionsApi
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
+                case 403:
+                    if ('object' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('object' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
             }
 
             if ($statusCode < 200 || $statusCode > 299) {
@@ -1397,6 +1529,14 @@ class SubscriptionsApi
                     $e->setResponseObject($data);
                     break;
                 case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',
@@ -1606,7 +1746,7 @@ class SubscriptionsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return object|object|object
+     * @return object|object|object|object
      */
     public function createSubscription($workspace_uuid, $subscription_input, string $contentType = self::contentTypes['createSubscription'][0])
     {
@@ -1625,7 +1765,7 @@ class SubscriptionsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of object|object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of object|object|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function createSubscriptionWithHttpInfo($workspace_uuid, $subscription_input, string $contentType = self::contentTypes['createSubscription'][0])
     {
@@ -1683,6 +1823,33 @@ class SubscriptionsApi
                         $response->getHeaders()
                     ];
                 case 401:
+                    if ('object' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('object' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
                     if ('object' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
@@ -1790,6 +1957,14 @@ class SubscriptionsApi
                     $e->setResponseObject($data);
                     break;
                 case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',
@@ -2006,7 +2181,7 @@ class SubscriptionsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return object|object
+     * @return object|object|object
      */
     public function deleteSubscription($workspace_uuid, string $contentType = self::contentTypes['deleteSubscription'][0])
     {
@@ -2024,7 +2199,7 @@ class SubscriptionsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of object|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteSubscriptionWithHttpInfo($workspace_uuid, string $contentType = self::contentTypes['deleteSubscription'][0])
     {
@@ -2108,6 +2283,33 @@ class SubscriptionsApi
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
+                case 403:
+                    if ('object' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('object' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
             }
 
             if ($statusCode < 200 || $statusCode > 299) {
@@ -2162,6 +2364,14 @@ class SubscriptionsApi
                     $e->setResponseObject($data);
                     break;
                 case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',
@@ -2353,7 +2563,7 @@ class SubscriptionsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PostBoostClient\Model\Subscription|object
+     * @return \PostBoostClient\Model\Subscription|object|object
      */
     public function getSubscription($workspace_uuid, string $contentType = self::contentTypes['getSubscription'][0])
     {
@@ -2371,7 +2581,7 @@ class SubscriptionsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PostBoostClient\Model\Subscription|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PostBoostClient\Model\Subscription|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function getSubscriptionWithHttpInfo($workspace_uuid, string $contentType = self::contentTypes['getSubscription'][0])
     {
@@ -2455,6 +2665,33 @@ class SubscriptionsApi
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
+                case 403:
+                    if ('object' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('object' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
             }
 
             if ($statusCode < 200 || $statusCode > 299) {
@@ -2509,6 +2746,14 @@ class SubscriptionsApi
                     $e->setResponseObject($data);
                     break;
                 case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',
@@ -2700,7 +2945,7 @@ class SubscriptionsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return object|object
+     * @return object|object|object
      */
     public function removeGenericSubscription($workspace_uuid, string $contentType = self::contentTypes['removeGenericSubscription'][0])
     {
@@ -2718,7 +2963,7 @@ class SubscriptionsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of object|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function removeGenericSubscriptionWithHttpInfo($workspace_uuid, string $contentType = self::contentTypes['removeGenericSubscription'][0])
     {
@@ -2802,6 +3047,33 @@ class SubscriptionsApi
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
+                case 403:
+                    if ('object' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('object' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
             }
 
             if ($statusCode < 200 || $statusCode > 299) {
@@ -2856,6 +3128,14 @@ class SubscriptionsApi
                     $e->setResponseObject($data);
                     break;
                 case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',
@@ -3047,7 +3327,7 @@ class SubscriptionsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return object|object
+     * @return object|object|object
      */
     public function resumeSubscription($workspace_uuid, string $contentType = self::contentTypes['resumeSubscription'][0])
     {
@@ -3065,7 +3345,7 @@ class SubscriptionsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of object|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function resumeSubscriptionWithHttpInfo($workspace_uuid, string $contentType = self::contentTypes['resumeSubscription'][0])
     {
@@ -3149,6 +3429,33 @@ class SubscriptionsApi
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
+                case 403:
+                    if ('object' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('object' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
             }
 
             if ($statusCode < 200 || $statusCode > 299) {
@@ -3203,6 +3510,14 @@ class SubscriptionsApi
                     $e->setResponseObject($data);
                     break;
                 case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',
@@ -3395,7 +3710,7 @@ class SubscriptionsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return object|object
+     * @return object|object|object
      */
     public function updateSubscription($workspace_uuid, $subscription_update_input, string $contentType = self::contentTypes['updateSubscription'][0])
     {
@@ -3414,7 +3729,7 @@ class SubscriptionsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of object|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function updateSubscriptionWithHttpInfo($workspace_uuid, $subscription_update_input, string $contentType = self::contentTypes['updateSubscription'][0])
     {
@@ -3498,6 +3813,33 @@ class SubscriptionsApi
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
+                case 403:
+                    if ('object' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('object' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
             }
 
             if ($statusCode < 200 || $statusCode > 299) {
@@ -3552,6 +3894,14 @@ class SubscriptionsApi
                     $e->setResponseObject($data);
                     break;
                 case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',

@@ -20,6 +20,8 @@ createReceipt($receipt_input): \PostBoostClient\Model\Receipt
 
 Create receipt
 
+Creates a billing receipt record for a workspace. Admin only.
+
 ### Example
 
 ```php
@@ -77,6 +79,8 @@ deleteReceipt($receipt_uuid): object
 ```
 
 Delete receipt
+
+Permanently deletes a single receipt. Admin only.
 
 ### Example
 
@@ -136,6 +140,8 @@ deleteReceiptsBulk($delete_receipts_bulk_request): object
 
 Delete receipts (bulk)
 
+Permanently deletes one or more receipt records. Admin only.
+
 ### Example
 
 ```php
@@ -194,6 +200,8 @@ getReceipt($receipt_uuid): \PostBoostClient\Model\Receipt
 
 Get receipt
 
+Returns a single receipt by UUID. Admin only.
+
 ### Example
 
 ```php
@@ -247,10 +255,12 @@ try {
 ## `listReceipts()`
 
 ```php
-listReceipts($workspace_uuid, $invoice_number): \PostBoostClient\Model\ListReceipts200Response
+listReceipts($workspace_uuid, $invoice_number, $page): \PostBoostClient\Model\ListReceipts200Response
 ```
 
 List receipts
+
+Returns a paginated list of billing receipts. Filter by workspace UUID or invoice number. Admin only.
 
 ### Example
 
@@ -271,9 +281,10 @@ $apiInstance = new PostBoostClient\Api\ReceiptsApi(
 );
 $workspace_uuid = 'workspace_uuid_example'; // string
 $invoice_number = 'invoice_number_example'; // string
+$page = 1; // int | Page number (15 items per page).
 
 try {
-    $result = $apiInstance->listReceipts($workspace_uuid, $invoice_number);
+    $result = $apiInstance->listReceipts($workspace_uuid, $invoice_number, $page);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling ReceiptsApi->listReceipts: ', $e->getMessage(), PHP_EOL;
@@ -286,6 +297,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **workspace_uuid** | **string**|  | [optional] |
 | **invoice_number** | **string**|  | [optional] |
+| **page** | **int**| Page number (15 items per page). | [optional] [default to 1] |
 
 ### Return type
 
@@ -311,6 +323,8 @@ updateReceipt($receipt_uuid, $receipt_update_input): object
 ```
 
 Update receipt
+
+Updates a receipt's transaction details, amount, or payment date. Admin only.
 
 ### Example
 

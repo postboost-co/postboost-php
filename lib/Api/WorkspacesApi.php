@@ -158,7 +158,7 @@ class WorkspacesApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return object|object|object
+     * @return object|object|object|object
      */
     public function addUserToWorkspace($workspace_uuid, $workspace_user_input, string $contentType = self::contentTypes['addUserToWorkspace'][0])
     {
@@ -177,7 +177,7 @@ class WorkspacesApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of object|object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of object|object|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function addUserToWorkspaceWithHttpInfo($workspace_uuid, $workspace_user_input, string $contentType = self::contentTypes['addUserToWorkspace'][0])
     {
@@ -207,7 +207,7 @@ class WorkspacesApi
 
 
             switch($statusCode) {
-                case 200:
+                case 201:
                     if ('object' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
@@ -235,6 +235,33 @@ class WorkspacesApi
                         $response->getHeaders()
                     ];
                 case 401:
+                    if ('object' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('object' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
                     if ('object' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
@@ -333,7 +360,7 @@ class WorkspacesApi
 
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 200:
+                case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',
@@ -342,6 +369,14 @@ class WorkspacesApi
                     $e->setResponseObject($data);
                     break;
                 case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',
@@ -606,7 +641,7 @@ class WorkspacesApi
 
 
             switch($statusCode) {
-                case 200:
+                case 201:
                     if ('\PostBoostClient\Model\Workspace' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
@@ -759,7 +794,7 @@ class WorkspacesApi
 
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 200:
+                case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\PostBoostClient\Model\Workspace',
@@ -974,7 +1009,7 @@ class WorkspacesApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return object|object|object
+     * @return object|object|object|object
      */
     public function deleteWorkspace($workspace_uuid, string $contentType = self::contentTypes['deleteWorkspace'][0])
     {
@@ -992,7 +1027,7 @@ class WorkspacesApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of object|object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of object|object|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteWorkspaceWithHttpInfo($workspace_uuid, string $contentType = self::contentTypes['deleteWorkspace'][0])
     {
@@ -1050,6 +1085,33 @@ class WorkspacesApi
                         $response->getHeaders()
                     ];
                 case 401:
+                    if ('object' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('object' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
                     if ('object' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
@@ -1157,6 +1219,14 @@ class WorkspacesApi
                     $e->setResponseObject($data);
                     break;
                 case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',
@@ -1737,7 +1807,7 @@ class WorkspacesApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PostBoostClient\Model\Workspace|object|object
+     * @return \PostBoostClient\Model\Workspace|object|object|object
      */
     public function getWorkspace($workspace_uuid, string $contentType = self::contentTypes['getWorkspace'][0])
     {
@@ -1755,7 +1825,7 @@ class WorkspacesApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PostBoostClient\Model\Workspace|object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PostBoostClient\Model\Workspace|object|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function getWorkspaceWithHttpInfo($workspace_uuid, string $contentType = self::contentTypes['getWorkspace'][0])
     {
@@ -1813,6 +1883,33 @@ class WorkspacesApi
                         $response->getHeaders()
                     ];
                 case 401:
+                    if ('object' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('object' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
                     if ('object' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
@@ -1920,6 +2017,14 @@ class WorkspacesApi
                     $e->setResponseObject($data);
                     break;
                 case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',
@@ -2117,15 +2222,16 @@ class WorkspacesApi
      * @param  string $keyword keyword (optional)
      * @param  string $subscription_status subscription_status (optional)
      * @param  string $access_status access_status (optional)
+     * @param  int $page Page number (15 items per page). (optional, default to 1)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listWorkspaces'] to see the possible values for this operation
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \PostBoostClient\Model\ListWorkspaces200Response|object|object
      */
-    public function listWorkspaces($keyword = null, $subscription_status = null, $access_status = null, string $contentType = self::contentTypes['listWorkspaces'][0])
+    public function listWorkspaces($keyword = null, $subscription_status = null, $access_status = null, $page = 1, string $contentType = self::contentTypes['listWorkspaces'][0])
     {
-        list($response) = $this->listWorkspacesWithHttpInfo($keyword, $subscription_status, $access_status, $contentType);
+        list($response) = $this->listWorkspacesWithHttpInfo($keyword, $subscription_status, $access_status, $page, $contentType);
         return $response;
     }
 
@@ -2137,15 +2243,16 @@ class WorkspacesApi
      * @param  string $keyword (optional)
      * @param  string $subscription_status (optional)
      * @param  string $access_status (optional)
+     * @param  int $page Page number (15 items per page). (optional, default to 1)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listWorkspaces'] to see the possible values for this operation
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \PostBoostClient\Model\ListWorkspaces200Response|object|object, HTTP status code, HTTP response headers (array of strings)
      */
-    public function listWorkspacesWithHttpInfo($keyword = null, $subscription_status = null, $access_status = null, string $contentType = self::contentTypes['listWorkspaces'][0])
+    public function listWorkspacesWithHttpInfo($keyword = null, $subscription_status = null, $access_status = null, $page = 1, string $contentType = self::contentTypes['listWorkspaces'][0])
     {
-        $request = $this->listWorkspacesRequest($keyword, $subscription_status, $access_status, $contentType);
+        $request = $this->listWorkspacesRequest($keyword, $subscription_status, $access_status, $page, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2334,14 +2441,15 @@ class WorkspacesApi
      * @param  string $keyword (optional)
      * @param  string $subscription_status (optional)
      * @param  string $access_status (optional)
+     * @param  int $page Page number (15 items per page). (optional, default to 1)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listWorkspaces'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function listWorkspacesAsync($keyword = null, $subscription_status = null, $access_status = null, string $contentType = self::contentTypes['listWorkspaces'][0])
+    public function listWorkspacesAsync($keyword = null, $subscription_status = null, $access_status = null, $page = 1, string $contentType = self::contentTypes['listWorkspaces'][0])
     {
-        return $this->listWorkspacesAsyncWithHttpInfo($keyword, $subscription_status, $access_status, $contentType)
+        return $this->listWorkspacesAsyncWithHttpInfo($keyword, $subscription_status, $access_status, $page, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2357,15 +2465,16 @@ class WorkspacesApi
      * @param  string $keyword (optional)
      * @param  string $subscription_status (optional)
      * @param  string $access_status (optional)
+     * @param  int $page Page number (15 items per page). (optional, default to 1)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listWorkspaces'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function listWorkspacesAsyncWithHttpInfo($keyword = null, $subscription_status = null, $access_status = null, string $contentType = self::contentTypes['listWorkspaces'][0])
+    public function listWorkspacesAsyncWithHttpInfo($keyword = null, $subscription_status = null, $access_status = null, $page = 1, string $contentType = self::contentTypes['listWorkspaces'][0])
     {
         $returnType = '\PostBoostClient\Model\ListWorkspaces200Response';
-        $request = $this->listWorkspacesRequest($keyword, $subscription_status, $access_status, $contentType);
+        $request = $this->listWorkspacesRequest($keyword, $subscription_status, $access_status, $page, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2409,13 +2518,15 @@ class WorkspacesApi
      * @param  string $keyword (optional)
      * @param  string $subscription_status (optional)
      * @param  string $access_status (optional)
+     * @param  int $page Page number (15 items per page). (optional, default to 1)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listWorkspaces'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function listWorkspacesRequest($keyword = null, $subscription_status = null, $access_status = null, string $contentType = self::contentTypes['listWorkspaces'][0])
+    public function listWorkspacesRequest($keyword = null, $subscription_status = null, $access_status = null, $page = 1, string $contentType = self::contentTypes['listWorkspaces'][0])
     {
+
 
 
 
@@ -2451,6 +2562,15 @@ class WorkspacesApi
             $access_status,
             'access_status', // param base name
             'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $page,
+            'page', // param base name
+            'integer', // openApiType
             'form', // style
             true, // explode
             false // required
@@ -2527,7 +2647,7 @@ class WorkspacesApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return object|object
+     * @return object|object|object
      */
     public function removeUserFromWorkspace($workspace_uuid, $remove_user_from_workspace_request, string $contentType = self::contentTypes['removeUserFromWorkspace'][0])
     {
@@ -2546,7 +2666,7 @@ class WorkspacesApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of object|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function removeUserFromWorkspaceWithHttpInfo($workspace_uuid, $remove_user_from_workspace_request, string $contentType = self::contentTypes['removeUserFromWorkspace'][0])
     {
@@ -2630,6 +2750,33 @@ class WorkspacesApi
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
+                case 403:
+                    if ('object' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('object' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
             }
 
             if ($statusCode < 200 || $statusCode > 299) {
@@ -2684,6 +2831,14 @@ class WorkspacesApi
                     $e->setResponseObject($data);
                     break;
                 case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',
@@ -2893,7 +3048,7 @@ class WorkspacesApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return object|object|object
+     * @return object|object|object|object
      */
     public function updateWorkspace($workspace_uuid, $workspace_input, string $contentType = self::contentTypes['updateWorkspace'][0])
     {
@@ -2912,7 +3067,7 @@ class WorkspacesApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of object|object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of object|object|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function updateWorkspaceWithHttpInfo($workspace_uuid, $workspace_input, string $contentType = self::contentTypes['updateWorkspace'][0])
     {
@@ -2970,6 +3125,33 @@ class WorkspacesApi
                         $response->getHeaders()
                     ];
                 case 401:
+                    if ('object' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('object' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
                     if ('object' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
@@ -3077,6 +3259,14 @@ class WorkspacesApi
                     $e->setResponseObject($data);
                     break;
                 case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',
@@ -3294,7 +3484,7 @@ class WorkspacesApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return object|object
+     * @return object|object|object
      */
     public function updateWorkspaceUser($workspace_uuid, $workspace_user_input, string $contentType = self::contentTypes['updateWorkspaceUser'][0])
     {
@@ -3313,7 +3503,7 @@ class WorkspacesApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of object|object|object, HTTP status code, HTTP response headers (array of strings)
      */
     public function updateWorkspaceUserWithHttpInfo($workspace_uuid, $workspace_user_input, string $contentType = self::contentTypes['updateWorkspaceUser'][0])
     {
@@ -3397,6 +3587,33 @@ class WorkspacesApi
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
+                case 403:
+                    if ('object' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('object' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
             }
 
             if ($statusCode < 200 || $statusCode > 299) {
@@ -3451,6 +3668,14 @@ class WorkspacesApi
                     $e->setResponseObject($data);
                     break;
                 case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',

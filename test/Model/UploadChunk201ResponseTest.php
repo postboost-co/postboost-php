@@ -1,6 +1,6 @@
 <?php
 /**
- * UploadChunk200ResponseTest
+ * UploadChunk201ResponseTest
  *
  * PHP version 7.4
  *
@@ -32,15 +32,15 @@ namespace PostBoostClient\Test\Model;
 use PHPUnit\Framework\TestCase;
 
 /**
- * UploadChunk200ResponseTest Class Doc Comment
+ * UploadChunk201ResponseTest Class Doc Comment
  *
  * @category    Class
- * @description UploadChunk200Response
+ * @description UploadChunk201Response
  * @package     PostBoostClient
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech
  */
-class UploadChunk200ResponseTest extends TestCase
+class UploadChunk201ResponseTest extends TestCase
 {
 
     /**
@@ -72,9 +72,9 @@ class UploadChunk200ResponseTest extends TestCase
     }
 
     /**
-     * Test "UploadChunk200Response"
+     * Test "UploadChunk201Response"
      */
-    public function testUploadChunk200Response()
+    public function testUploadChunk201Response()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');

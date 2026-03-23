@@ -1,6 +1,6 @@
 <?php
 /**
- * InitiateChunkedUpload200ResponseTest
+ * InitiateRemoteUpload201ResponseTest
  *
  * PHP version 7.4
  *
@@ -32,15 +32,15 @@ namespace PostBoostClient\Test\Model;
 use PHPUnit\Framework\TestCase;
 
 /**
- * InitiateChunkedUpload200ResponseTest Class Doc Comment
+ * InitiateRemoteUpload201ResponseTest Class Doc Comment
  *
  * @category    Class
- * @description InitiateChunkedUpload200Response
+ * @description InitiateRemoteUpload201Response
  * @package     PostBoostClient
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech
  */
-class InitiateChunkedUpload200ResponseTest extends TestCase
+class InitiateRemoteUpload201ResponseTest extends TestCase
 {
 
     /**
@@ -72,36 +72,99 @@ class InitiateChunkedUpload200ResponseTest extends TestCase
     }
 
     /**
-     * Test "InitiateChunkedUpload200Response"
+     * Test "InitiateRemoteUpload201Response"
      */
-    public function testInitiateChunkedUpload200Response()
+    public function testInitiateRemoteUpload201Response()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "upload_uuid"
+     * Test attribute "id"
      */
-    public function testPropertyUploadUuid()
+    public function testPropertyId()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "chunk_size"
+     * Test attribute "uuid"
      */
-    public function testPropertyChunkSize()
+    public function testPropertyUuid()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "total_chunks"
+     * Test attribute "name"
      */
-    public function testPropertyTotalChunks()
+    public function testPropertyName()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "mime_type"
+     */
+    public function testPropertyMimeType()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "type"
+     */
+    public function testPropertyType()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "url"
+     */
+    public function testPropertyUrl()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "thumb_url"
+     */
+    public function testPropertyThumbUrl()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "is_video"
+     */
+    public function testPropertyIsVideo()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "created_at"
+     */
+    public function testPropertyCreatedAt()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "download_id"
+     */
+    public function testPropertyDownloadId()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');

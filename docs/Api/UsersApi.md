@@ -20,6 +20,8 @@ createUser($user_input): \PostBoostClient\Model\User
 
 Create user
 
+Creates a new user account on the platform. Admin only.
+
 ### Example
 
 ```php
@@ -77,6 +79,8 @@ deleteUser($user_id): object
 ```
 
 Delete user
+
+Permanently deletes a user account. Returns 400 if you attempt to delete your own account. Admin only.
 
 ### Example
 
@@ -136,6 +140,8 @@ deleteUsersBulk($delete_users_bulk_request): object
 
 Delete users (bulk)
 
+Permanently deletes one or more user accounts. You cannot delete your own account. Admin only.
+
 ### Example
 
 ```php
@@ -194,6 +200,8 @@ getUser($user_id): \PostBoostClient\Model\User
 
 Get user
 
+Returns a single user account by ID. Admin only.
+
 ### Example
 
 ```php
@@ -247,10 +255,12 @@ try {
 ## `listUsers()`
 
 ```php
-listUsers($keyword): \PostBoostClient\Model\ListUsers200Response
+listUsers($keyword, $page): \PostBoostClient\Model\ListUsers200Response
 ```
 
 List users
+
+Returns a paginated list of all users on the platform. Optionally filter by name or email. Admin only.
 
 ### Example
 
@@ -270,9 +280,10 @@ $apiInstance = new PostBoostClient\Api\UsersApi(
     $config
 );
 $keyword = 'keyword_example'; // string | Search by name or email.
+$page = 1; // int | Page number (15 items per page).
 
 try {
-    $result = $apiInstance->listUsers($keyword);
+    $result = $apiInstance->listUsers($keyword, $page);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling UsersApi->listUsers: ', $e->getMessage(), PHP_EOL;
@@ -284,6 +295,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **keyword** | **string**| Search by name or email. | [optional] |
+| **page** | **int**| Page number (15 items per page). | [optional] [default to 1] |
 
 ### Return type
 
@@ -309,6 +321,8 @@ updateUser($user_id, $user_update_input): object
 ```
 
 Update user
+
+Updates a user's name, email, admin status, or password. Admin only.
 
 ### Example
 

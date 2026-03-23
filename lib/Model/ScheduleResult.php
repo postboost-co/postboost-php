@@ -282,6 +282,9 @@ class ScheduleResult implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['success'] === null) {
+            $invalidProperties[] = "'success' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -300,7 +303,7 @@ class ScheduleResult implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets success
      *
-     * @return bool|null
+     * @return bool
      */
     public function getSuccess()
     {
@@ -310,7 +313,7 @@ class ScheduleResult implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets success
      *
-     * @param bool|null $success success
+     * @param bool $success success
      *
      * @return self
      */

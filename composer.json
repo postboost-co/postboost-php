@@ -39,5 +39,6 @@
         "psr-4": {
             "PostBoostClient\\Test\\": "test/"
         }
-    }
+    },
+    "version": "1.2.0"
 }

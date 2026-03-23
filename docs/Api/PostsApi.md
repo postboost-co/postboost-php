@@ -209,6 +209,8 @@ deletePost($workspace_uuid, $post_uuid, $delete_post_request): \PostBoostClient\
 
 Delete post
 
+Deletes a post. Use `delete_mode` to control whether to also remove the published content from social platforms.
+
 ### Example
 
 ```php
@@ -332,6 +334,8 @@ getPost($workspace_uuid, $post_uuid): \PostBoostClient\Model\Post
 ```
 
 Get post
+
+Returns a single post with all its versions and associated accounts.
 
 ### Example
 
@@ -518,6 +522,8 @@ updatePost($workspace_uuid, $post_uuid, $post_input): object
 ```
 
 Update post
+
+Replaces a post's versions, accounts, tags, and scheduling options. The post must not be in a published state.
 
 ### Example
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * InitiateChunkedUpload200Response
+ * InitiateRemoteUpload201ResponseOneOf
  *
  * PHP version 7.4
  *
@@ -33,7 +33,7 @@ use \ArrayAccess;
 use \PostBoostClient\ObjectSerializer;
 
 /**
- * InitiateChunkedUpload200Response Class Doc Comment
+ * InitiateRemoteUpload201ResponseOneOf Class Doc Comment
  *
  * @category Class
  * @package  PostBoostClient
@@ -41,7 +41,7 @@ use \PostBoostClient\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class InitiateChunkedUpload200Response implements ModelInterface, ArrayAccess, \JsonSerializable
+class InitiateRemoteUpload201ResponseOneOf implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +50,7 @@ class InitiateChunkedUpload200Response implements ModelInterface, ArrayAccess, \
       *
       * @var string
       */
-    protected static $openAPIModelName = 'initiateChunkedUpload_200_response';
+    protected static $openAPIModelName = 'initiateRemoteUpload_201_response_oneOf';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -58,9 +58,7 @@ class InitiateChunkedUpload200Response implements ModelInterface, ArrayAccess, \
       * @var string[]
       */
     protected static $openAPITypes = [
-        'upload_uuid' => 'string',
-        'chunk_size' => 'int',
-        'total_chunks' => 'int'
+        'download_id' => 'string'
     ];
 
     /**
@@ -71,9 +69,7 @@ class InitiateChunkedUpload200Response implements ModelInterface, ArrayAccess, \
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'upload_uuid' => 'uuid',
-        'chunk_size' => null,
-        'total_chunks' => null
+        'download_id' => null
     ];
 
     /**
@@ -82,9 +78,7 @@ class InitiateChunkedUpload200Response implements ModelInterface, ArrayAccess, \
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'upload_uuid' => false,
-        'chunk_size' => false,
-        'total_chunks' => false
+        'download_id' => false
     ];
 
     /**
@@ -173,9 +167,7 @@ class InitiateChunkedUpload200Response implements ModelInterface, ArrayAccess, \
      * @var string[]
      */
     protected static $attributeMap = [
-        'upload_uuid' => 'upload_uuid',
-        'chunk_size' => 'chunk_size',
-        'total_chunks' => 'total_chunks'
+        'download_id' => 'download_id'
     ];
 
     /**
@@ -184,9 +176,7 @@ class InitiateChunkedUpload200Response implements ModelInterface, ArrayAccess, \
      * @var string[]
      */
     protected static $setters = [
-        'upload_uuid' => 'setUploadUuid',
-        'chunk_size' => 'setChunkSize',
-        'total_chunks' => 'setTotalChunks'
+        'download_id' => 'setDownloadId'
     ];
 
     /**
@@ -195,9 +185,7 @@ class InitiateChunkedUpload200Response implements ModelInterface, ArrayAccess, \
      * @var string[]
      */
     protected static $getters = [
-        'upload_uuid' => 'getUploadUuid',
-        'chunk_size' => 'getChunkSize',
-        'total_chunks' => 'getTotalChunks'
+        'download_id' => 'getDownloadId'
     ];
 
     /**
@@ -257,9 +245,7 @@ class InitiateChunkedUpload200Response implements ModelInterface, ArrayAccess, \
      */
     public function __construct(array $data = null)
     {
-        $this->setIfExists('upload_uuid', $data ?? [], null);
-        $this->setIfExists('chunk_size', $data ?? [], null);
-        $this->setIfExists('total_chunks', $data ?? [], null);
+        $this->setIfExists('download_id', $data ?? [], null);
     }
 
     /**
@@ -305,82 +291,28 @@ class InitiateChunkedUpload200Response implements ModelInterface, ArrayAccess, \
 
 
     /**
-     * Gets upload_uuid
+     * Gets download_id
      *
      * @return string|null
      */
-    public function getUploadUuid()
+    public function getDownloadId()
     {
-        return $this->container['upload_uuid'];
+        return $this->container['download_id'];
     }
 
     /**
-     * Sets upload_uuid
+     * Sets download_id
      *
-     * @param string|null $upload_uuid upload_uuid
+     * @param string|null $download_id download_id
      *
      * @return self
      */
-    public function setUploadUuid($upload_uuid)
+    public function setDownloadId($download_id)
     {
-        if (is_null($upload_uuid)) {
-            throw new \InvalidArgumentException('non-nullable upload_uuid cannot be null');
+        if (is_null($download_id)) {
+            throw new \InvalidArgumentException('non-nullable download_id cannot be null');
         }
-        $this->container['upload_uuid'] = $upload_uuid;
-
-        return $this;
-    }
-
-    /**
-     * Gets chunk_size
-     *
-     * @return int|null
-     */
-    public function getChunkSize()
-    {
-        return $this->container['chunk_size'];
-    }
-
-    /**
-     * Sets chunk_size
-     *
-     * @param int|null $chunk_size chunk_size
-     *
-     * @return self
-     */
-    public function setChunkSize($chunk_size)
-    {
-        if (is_null($chunk_size)) {
-            throw new \InvalidArgumentException('non-nullable chunk_size cannot be null');
-        }
-        $this->container['chunk_size'] = $chunk_size;
-
-        return $this;
-    }
-
-    /**
-     * Gets total_chunks
-     *
-     * @return int|null
-     */
-    public function getTotalChunks()
-    {
-        return $this->container['total_chunks'];
-    }
-
-    /**
-     * Sets total_chunks
-     *
-     * @param int|null $total_chunks total_chunks
-     *
-     * @return self
-     */
-    public function setTotalChunks($total_chunks)
-    {
-        if (is_null($total_chunks)) {
-            throw new \InvalidArgumentException('non-nullable total_chunks cannot be null');
-        }
-        $this->container['total_chunks'] = $total_chunks;
+        $this->container['download_id'] = $download_id;
 
         return $this;
     }

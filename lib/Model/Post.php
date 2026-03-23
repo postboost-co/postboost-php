@@ -338,6 +338,30 @@ class Post implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if ($this->container['uuid'] === null) {
+            $invalidProperties[] = "'uuid' can't be null";
+        }
+        if ($this->container['status'] === null) {
+            $invalidProperties[] = "'status' can't be null";
+        }
+        if ($this->container['accounts'] === null) {
+            $invalidProperties[] = "'accounts' can't be null";
+        }
+        if ($this->container['versions'] === null) {
+            $invalidProperties[] = "'versions' can't be null";
+        }
+        if ($this->container['tags'] === null) {
+            $invalidProperties[] = "'tags' can't be null";
+        }
+        if ($this->container['created_at'] === null) {
+            $invalidProperties[] = "'created_at' can't be null";
+        }
+        if ($this->container['trashed'] === null) {
+            $invalidProperties[] = "'trashed' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -356,7 +380,7 @@ class Post implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets id
      *
-     * @return int|null
+     * @return int
      */
     public function getId()
     {
@@ -366,7 +390,7 @@ class Post implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param int|null $id id
+     * @param int $id id
      *
      * @return self
      */
@@ -383,7 +407,7 @@ class Post implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets uuid
      *
-     * @return string|null
+     * @return string
      */
     public function getUuid()
     {
@@ -393,7 +417,7 @@ class Post implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets uuid
      *
-     * @param string|null $uuid uuid
+     * @param string $uuid uuid
      *
      * @return self
      */
@@ -410,7 +434,7 @@ class Post implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets status
      *
-     * @return \PostBoostClient\Model\PostStatus|null
+     * @return \PostBoostClient\Model\PostStatus
      */
     public function getStatus()
     {
@@ -420,7 +444,7 @@ class Post implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets status
      *
-     * @param \PostBoostClient\Model\PostStatus|null $status status
+     * @param \PostBoostClient\Model\PostStatus $status status
      *
      * @return self
      */
@@ -437,7 +461,7 @@ class Post implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets accounts
      *
-     * @return \PostBoostClient\Model\Account[]|null
+     * @return \PostBoostClient\Model\Account[]
      */
     public function getAccounts()
     {
@@ -447,7 +471,7 @@ class Post implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets accounts
      *
-     * @param \PostBoostClient\Model\Account[]|null $accounts accounts
+     * @param \PostBoostClient\Model\Account[] $accounts accounts
      *
      * @return self
      */
@@ -464,7 +488,7 @@ class Post implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets versions
      *
-     * @return \PostBoostClient\Model\PostVersion[]|null
+     * @return \PostBoostClient\Model\PostVersion[]
      */
     public function getVersions()
     {
@@ -474,7 +498,7 @@ class Post implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets versions
      *
-     * @param \PostBoostClient\Model\PostVersion[]|null $versions versions
+     * @param \PostBoostClient\Model\PostVersion[] $versions versions
      *
      * @return self
      */
@@ -491,7 +515,7 @@ class Post implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets tags
      *
-     * @return \PostBoostClient\Model\Tag[]|null
+     * @return \PostBoostClient\Model\Tag[]
      */
     public function getTags()
     {
@@ -501,7 +525,7 @@ class Post implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets tags
      *
-     * @param \PostBoostClient\Model\Tag[]|null $tags tags
+     * @param \PostBoostClient\Model\Tag[] $tags tags
      *
      * @return self
      */
@@ -572,7 +596,7 @@ class Post implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets created_at
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -582,7 +606,7 @@ class Post implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets created_at
      *
-     * @param \DateTime|null $created_at created_at
+     * @param \DateTime $created_at created_at
      *
      * @return self
      */
@@ -599,7 +623,7 @@ class Post implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets trashed
      *
-     * @return bool|null
+     * @return bool
      */
     public function getTrashed()
     {
@@ -609,7 +633,7 @@ class Post implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets trashed
      *
-     * @param bool|null $trashed trashed
+     * @param bool $trashed trashed
      *
      * @return self
      */

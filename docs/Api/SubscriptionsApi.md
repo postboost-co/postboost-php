@@ -24,6 +24,8 @@ addGenericSubscription($workspace_uuid, $add_generic_subscription_request): obje
 
 Add generic subscription
 
+Assigns a non-Stripe (generic) subscription plan to the workspace, optionally granting a trial period. Used for AppSumo-style lifetime deals. Admin only.
+
 ### Example
 
 ```php
@@ -84,6 +86,8 @@ cancelSubscription($workspace_uuid): object
 
 Cancel subscription
 
+Cancels the workspace's Stripe subscription at the end of the current billing period. Admin only.
+
 ### Example
 
 ```php
@@ -141,6 +145,8 @@ changeSubscriptionPlan($workspace_uuid, $change_subscription_plan_request): obje
 ```
 
 Change subscription plan
+
+Switches the workspace to a different Stripe plan. Optionally prorates the change and bills immediately. Admin only.
 
 ### Example
 
@@ -264,6 +270,8 @@ createSubscription($workspace_uuid, $subscription_input): object
 
 Create subscription
 
+Manually creates a subscription record for the workspace (for external billing integrations). Admin only.
+
 ### Example
 
 ```php
@@ -324,6 +332,8 @@ deleteSubscription($workspace_uuid): object
 
 Delete subscription
 
+Removes the subscription record from the workspace. Admin only.
+
 ### Example
 
 ```php
@@ -381,6 +391,8 @@ getSubscription($workspace_uuid): \PostBoostClient\Model\Subscription
 ```
 
 Get subscription
+
+Returns the active subscription for the workspace, or `null` if none exists. Admin only.
 
 ### Example
 
@@ -440,6 +452,8 @@ removeGenericSubscription($workspace_uuid): object
 
 Remove generic subscription
 
+Removes the generic (non-Stripe) subscription from the workspace. Admin only.
+
 ### Example
 
 ```php
@@ -498,6 +512,8 @@ resumeSubscription($workspace_uuid): object
 
 Resume subscription
 
+Resumes a previously canceled subscription before it expires. Admin only.
+
 ### Example
 
 ```php
@@ -555,6 +571,8 @@ updateSubscription($workspace_uuid, $subscription_update_input): object
 ```
 
 Update subscription
+
+Updates the plan ID, status, or trial/pause dates of an existing subscription. Admin only.
 
 ### Example
 

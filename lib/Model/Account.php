@@ -358,6 +358,21 @@ class Account implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if ($this->container['uuid'] === null) {
+            $invalidProperties[] = "'uuid' can't be null";
+        }
+        if ($this->container['name'] === null) {
+            $invalidProperties[] = "'name' can't be null";
+        }
+        if ($this->container['username'] === null) {
+            $invalidProperties[] = "'username' can't be null";
+        }
+        if ($this->container['provider'] === null) {
+            $invalidProperties[] = "'provider' can't be null";
+        }
         $allowedValues = $this->getProviderAllowableValues();
         if (!is_null($this->container['provider']) && !in_array($this->container['provider'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -367,6 +382,15 @@ class Account implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
+        if ($this->container['data'] === null) {
+            $invalidProperties[] = "'data' can't be null";
+        }
+        if ($this->container['authorized'] === null) {
+            $invalidProperties[] = "'authorized' can't be null";
+        }
+        if ($this->container['created_at'] === null) {
+            $invalidProperties[] = "'created_at' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -385,7 +409,7 @@ class Account implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets id
      *
-     * @return int|null
+     * @return int
      */
     public function getId()
     {
@@ -395,7 +419,7 @@ class Account implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param int|null $id id
+     * @param int $id id
      *
      * @return self
      */
@@ -412,7 +436,7 @@ class Account implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets uuid
      *
-     * @return string|null
+     * @return string
      */
     public function getUuid()
     {
@@ -422,7 +446,7 @@ class Account implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets uuid
      *
-     * @param string|null $uuid uuid
+     * @param string $uuid uuid
      *
      * @return self
      */
@@ -439,7 +463,7 @@ class Account implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets name
      *
-     * @return string|null
+     * @return string
      */
     public function getName()
     {
@@ -449,7 +473,7 @@ class Account implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets name
      *
-     * @param string|null $name name
+     * @param string $name name
      *
      * @return self
      */
@@ -466,7 +490,7 @@ class Account implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets username
      *
-     * @return string|null
+     * @return string
      */
     public function getUsername()
     {
@@ -476,7 +500,7 @@ class Account implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets username
      *
-     * @param string|null $username username
+     * @param string $username username
      *
      * @return self
      */
@@ -520,7 +544,7 @@ class Account implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets provider
      *
-     * @return string|null
+     * @return string
      */
     public function getProvider()
     {
@@ -530,7 +554,7 @@ class Account implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets provider
      *
-     * @param string|null $provider provider
+     * @param string $provider provider
      *
      * @return self
      */
@@ -557,7 +581,7 @@ class Account implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets data
      *
-     * @return object|null
+     * @return object
      */
     public function getData()
     {
@@ -567,7 +591,7 @@ class Account implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets data
      *
-     * @param object|null $data Provider-specific metadata.
+     * @param object $data Provider-specific metadata.
      *
      * @return self
      */
@@ -584,7 +608,7 @@ class Account implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets authorized
      *
-     * @return bool|null
+     * @return bool
      */
     public function getAuthorized()
     {
@@ -594,7 +618,7 @@ class Account implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets authorized
      *
-     * @param bool|null $authorized authorized
+     * @param bool $authorized authorized
      *
      * @return self
      */
@@ -611,7 +635,7 @@ class Account implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets created_at
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -621,7 +645,7 @@ class Account implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets created_at
      *
-     * @param \DateTime|null $created_at created_at
+     * @param \DateTime $created_at created_at
      *
      * @return self
      */

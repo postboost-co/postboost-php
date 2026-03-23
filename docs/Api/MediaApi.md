@@ -329,7 +329,7 @@ try {
 ## `initiateChunkedUpload()`
 
 ```php
-initiateChunkedUpload($workspace_uuid, $initiate_chunked_upload_request): \PostBoostClient\Model\InitiateChunkedUpload200Response
+initiateChunkedUpload($workspace_uuid, $initiate_chunked_upload_request): \PostBoostClient\Model\InitiateChunkedUpload201Response
 ```
 
 Initiate chunked upload
@@ -373,7 +373,7 @@ try {
 
 ### Return type
 
-[**\PostBoostClient\Model\InitiateChunkedUpload200Response**](../Model/InitiateChunkedUpload200Response.md)
+[**\PostBoostClient\Model\InitiateChunkedUpload201Response**](../Model/InitiateChunkedUpload201Response.md)
 
 ### Authorization
 
@@ -391,7 +391,7 @@ try {
 ## `initiateRemoteUpload()`
 
 ```php
-initiateRemoteUpload($workspace_uuid, $initiate_remote_upload_request): \PostBoostClient\Model\InitiateRemoteUpload200Response
+initiateRemoteUpload($workspace_uuid, $initiate_remote_upload_request): \PostBoostClient\Model\InitiateRemoteUpload201Response
 ```
 
 Initiate remote upload
@@ -435,7 +435,7 @@ try {
 
 ### Return type
 
-[**\PostBoostClient\Model\InitiateRemoteUpload200Response**](../Model/InitiateRemoteUpload200Response.md)
+[**\PostBoostClient\Model\InitiateRemoteUpload201Response**](../Model/InitiateRemoteUpload201Response.md)
 
 ### Authorization
 
@@ -579,7 +579,7 @@ try {
 ## `uploadChunk()`
 
 ```php
-uploadChunk($workspace_uuid, $upload_uuid, $chunk, $chunk_index): \PostBoostClient\Model\UploadChunk200Response
+uploadChunk($workspace_uuid, $upload_uuid, $chunk, $chunk_index): \PostBoostClient\Model\UploadChunk201Response
 ```
 
 Upload a chunk
@@ -627,7 +627,7 @@ try {
 
 ### Return type
 
-[**\PostBoostClient\Model\UploadChunk200Response**](../Model/UploadChunk200Response.md)
+[**\PostBoostClient\Model\UploadChunk201Response**](../Model/UploadChunk201Response.md)
 
 ### Authorization
 
