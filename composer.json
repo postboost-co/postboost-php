@@ -1,0 +1,38 @@
+{
+    "description": "The PostBoost REST API lets you publish, schedule, and analyze social media posts across 8+ platforms from a single integration. No OAuth apps to maintain — PostBoost handles platform authorization for you.  ## Base URL All workspace-scoped endpoints are prefixed with `/{workspaceUuid}`. Panel/admin endpoints are prefixed with `/panel`.  ## Authentication All requests require a Bearer token in the `Authorization` header. Generate tokens in your PostBoost dashboard under **Settings → Access Tokens**.  ``` Authorization: Bearer YOUR_API_TOKEN ```",
+    "keywords": [
+        "openapitools",
+        "openapi-generator",
+        "openapi",
+        "php",
+        "sdk",
+        "rest",
+        "api"
+    ],
+    "homepage": "https://openapi-generator.tech",
+    "license": "unlicense",
+    "authors": [
+        {
+            "name": "OpenAPI",
+            "homepage": "https://openapi-generator.tech"
+        }
+    ],
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "guzzlehttp/guzzle": "^7.3",
+        "guzzlehttp/psr7": "^1.7 || ^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.0 || ^9.0",
+        "friendsofphp/php-cs-fixer": "^3.5"
+    },
+    "autoload": {
+        "psr-4": { "PostBoostClient\\" : "lib/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "PostBoostClient\\Test\\" : "test/" }
+    }
+}
