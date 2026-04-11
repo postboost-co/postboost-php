@@ -302,17 +302,18 @@ class BlogToSocialInput implements ModelInterface, ArrayAccess, \JsonSerializabl
         return self::$openAPIModelName;
     }
 
-    public const PLATFORMS_FACEBOOK = 'facebook';
+    public const PLATFORMS_TWITTER = 'twitter';
+    public const PLATFORMS_FACEBOOK_PAGE = 'facebook_page';
     public const PLATFORMS_INSTAGRAM = 'instagram';
-    public const PLATFORMS_X = 'x';
-    public const PLATFORMS_LINKEDIN = 'linkedin';
-    public const PLATFORMS_PINTEREST = 'pinterest';
-    public const PLATFORMS_YOUTUBE = 'youtube';
-    public const PLATFORMS_TIKTOK = 'tiktok';
-    public const PLATFORMS_MASTODON = 'mastodon';
     public const PLATFORMS_THREADS = 'threads';
+    public const PLATFORMS_MASTODON = 'mastodon';
+    public const PLATFORMS_YOUTUBE = 'youtube';
+    public const PLATFORMS_GBP = 'gbp';
+    public const PLATFORMS_PINTEREST = 'pinterest';
+    public const PLATFORMS_LINKEDIN = 'linkedin';
+    public const PLATFORMS_LINKEDIN_PAGE = 'linkedin_page';
+    public const PLATFORMS_TIKTOK = 'tiktok';
     public const PLATFORMS_BLUESKY = 'bluesky';
-    public const PLATFORMS_GOOGLE_BUSINESS = 'google_business';
     public const TONE_NEUTRAL = 'neutral';
     public const TONE_FRIENDLY = 'friendly';
     public const TONE_FORMAL = 'formal';
@@ -349,17 +350,18 @@ class BlogToSocialInput implements ModelInterface, ArrayAccess, \JsonSerializabl
     public function getPlatformsAllowableValues()
     {
         return [
-            self::PLATFORMS_FACEBOOK,
+            self::PLATFORMS_TWITTER,
+            self::PLATFORMS_FACEBOOK_PAGE,
             self::PLATFORMS_INSTAGRAM,
-            self::PLATFORMS_X,
-            self::PLATFORMS_LINKEDIN,
-            self::PLATFORMS_PINTEREST,
-            self::PLATFORMS_YOUTUBE,
-            self::PLATFORMS_TIKTOK,
-            self::PLATFORMS_MASTODON,
             self::PLATFORMS_THREADS,
+            self::PLATFORMS_MASTODON,
+            self::PLATFORMS_YOUTUBE,
+            self::PLATFORMS_GBP,
+            self::PLATFORMS_PINTEREST,
+            self::PLATFORMS_LINKEDIN,
+            self::PLATFORMS_LINKEDIN_PAGE,
+            self::PLATFORMS_TIKTOK,
             self::PLATFORMS_BLUESKY,
-            self::PLATFORMS_GOOGLE_BUSINESS,
         ];
     }
 
