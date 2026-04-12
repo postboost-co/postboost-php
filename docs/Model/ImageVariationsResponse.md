@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**images** | [**\PostBoostClient\Model\GeneratedImageItem[]**](GeneratedImageItem.md) |  |
+**images** | [**\PostBoostClient\Model\Media[]**](Media.md) |  |
 **aspect_ratio** | **string** |  |
 **quality** | **string** |  |
 **credits_used** | **int** |  |

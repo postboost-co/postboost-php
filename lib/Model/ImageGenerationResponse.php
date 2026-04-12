@@ -58,7 +58,7 @@ class ImageGenerationResponse implements ModelInterface, ArrayAccess, \JsonSeria
       * @var string[]
       */
     protected static $openAPITypes = [
-        'images' => '\PostBoostClient\Model\GeneratedImageItem[]',
+        'images' => '\PostBoostClient\Model\Media[]',
         'prompt_used' => 'string',
         'revised_prompt' => 'string',
         'aspect_ratio' => 'string',
@@ -350,7 +350,7 @@ class ImageGenerationResponse implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Gets images
      *
-     * @return \PostBoostClient\Model\GeneratedImageItem[]
+     * @return \PostBoostClient\Model\Media[]
      */
     public function getImages()
     {
@@ -360,7 +360,7 @@ class ImageGenerationResponse implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets images
      *
-     * @param \PostBoostClient\Model\GeneratedImageItem[] $images images
+     * @param \PostBoostClient\Model\Media[] $images images
      *
      * @return self
      */
