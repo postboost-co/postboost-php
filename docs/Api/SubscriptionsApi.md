@@ -81,12 +81,12 @@ try {
 ## `cancelSubscription()`
 
 ```php
-cancelSubscription($workspace_uuid): object
+cancelSubscription($workspace_uuid, $cancel_subscription_request): object
 ```
 
 Cancel subscription
 
-Cancels the workspace's Stripe subscription at the end of the current billing period. Admin only.
+Cancels the workspace's Stripe subscription at the end of the current billing period, or right away with `immediately: true`. Works for active and past-due subscriptions. Admin only.
 
 ### Example
 
@@ -106,9 +106,10 @@ $apiInstance = new PostBoostClient\Api\SubscriptionsApi(
     $config
 );
 $workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
+$cancel_subscription_request = new \PostBoostClient\Model\CancelSubscriptionRequest(); // \PostBoostClient\Model\CancelSubscriptionRequest
 
 try {
-    $result = $apiInstance->cancelSubscription($workspace_uuid);
+    $result = $apiInstance->cancelSubscription($workspace_uuid, $cancel_subscription_request);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling SubscriptionsApi->cancelSubscription: ', $e->getMessage(), PHP_EOL;
@@ -120,6 +121,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **workspace_uuid** | **string**| UUID of the workspace. | |
+| **cancel_subscription_request** | [**\PostBoostClient\Model\CancelSubscriptionRequest**](../Model/CancelSubscriptionRequest.md)|  | [optional] |
 
 ### Return type
 
@@ -131,7 +133,7 @@ try {
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: `application/json`
 - **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
@@ -452,7 +454,7 @@ removeGenericSubscription($workspace_uuid): object
 
 Remove generic subscription
 
-Removes the generic (non-Stripe) subscription from the workspace. Admin only.
+Removes the generic (non-Stripe) subscription from the workspace. Returns `422` when the workspace has no generic subscription. Admin only.
 
 ### Example
 

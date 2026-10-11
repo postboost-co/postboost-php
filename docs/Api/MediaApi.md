@@ -6,13 +6,17 @@ All URIs are relative to https://postboost.co/app/api, except if the operation d
 | ------------- | ------------- | ------------- |
 | [**abortChunkedUpload()**](MediaApi.md#abortChunkedUpload) | **DELETE** /{workspaceUuid}/media/chunked/{uploadUuid} | Abort chunked upload |
 | [**completeChunkedUpload()**](MediaApi.md#completeChunkedUpload) | **POST** /{workspaceUuid}/media/chunked/{uploadUuid}/complete | Complete chunked upload |
+| [**createMediaFolder()**](MediaApi.md#createMediaFolder) | **POST** /{workspaceUuid}/media/folders | Create media folder |
 | [**deleteMediaBulk()**](MediaApi.md#deleteMediaBulk) | **DELETE** /{workspaceUuid}/media | Delete media (bulk) |
+| [**deleteMediaFolder()**](MediaApi.md#deleteMediaFolder) | **DELETE** /{workspaceUuid}/media/folders/{folderUuid} | Delete media folder |
 | [**getMedia()**](MediaApi.md#getMedia) | **GET** /{workspaceUuid}/media/{mediaUuid} | Get media |
 | [**getRemoteUploadStatus()**](MediaApi.md#getRemoteUploadStatus) | **GET** /{workspaceUuid}/media/remote/{downloadId}/status | Get remote upload status |
 | [**initiateChunkedUpload()**](MediaApi.md#initiateChunkedUpload) | **POST** /{workspaceUuid}/media/chunked/initiate | Initiate chunked upload |
 | [**initiateRemoteUpload()**](MediaApi.md#initiateRemoteUpload) | **POST** /{workspaceUuid}/media/remote/initiate | Initiate remote upload |
 | [**listMedia()**](MediaApi.md#listMedia) | **GET** /{workspaceUuid}/media | List media |
+| [**listMediaFolders()**](MediaApi.md#listMediaFolders) | **GET** /{workspaceUuid}/media/folders | List media folders |
 | [**updateMedia()**](MediaApi.md#updateMedia) | **PUT** /{workspaceUuid}/media/{mediaUuid} | Update media |
+| [**updateMediaFolder()**](MediaApi.md#updateMediaFolder) | **PUT** /{workspaceUuid}/media/folders/{folderUuid} | Update media folder |
 | [**uploadChunk()**](MediaApi.md#uploadChunk) | **POST** /{workspaceUuid}/media/chunked/{uploadUuid}/upload | Upload a chunk |
 | [**uploadMedia()**](MediaApi.md#uploadMedia) | **POST** /{workspaceUuid}/media | Upload media (binary) |
 
@@ -81,12 +85,12 @@ void (empty response body)
 ## `completeChunkedUpload()`
 
 ```php
-completeChunkedUpload($workspace_uuid, $upload_uuid): \PostBoostClient\Model\Media
+completeChunkedUpload($workspace_uuid, $upload_uuid, $complete_chunked_upload_request): \PostBoostClient\Model\Media
 ```
 
 Complete chunked upload
 
-Signal that all chunks have been uploaded. Returns the final media object.
+Signal that all chunks have been uploaded. Returns the final media object. A video may come back with `is_processing` set to `true` while its conversion runs.
 
 ### Example
 
@@ -107,9 +111,10 @@ $apiInstance = new PostBoostClient\Api\MediaApi(
 );
 $workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
 $upload_uuid = 'upload_uuid_example'; // string
+$complete_chunked_upload_request = new \PostBoostClient\Model\CompleteChunkedUploadRequest(); // \PostBoostClient\Model\CompleteChunkedUploadRequest
 
 try {
-    $result = $apiInstance->completeChunkedUpload($workspace_uuid, $upload_uuid);
+    $result = $apiInstance->completeChunkedUpload($workspace_uuid, $upload_uuid, $complete_chunked_upload_request);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling MediaApi->completeChunkedUpload: ', $e->getMessage(), PHP_EOL;
@@ -122,6 +127,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **workspace_uuid** | **string**| UUID of the workspace. | |
 | **upload_uuid** | **string**|  | |
+| **complete_chunked_upload_request** | [**\PostBoostClient\Model\CompleteChunkedUploadRequest**](../Model/CompleteChunkedUploadRequest.md)|  | [optional] |
 
 ### Return type
 
@@ -133,7 +139,69 @@ try {
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `createMediaFolder()`
+
+```php
+createMediaFolder($workspace_uuid, $create_media_folder_request): \PostBoostClient\Model\MediaFolder
+```
+
+Create media folder
+
+Creates a folder at the top level or under `parent`. The name must be unique among its siblings.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PostBoostClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PostBoostClient\Api\MediaApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
+$create_media_folder_request = new \PostBoostClient\Model\CreateMediaFolderRequest(); // \PostBoostClient\Model\CreateMediaFolderRequest
+
+try {
+    $result = $apiInstance->createMediaFolder($workspace_uuid, $create_media_folder_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling MediaApi->createMediaFolder: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **workspace_uuid** | **string**| UUID of the workspace. | |
+| **create_media_folder_request** | [**\PostBoostClient\Model\CreateMediaFolderRequest**](../Model/CreateMediaFolderRequest.md)|  | |
+
+### Return type
+
+[**\PostBoostClient\Model\MediaFolder**](../Model/MediaFolder.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
 - **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
@@ -148,7 +216,7 @@ deleteMediaBulk($workspace_uuid, $delete_media_bulk_request): object
 
 Delete media (bulk)
 
-Delete one or more media items by their IDs.
+Delete one or more media items by their numeric IDs or UUIDs (both may be mixed, up to 500 per request).
 
 ### Example
 
@@ -184,6 +252,70 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **workspace_uuid** | **string**| UUID of the workspace. | |
 | **delete_media_bulk_request** | [**\PostBoostClient\Model\DeleteMediaBulkRequest**](../Model/DeleteMediaBulkRequest.md)|  | |
+
+### Return type
+
+**object**
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `deleteMediaFolder()`
+
+```php
+deleteMediaFolder($workspace_uuid, $folder_uuid, $delete_media_folder_request): object
+```
+
+Delete media folder
+
+Deletes a folder. By default its media and sub-folders move up to the folder's parent; with `delete_media` set to true every media item below the folder is deleted as well.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PostBoostClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PostBoostClient\Api\MediaApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
+$folder_uuid = 'folder_uuid_example'; // string | UUID of the media folder.
+$delete_media_folder_request = new \PostBoostClient\Model\DeleteMediaFolderRequest(); // \PostBoostClient\Model\DeleteMediaFolderRequest
+
+try {
+    $result = $apiInstance->deleteMediaFolder($workspace_uuid, $folder_uuid, $delete_media_folder_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling MediaApi->deleteMediaFolder: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **workspace_uuid** | **string**| UUID of the workspace. | |
+| **folder_uuid** | **string**| UUID of the media folder. | |
+| **delete_media_folder_request** | [**\PostBoostClient\Model\DeleteMediaFolderRequest**](../Model/DeleteMediaFolderRequest.md)|  | [optional] |
 
 ### Return type
 
@@ -453,12 +585,12 @@ try {
 ## `listMedia()`
 
 ```php
-listMedia($workspace_uuid, $page): \PostBoostClient\Model\ListMedia200Response
+listMedia($workspace_uuid, $page, $limit, $folder, $mime_types, $type, $keyword, $usage, $favorite, $sort): \PostBoostClient\Model\ListMedia200Response
 ```
 
 List media
 
-Returns a paginated list of media assets in the workspace library.
+Returns a paginated list of media assets in the workspace library. Without `folder` every item is listed, whatever folder it is filed in. A `keyword` search always looks at the whole library and ignores `folder` and `favorite`.
 
 ### Example
 
@@ -478,10 +610,18 @@ $apiInstance = new PostBoostClient\Api\MediaApi(
     $config
 );
 $workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
-$page = 1; // int | Page number (20 items per page).
+$page = 1; // int | Page number.
+$limit = 50; // int | Items per page. Values below 1 fall back to 50; values above 100 are capped at 100.
+$folder = 'folder_example'; // string | Media folder UUID, or `root` for items not filed in any folder.
+$mime_types = array('mime_types_example'); // string[] | Only these MIME types (for example `image/png`).
+$type = 'type_example'; // string | Only this media type.
+$keyword = 'keyword_example'; // string | Search media by name.
+$usage = 'usage_example'; // string | Filter by how the media is used in posts.
+$favorite = True; // bool | When `true`, only media the caller marked as favorite.
+$sort = 'newest'; // string
 
 try {
-    $result = $apiInstance->listMedia($workspace_uuid, $page);
+    $result = $apiInstance->listMedia($workspace_uuid, $page, $limit, $folder, $mime_types, $type, $keyword, $usage, $favorite, $sort);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling MediaApi->listMedia: ', $e->getMessage(), PHP_EOL;
@@ -493,11 +633,79 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **workspace_uuid** | **string**| UUID of the workspace. | |
-| **page** | **int**| Page number (20 items per page). | [optional] [default to 1] |
+| **page** | **int**| Page number. | [optional] [default to 1] |
+| **limit** | **int**| Items per page. Values below 1 fall back to 50; values above 100 are capped at 100. | [optional] [default to 50] |
+| **folder** | **string**| Media folder UUID, or &#x60;root&#x60; for items not filed in any folder. | [optional] |
+| **mime_types** | [**string[]**](../Model/string.md)| Only these MIME types (for example &#x60;image/png&#x60;). | [optional] |
+| **type** | **string**| Only this media type. | [optional] |
+| **keyword** | **string**| Search media by name. | [optional] |
+| **usage** | **string**| Filter by how the media is used in posts. | [optional] |
+| **favorite** | **bool**| When &#x60;true&#x60;, only media the caller marked as favorite. | [optional] |
+| **sort** | **string**|  | [optional] [default to &#39;newest&#39;] |
 
 ### Return type
 
 [**\PostBoostClient\Model\ListMedia200Response**](../Model/ListMedia200Response.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `listMediaFolders()`
+
+```php
+listMediaFolders($workspace_uuid): \PostBoostClient\Model\ListMediaFolders200Response
+```
+
+List media folders
+
+Returns the whole folder tree of the media library in one response (not paginated). Rebuild the tree from each folder's `parent`.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PostBoostClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PostBoostClient\Api\MediaApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
+
+try {
+    $result = $apiInstance->listMediaFolders($workspace_uuid);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling MediaApi->listMediaFolders: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **workspace_uuid** | **string**| UUID of the workspace. | |
+
+### Return type
+
+[**\PostBoostClient\Model\ListMediaFolders200Response**](../Model/ListMediaFolders200Response.md)
 
 ### Authorization
 
@@ -520,7 +728,7 @@ updateMedia($workspace_uuid, $media_uuid, $update_media_request): object
 
 Update media
 
-Update the alt text of a media asset.
+Update the name, alt text, or folder of a media asset. Only the keys present in the body are written. Sending `folder: null` moves the item to the library root; omitting `folder` leaves it where it is.
 
 ### Example
 
@@ -562,6 +770,70 @@ try {
 ### Return type
 
 **object**
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `updateMediaFolder()`
+
+```php
+updateMediaFolder($workspace_uuid, $folder_uuid, $media_folder_input): \PostBoostClient\Model\MediaFolder
+```
+
+Update media folder
+
+Renames a folder and/or moves it. Sending `parent` moves the folder (null = top level); omitting it keeps the current parent. A folder cannot be moved into itself or one of its descendants.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PostBoostClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PostBoostClient\Api\MediaApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
+$folder_uuid = 'folder_uuid_example'; // string | UUID of the media folder.
+$media_folder_input = new \PostBoostClient\Model\MediaFolderInput(); // \PostBoostClient\Model\MediaFolderInput
+
+try {
+    $result = $apiInstance->updateMediaFolder($workspace_uuid, $folder_uuid, $media_folder_input);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling MediaApi->updateMediaFolder: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **workspace_uuid** | **string**| UUID of the workspace. | |
+| **folder_uuid** | **string**| UUID of the media folder. | |
+| **media_folder_input** | [**\PostBoostClient\Model\MediaFolderInput**](../Model/MediaFolderInput.md)|  | |
+
+### Return type
+
+[**\PostBoostClient\Model\MediaFolder**](../Model/MediaFolder.md)
 
 ### Authorization
 
@@ -645,7 +917,7 @@ try {
 ## `uploadMedia()`
 
 ```php
-uploadMedia($workspace_uuid, $file, $alt_text): \PostBoostClient\Model\Media
+uploadMedia($workspace_uuid, $file, $alt_text, $folder): \PostBoostClient\Model\Media
 ```
 
 Upload media (binary)
@@ -672,9 +944,10 @@ $apiInstance = new PostBoostClient\Api\MediaApi(
 $workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
 $file = "/path/to/file.txt"; // \SplFileObject | The file to upload.
 $alt_text = 'alt_text_example'; // string | Alternative text for accessibility.
+$folder = 'folder_example'; // string | UUID of the media folder to file the upload in. Omit or null for the library root.
 
 try {
-    $result = $apiInstance->uploadMedia($workspace_uuid, $file, $alt_text);
+    $result = $apiInstance->uploadMedia($workspace_uuid, $file, $alt_text, $folder);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling MediaApi->uploadMedia: ', $e->getMessage(), PHP_EOL;
@@ -688,6 +961,7 @@ try {
 | **workspace_uuid** | **string**| UUID of the workspace. | |
 | **file** | **\SplFileObject****\SplFileObject**| The file to upload. | |
 | **alt_text** | **string**| Alternative text for accessibility. | [optional] |
+| **folder** | **string**| UUID of the media folder to file the upload in. Omit or null for the library root. | [optional] |
 
 ### Return type
 

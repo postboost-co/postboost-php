@@ -73,12 +73,12 @@ try {
 ## `listAccounts()`
 
 ```php
-listAccounts($workspace_uuid): \PostBoostClient\Model\ListAccounts200Response
+listAccounts($workspace_uuid, $keyword, $group, $providers, $unauthorized): \PostBoostClient\Model\ListAccounts200Response
 ```
 
 List accounts
 
-Returns all social media accounts connected to the workspace.
+Returns all social media accounts connected to the workspace, newest first. Optional filters narrow the list.
 
 ### Example
 
@@ -98,9 +98,13 @@ $apiInstance = new PostBoostClient\Api\AccountsApi(
     $config
 );
 $workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
+$keyword = 'keyword_example'; // string | Match the account name or username.
+$group = 'group_example'; // string | Only accounts in this account group.
+$providers = array('providers_example'); // string[] | Only accounts of these providers (for example `instagram`, `linkedin`).
+$unauthorized = True; // bool | When `true`, only accounts that need to be reconnected.
 
 try {
-    $result = $apiInstance->listAccounts($workspace_uuid);
+    $result = $apiInstance->listAccounts($workspace_uuid, $keyword, $group, $providers, $unauthorized);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling AccountsApi->listAccounts: ', $e->getMessage(), PHP_EOL;
@@ -112,6 +116,10 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **workspace_uuid** | **string**| UUID of the workspace. | |
+| **keyword** | **string**| Match the account name or username. | [optional] |
+| **group** | **string**| Only accounts in this account group. | [optional] |
+| **providers** | [**string[]**](../Model/string.md)| Only accounts of these providers (for example &#x60;instagram&#x60;, &#x60;linkedin&#x60;). | [optional] |
+| **unauthorized** | **bool**| When &#x60;true&#x60;, only accounts that need to be reconnected. | [optional] |
 
 ### Return type
 

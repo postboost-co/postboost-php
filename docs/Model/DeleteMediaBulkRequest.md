@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | **int[]** | Array of media IDs to delete. |
+**items** | [**\PostBoostClient\Model\DeleteMediaBulkRequestItemsInner[]**](DeleteMediaBulkRequestItemsInner.md) | Array of media IDs or UUIDs to delete. |
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

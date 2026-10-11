@@ -9,6 +9,8 @@ All URIs are relative to https://postboost.co/app/api, except if the operation d
 | [**deleteWorkspace()**](WorkspacesApi.md#deleteWorkspace) | **DELETE** /panel/workspaces/{workspaceUuid} | Delete workspace |
 | [**deleteWorkspacesBulk()**](WorkspacesApi.md#deleteWorkspacesBulk) | **DELETE** /panel/workspaces | Delete workspaces (bulk) |
 | [**getWorkspace()**](WorkspacesApi.md#getWorkspace) | **GET** /panel/workspaces/{workspaceUuid} | Get workspace |
+| [**getWorkspaceAICredits()**](WorkspacesApi.md#getWorkspaceAICredits) | **GET** /panel/workspaces/{workspaceUuid}/ai-credits | Get workspace AI credits |
+| [**listMyWorkspaces()**](WorkspacesApi.md#listMyWorkspaces) | **GET** /workspaces | List my workspaces |
 | [**listWorkspaces()**](WorkspacesApi.md#listWorkspaces) | **GET** /panel/workspaces | List workspaces |
 | [**removeUserFromWorkspace()**](WorkspacesApi.md#removeUserFromWorkspace) | **DELETE** /panel/workspaces/{workspaceUuid}/users | Remove user from workspace |
 | [**updateWorkspace()**](WorkspacesApi.md#updateWorkspace) | **PUT** /panel/workspaces/{workspaceUuid} | Update workspace |
@@ -317,6 +319,123 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getWorkspaceAICredits()`
+
+```php
+getWorkspaceAICredits($workspace_uuid): \PostBoostClient\Model\AICredits
+```
+
+Get workspace AI credits
+
+Returns whether the workspace can use AI credits, its remaining balance, and whether the balance is low. Admin only.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PostBoostClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PostBoostClient\Api\WorkspacesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
+
+try {
+    $result = $apiInstance->getWorkspaceAICredits($workspace_uuid);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling WorkspacesApi->getWorkspaceAICredits: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **workspace_uuid** | **string**| UUID of the workspace. | |
+
+### Return type
+
+[**\PostBoostClient\Model\AICredits**](../Model/AICredits.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `listMyWorkspaces()`
+
+```php
+listMyWorkspaces(): \PostBoostClient\Model\ListMyWorkspaces200Response
+```
+
+List my workspaces
+
+Returns the workspaces the authenticated user belongs to, most recently updated first, with the caller's role in each. Use a returned `uuid` as `workspaceUuid`.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PostBoostClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PostBoostClient\Api\WorkspacesApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+
+try {
+    $result = $apiInstance->listMyWorkspaces();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling WorkspacesApi->listMyWorkspaces: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**\PostBoostClient\Model\ListMyWorkspaces200Response**](../Model/ListMyWorkspaces200Response.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `listWorkspaces()`
 
 ```php
@@ -453,7 +572,7 @@ updateWorkspace($workspace_uuid, $workspace_input): object
 
 Update workspace
 
-Updates a workspace's name, color, or access status. Admin only.
+Updates a workspace's name, owner, or access status. Admin only. `hex_color` is accepted but ignored.
 
 ### Example
 
