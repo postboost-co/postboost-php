@@ -14,7 +14,7 @@ All URIs are relative to https://postboost.co/app/api, except if the operation d
 ## `createTag()`
 
 ```php
-createTag($workspace_uuid, $tag_input): \PostBoostClient\Model\Tag
+createTag($workspace_uuid, $tag_input, $idempotency_key): \PostBoostClient\Model\Tag
 ```
 
 Create tag
@@ -40,9 +40,10 @@ $apiInstance = new PostBoostClient\Api\TagsApi(
 );
 $workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
 $tag_input = new \PostBoostClient\Model\TagInput(); // \PostBoostClient\Model\TagInput
+$idempotency_key = 'idempotency_key_example'; // string | Unique key (for example a UUID) that makes the request safe to retry. A repeat with the same key and body within 24 hours returns the stored response with `Idempotent-Replayed: true` and has no further effect. Keys are scoped to your user, the workspace, the method and the path.
 
 try {
-    $result = $apiInstance->createTag($workspace_uuid, $tag_input);
+    $result = $apiInstance->createTag($workspace_uuid, $tag_input, $idempotency_key);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling TagsApi->createTag: ', $e->getMessage(), PHP_EOL;
@@ -55,6 +56,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **workspace_uuid** | **string**| UUID of the workspace. | |
 | **tag_input** | [**\PostBoostClient\Model\TagInput**](../Model/TagInput.md)|  | |
+| **idempotency_key** | **string**| Unique key (for example a UUID) that makes the request safe to retry. A repeat with the same key and body within 24 hours returns the stored response with &#x60;Idempotent-Replayed: true&#x60; and has no further effect. Keys are scoped to your user, the workspace, the method and the path. | [optional] |
 
 ### Return type
 

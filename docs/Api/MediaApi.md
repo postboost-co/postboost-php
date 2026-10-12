@@ -19,6 +19,7 @@ All URIs are relative to https://postboost.co/app/api, except if the operation d
 | [**updateMediaFolder()**](MediaApi.md#updateMediaFolder) | **PUT** /{workspaceUuid}/media/folders/{folderUuid} | Update media folder |
 | [**uploadChunk()**](MediaApi.md#uploadChunk) | **POST** /{workspaceUuid}/media/chunked/{uploadUuid}/upload | Upload a chunk |
 | [**uploadMedia()**](MediaApi.md#uploadMedia) | **POST** /{workspaceUuid}/media | Upload media (binary) |
+| [**uploadMediaBase64()**](MediaApi.md#uploadMediaBase64) | **POST** /{workspaceUuid}/media/base64 | Upload media (base64 JSON) |
 
 
 ## `abortChunkedUpload()`
@@ -149,7 +150,7 @@ try {
 ## `createMediaFolder()`
 
 ```php
-createMediaFolder($workspace_uuid, $create_media_folder_request): \PostBoostClient\Model\MediaFolder
+createMediaFolder($workspace_uuid, $create_media_folder_request, $idempotency_key): \PostBoostClient\Model\MediaFolder
 ```
 
 Create media folder
@@ -175,9 +176,10 @@ $apiInstance = new PostBoostClient\Api\MediaApi(
 );
 $workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
 $create_media_folder_request = new \PostBoostClient\Model\CreateMediaFolderRequest(); // \PostBoostClient\Model\CreateMediaFolderRequest
+$idempotency_key = 'idempotency_key_example'; // string | Unique key (for example a UUID) that makes the request safe to retry. A repeat with the same key and body within 24 hours returns the stored response with `Idempotent-Replayed: true` and has no further effect. Keys are scoped to your user, the workspace, the method and the path.
 
 try {
-    $result = $apiInstance->createMediaFolder($workspace_uuid, $create_media_folder_request);
+    $result = $apiInstance->createMediaFolder($workspace_uuid, $create_media_folder_request, $idempotency_key);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling MediaApi->createMediaFolder: ', $e->getMessage(), PHP_EOL;
@@ -190,6 +192,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **workspace_uuid** | **string**| UUID of the workspace. | |
 | **create_media_folder_request** | [**\PostBoostClient\Model\CreateMediaFolderRequest**](../Model/CreateMediaFolderRequest.md)|  | |
+| **idempotency_key** | **string**| Unique key (for example a UUID) that makes the request safe to retry. A repeat with the same key and body within 24 hours returns the stored response with &#x60;Idempotent-Replayed: true&#x60; and has no further effect. Keys are scoped to your user, the workspace, the method and the path. | [optional] |
 
 ### Return type
 
@@ -461,7 +464,7 @@ try {
 ## `initiateChunkedUpload()`
 
 ```php
-initiateChunkedUpload($workspace_uuid, $initiate_chunked_upload_request): \PostBoostClient\Model\InitiateChunkedUpload201Response
+initiateChunkedUpload($workspace_uuid, $initiate_chunked_upload_request, $idempotency_key): \PostBoostClient\Model\InitiateChunkedUpload201Response
 ```
 
 Initiate chunked upload
@@ -487,9 +490,10 @@ $apiInstance = new PostBoostClient\Api\MediaApi(
 );
 $workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
 $initiate_chunked_upload_request = new \PostBoostClient\Model\InitiateChunkedUploadRequest(); // \PostBoostClient\Model\InitiateChunkedUploadRequest
+$idempotency_key = 'idempotency_key_example'; // string | Unique key (for example a UUID) that makes the request safe to retry. A repeat with the same key and body within 24 hours returns the stored response with `Idempotent-Replayed: true` and has no further effect. Keys are scoped to your user, the workspace, the method and the path.
 
 try {
-    $result = $apiInstance->initiateChunkedUpload($workspace_uuid, $initiate_chunked_upload_request);
+    $result = $apiInstance->initiateChunkedUpload($workspace_uuid, $initiate_chunked_upload_request, $idempotency_key);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling MediaApi->initiateChunkedUpload: ', $e->getMessage(), PHP_EOL;
@@ -502,6 +506,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **workspace_uuid** | **string**| UUID of the workspace. | |
 | **initiate_chunked_upload_request** | [**\PostBoostClient\Model\InitiateChunkedUploadRequest**](../Model/InitiateChunkedUploadRequest.md)|  | |
+| **idempotency_key** | **string**| Unique key (for example a UUID) that makes the request safe to retry. A repeat with the same key and body within 24 hours returns the stored response with &#x60;Idempotent-Replayed: true&#x60; and has no further effect. Keys are scoped to your user, the workspace, the method and the path. | [optional] |
 
 ### Return type
 
@@ -523,7 +528,7 @@ try {
 ## `initiateRemoteUpload()`
 
 ```php
-initiateRemoteUpload($workspace_uuid, $initiate_remote_upload_request): \PostBoostClient\Model\InitiateRemoteUpload201Response
+initiateRemoteUpload($workspace_uuid, $initiate_remote_upload_request, $idempotency_key): \PostBoostClient\Model\InitiateRemoteUpload201Response
 ```
 
 Initiate remote upload
@@ -549,9 +554,10 @@ $apiInstance = new PostBoostClient\Api\MediaApi(
 );
 $workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
 $initiate_remote_upload_request = new \PostBoostClient\Model\InitiateRemoteUploadRequest(); // \PostBoostClient\Model\InitiateRemoteUploadRequest
+$idempotency_key = 'idempotency_key_example'; // string | Unique key (for example a UUID) that makes the request safe to retry. A repeat with the same key and body within 24 hours returns the stored response with `Idempotent-Replayed: true` and has no further effect. Keys are scoped to your user, the workspace, the method and the path.
 
 try {
-    $result = $apiInstance->initiateRemoteUpload($workspace_uuid, $initiate_remote_upload_request);
+    $result = $apiInstance->initiateRemoteUpload($workspace_uuid, $initiate_remote_upload_request, $idempotency_key);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling MediaApi->initiateRemoteUpload: ', $e->getMessage(), PHP_EOL;
@@ -564,6 +570,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **workspace_uuid** | **string**| UUID of the workspace. | |
 | **initiate_remote_upload_request** | [**\PostBoostClient\Model\InitiateRemoteUploadRequest**](../Model/InitiateRemoteUploadRequest.md)|  | |
+| **idempotency_key** | **string**| Unique key (for example a UUID) that makes the request safe to retry. A repeat with the same key and body within 24 hours returns the stored response with &#x60;Idempotent-Replayed: true&#x60; and has no further effect. Keys are scoped to your user, the workspace, the method and the path. | [optional] |
 
 ### Return type
 
@@ -917,12 +924,12 @@ try {
 ## `uploadMedia()`
 
 ```php
-uploadMedia($workspace_uuid, $file, $alt_text, $folder): \PostBoostClient\Model\Media
+uploadMedia($workspace_uuid, $file, $idempotency_key, $alt_text, $folder): \PostBoostClient\Model\Media
 ```
 
 Upload media (binary)
 
-Upload a file directly as multipart form data.
+Upload a file directly as multipart form data. Images and videos, plus a PDF (up to 100 MB) for LinkedIn document posts: a post that attaches a PDF must have it as the only media item and may only go to LinkedIn profiles and pages.
 
 ### Example
 
@@ -943,11 +950,12 @@ $apiInstance = new PostBoostClient\Api\MediaApi(
 );
 $workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
 $file = "/path/to/file.txt"; // \SplFileObject | The file to upload.
+$idempotency_key = 'idempotency_key_example'; // string | Unique key (for example a UUID) that makes the request safe to retry. A repeat with the same key and body within 24 hours returns the stored response with `Idempotent-Replayed: true` and has no further effect. Keys are scoped to your user, the workspace, the method and the path.
 $alt_text = 'alt_text_example'; // string | Alternative text for accessibility.
 $folder = 'folder_example'; // string | UUID of the media folder to file the upload in. Omit or null for the library root.
 
 try {
-    $result = $apiInstance->uploadMedia($workspace_uuid, $file, $alt_text, $folder);
+    $result = $apiInstance->uploadMedia($workspace_uuid, $file, $idempotency_key, $alt_text, $folder);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling MediaApi->uploadMedia: ', $e->getMessage(), PHP_EOL;
@@ -960,6 +968,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **workspace_uuid** | **string**| UUID of the workspace. | |
 | **file** | **\SplFileObject****\SplFileObject**| The file to upload. | |
+| **idempotency_key** | **string**| Unique key (for example a UUID) that makes the request safe to retry. A repeat with the same key and body within 24 hours returns the stored response with &#x60;Idempotent-Replayed: true&#x60; and has no further effect. Keys are scoped to your user, the workspace, the method and the path. | [optional] |
 | **alt_text** | **string**| Alternative text for accessibility. | [optional] |
 | **folder** | **string**| UUID of the media folder to file the upload in. Omit or null for the library root. | [optional] |
 
@@ -974,6 +983,70 @@ try {
 ### HTTP request headers
 
 - **Content-Type**: `multipart/form-data`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `uploadMediaBase64()`
+
+```php
+uploadMediaBase64($workspace_uuid, $media_base64_input, $idempotency_key): \PostBoostClient\Model\Media
+```
+
+Upload media (base64 JSON)
+
+Upload a file as base64 inside a JSON body, for agents and tools that cannot send multipart form data. The decoded file is checked exactly like `POST media` (allowed types and size limits; a PDF is accepted for LinkedIn document posts). Decoded size is capped at 20 MB; for larger files use remote upload by URL or chunked upload.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PostBoostClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PostBoostClient\Api\MediaApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
+$media_base64_input = new \PostBoostClient\Model\MediaBase64Input(); // \PostBoostClient\Model\MediaBase64Input
+$idempotency_key = 'idempotency_key_example'; // string | Unique key (for example a UUID) that makes the request safe to retry. A repeat with the same key and body within 24 hours returns the stored response with `Idempotent-Replayed: true` and has no further effect. Keys are scoped to your user, the workspace, the method and the path.
+
+try {
+    $result = $apiInstance->uploadMediaBase64($workspace_uuid, $media_base64_input, $idempotency_key);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling MediaApi->uploadMediaBase64: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **workspace_uuid** | **string**| UUID of the workspace. | |
+| **media_base64_input** | [**\PostBoostClient\Model\MediaBase64Input**](../Model/MediaBase64Input.md)|  | |
+| **idempotency_key** | **string**| Unique key (for example a UUID) that makes the request safe to retry. A repeat with the same key and body within 24 hours returns the stored response with &#x60;Idempotent-Replayed: true&#x60; and has no further effect. Keys are scoped to your user, the workspace, the method and the path. | [optional] |
+
+### Return type
+
+[**\PostBoostClient\Model\Media**](../Model/Media.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
 - **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)

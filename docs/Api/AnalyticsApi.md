@@ -4,12 +4,143 @@ All URIs are relative to https://postboost.co/app/api, except if the operation d
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
+| [**createReportExport()**](AnalyticsApi.md#createReportExport) | **POST** /{workspaceUuid}/reports/exports | Create a report export |
+| [**downloadReportExport()**](AnalyticsApi.md#downloadReportExport) | **GET** /{workspaceUuid}/reports/exports/{exportUuid}/download | Download a report file |
 | [**getAccountAnalytics()**](AnalyticsApi.md#getAccountAnalytics) | **GET** /{workspaceUuid}/analytics/accounts/{accountUuid} | Get account analytics |
 | [**getAnalyticsSummary()**](AnalyticsApi.md#getAnalyticsSummary) | **GET** /{workspaceUuid}/analytics | Get analytics summary |
 | [**getBestPostingTimes()**](AnalyticsApi.md#getBestPostingTimes) | **GET** /{workspaceUuid}/analytics/best-times | Get best posting times |
 | [**getPostAnalytics_0()**](AnalyticsApi.md#getPostAnalytics_0) | **GET** /{workspaceUuid}/posts/{postUuid}/analytics | Get post analytics |
 | [**getPostingTimes()**](AnalyticsApi.md#getPostingTimes) | **GET** /{workspaceUuid}/analytics/posting-times | Get posting times heatmap |
+| [**getReportBranding()**](AnalyticsApi.md#getReportBranding) | **GET** /{workspaceUuid}/report-branding | Get the report branding |
+| [**getReportExport()**](AnalyticsApi.md#getReportExport) | **GET** /{workspaceUuid}/reports/exports/{exportUuid} | Get a report export |
+| [**listReportExports()**](AnalyticsApi.md#listReportExports) | **GET** /{workspaceUuid}/reports/exports | List report exports |
+| [**updateReportBranding()**](AnalyticsApi.md#updateReportBranding) | **PUT** /{workspaceUuid}/report-branding | Update the report branding |
+| [**uploadReportBrandingLogo()**](AnalyticsApi.md#uploadReportBrandingLogo) | **POST** /{workspaceUuid}/report-branding/logo | Upload the report logo |
 
+
+## `createReportExport()`
+
+```php
+createReportExport($workspace_uuid, $report_export_input): \PostBoostClient\Model\CreateReportExport201Response
+```
+
+Create a report export
+
+Generates a report for a period (default `last_month`) or a custom `date_from`/`date_to` range: a branded PDF (summary, accounts, top 10 posts; the header uses the report branding) or a CSV with one row per published post and account (`dataset: posts`, default) or per account (`dataset: accounts`). CSV files are UTF-8 with a byte order mark. At most 500 posts per report. The file is ready when the call returns; fetch it from `download_url` with the same token. Admins and members only; 20 per minute.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PostBoostClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PostBoostClient\Api\AnalyticsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
+$report_export_input = {"format":"pdf","period":"last_month"}; // \PostBoostClient\Model\ReportExportInput
+
+try {
+    $result = $apiInstance->createReportExport($workspace_uuid, $report_export_input);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AnalyticsApi->createReportExport: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **workspace_uuid** | **string**| UUID of the workspace. | |
+| **report_export_input** | [**\PostBoostClient\Model\ReportExportInput**](../Model/ReportExportInput.md)|  | |
+
+### Return type
+
+[**\PostBoostClient\Model\CreateReportExport201Response**](../Model/CreateReportExport201Response.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `downloadReportExport()`
+
+```php
+downloadReportExport($workspace_uuid, $export_uuid): \SplFileObject
+```
+
+Download a report file
+
+The PDF or CSV file. `410` once it expired (7 days) or if the export failed.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PostBoostClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PostBoostClient\Api\AnalyticsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
+$export_uuid = 'export_uuid_example'; // string | UUID of the report export.
+
+try {
+    $result = $apiInstance->downloadReportExport($workspace_uuid, $export_uuid);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AnalyticsApi->downloadReportExport: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **workspace_uuid** | **string**| UUID of the workspace. | |
+| **export_uuid** | **string**| UUID of the report export. | |
+
+### Return type
+
+**\SplFileObject**
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/pdf`, `text/csv`, `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
 
 ## `getAccountAnalytics()`
 
@@ -341,6 +472,310 @@ try {
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getReportBranding()`
+
+```php
+getReportBranding($workspace_uuid): \PostBoostClient\Model\GetReportBranding200Response
+```
+
+Get the report branding
+
+The white-label header of the workspace's PDF reports. Unset fields are `null`; the workspace name is used then.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PostBoostClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PostBoostClient\Api\AnalyticsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
+
+try {
+    $result = $apiInstance->getReportBranding($workspace_uuid);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AnalyticsApi->getReportBranding: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **workspace_uuid** | **string**| UUID of the workspace. | |
+
+### Return type
+
+[**\PostBoostClient\Model\GetReportBranding200Response**](../Model/GetReportBranding200Response.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getReportExport()`
+
+```php
+getReportExport($workspace_uuid, $export_uuid): \PostBoostClient\Model\CreateReportExport201Response
+```
+
+Get a report export
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PostBoostClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PostBoostClient\Api\AnalyticsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
+$export_uuid = 'export_uuid_example'; // string | UUID of the report export.
+
+try {
+    $result = $apiInstance->getReportExport($workspace_uuid, $export_uuid);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AnalyticsApi->getReportExport: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **workspace_uuid** | **string**| UUID of the workspace. | |
+| **export_uuid** | **string**| UUID of the report export. | |
+
+### Return type
+
+[**\PostBoostClient\Model\CreateReportExport201Response**](../Model/CreateReportExport201Response.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `listReportExports()`
+
+```php
+listReportExports($workspace_uuid): \PostBoostClient\Model\ListReportExports200Response
+```
+
+List report exports
+
+The workspace's latest 50 report exports, newest first. Files can be downloaded for 7 days.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PostBoostClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PostBoostClient\Api\AnalyticsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
+
+try {
+    $result = $apiInstance->listReportExports($workspace_uuid);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AnalyticsApi->listReportExports: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **workspace_uuid** | **string**| UUID of the workspace. | |
+
+### Return type
+
+[**\PostBoostClient\Model\ListReportExports200Response**](../Model/ListReportExports200Response.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `updateReportBranding()`
+
+```php
+updateReportBranding($workspace_uuid, $report_branding_input): \PostBoostClient\Model\GetReportBranding200Response
+```
+
+Update the report branding
+
+Name, colour and footer of PDF reports. Fields you leave out keep their value. Upload the logo with `uploadReportBrandingLogo`. Admins and members only.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PostBoostClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PostBoostClient\Api\AnalyticsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
+$report_branding_input = {"display_name":"Brightside Agency","primary_color":"#FF6600","footer_text":"Prepared by Brightside Agency","show_powered_by":false}; // \PostBoostClient\Model\ReportBrandingInput
+
+try {
+    $result = $apiInstance->updateReportBranding($workspace_uuid, $report_branding_input);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AnalyticsApi->updateReportBranding: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **workspace_uuid** | **string**| UUID of the workspace. | |
+| **report_branding_input** | [**\PostBoostClient\Model\ReportBrandingInput**](../Model/ReportBrandingInput.md)|  | |
+
+### Return type
+
+[**\PostBoostClient\Model\GetReportBranding200Response**](../Model/GetReportBranding200Response.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `uploadReportBrandingLogo()`
+
+```php
+uploadReportBrandingLogo($workspace_uuid, $logo): \PostBoostClient\Model\GetReportBranding200Response
+```
+
+Upload the report logo
+
+PNG or JPEG, up to 1 MB (SVG is not accepted). Replaces the current logo. Admins and members only.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PostBoostClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PostBoostClient\Api\AnalyticsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
+$logo = "/path/to/file.txt"; // \SplFileObject
+
+try {
+    $result = $apiInstance->uploadReportBrandingLogo($workspace_uuid, $logo);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AnalyticsApi->uploadReportBrandingLogo: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **workspace_uuid** | **string**| UUID of the workspace. | |
+| **logo** | **\SplFileObject****\SplFileObject**|  | |
+
+### Return type
+
+[**\PostBoostClient\Model\GetReportBranding200Response**](../Model/GetReportBranding200Response.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `multipart/form-data`
 - **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)

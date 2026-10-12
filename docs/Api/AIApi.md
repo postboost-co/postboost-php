@@ -5,11 +5,17 @@ All URIs are relative to https://postboost.co/app/api, except if the operation d
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
 | [**blogToSocial()**](AIApi.md#blogToSocial) | **POST** /{workspaceUuid}/ai/blog-to-social | Generate social media captions from a blog post |
+| [**deleteBrandVoice()**](AIApi.md#deleteBrandVoice) | **DELETE** /{workspaceUuid}/brand-voice | Delete the brand voice |
+| [**getAIUsage()**](AIApi.md#getAIUsage) | **GET** /{workspaceUuid}/usage/ai | AI credit usage |
+| [**getBrandVoice()**](AIApi.md#getBrandVoice) | **GET** /{workspaceUuid}/brand-voice | Get the brand voice |
 | [**imageAltText()**](AIApi.md#imageAltText) | **POST** /{workspaceUuid}/ai/image-alt-text | Generate alt text for a media image using AI |
 | [**imageEdit()**](AIApi.md#imageEdit) | **POST** /{workspaceUuid}/ai/image-edit | Edit an existing media image using AI |
 | [**imageGenerate()**](AIApi.md#imageGenerate) | **POST** /{workspaceUuid}/ai/image-generate | Generate social media images from a caption |
 | [**imagePrompt()**](AIApi.md#imagePrompt) | **POST** /{workspaceUuid}/ai/image-prompt | Build an optimized image prompt from a social media caption |
 | [**imageVariations()**](AIApi.md#imageVariations) | **POST** /{workspaceUuid}/ai/image-variations | Generate variations of an existing media image |
+| [**learnBrandVoice()**](AIApi.md#learnBrandVoice) | **POST** /{workspaceUuid}/brand-voice/learn | Learn a brand voice from past posts |
+| [**repurposeContent()**](AIApi.md#repurposeContent) | **POST** /{workspaceUuid}/ai/repurpose | Repurpose long-form content into a draft post set with a carousel |
+| [**updateBrandVoice()**](AIApi.md#updateBrandVoice) | **PUT** /{workspaceUuid}/brand-voice | Create or update the brand voice |
 
 
 ## `blogToSocial()`
@@ -68,6 +74,186 @@ try {
 ### HTTP request headers
 
 - **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `deleteBrandVoice()`
+
+```php
+deleteBrandVoice($workspace_uuid): object
+```
+
+Delete the brand voice
+
+Removes the workspace's brand voice. AI endpoints then run without one. Admins and members only.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PostBoostClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PostBoostClient\Api\AIApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
+
+try {
+    $result = $apiInstance->deleteBrandVoice($workspace_uuid);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AIApi->deleteBrandVoice: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **workspace_uuid** | **string**| UUID of the workspace. | |
+
+### Return type
+
+**object**
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getAIUsage()`
+
+```php
+getAIUsage($workspace_uuid): \PostBoostClient\Model\AIUsage
+```
+
+AI credit usage
+
+The workspace's AI credits: text credits (captions, rewrites, outlines, alt text; counted per billing cycle) and image credits (one per generated, edited or varied image, and one per repurpose carousel; counted per calendar month, UTC). `limit` and `remaining` are `null` when the workspace has no limit. Readable when credits are used up; costs nothing.  When image credits run out, the image endpoints and carousels answer `429` with `code: image_credits_exhausted`; when text credits run out, the AI endpoints answer `429` with `code: ai_credits_exhausted`. Image endpoint responses also carry `image_credits_used` and `image_credits_remaining`; their `credits_used` counts text credits only. If the image pool is switched off (`image.enabled: false`), images cost text credits as before.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PostBoostClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PostBoostClient\Api\AIApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
+
+try {
+    $result = $apiInstance->getAIUsage($workspace_uuid);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AIApi->getAIUsage: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **workspace_uuid** | **string**| UUID of the workspace. | |
+
+### Return type
+
+[**\PostBoostClient\Model\AIUsage**](../Model/AIUsage.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getBrandVoice()`
+
+```php
+getBrandVoice($workspace_uuid): \PostBoostClient\Model\GetBrandVoice200Response
+```
+
+Get the brand voice
+
+The workspace's brand voice: identity, audience, tone sliders, style rules and example posts. It is the same profile as the Brand Voice page in the app (one per workspace). `data` is `null` when no voice is set. Any workspace member may read it; reading costs no AI credits.  The AI endpoints apply it automatically: `blog-to-social` adds it to the caption instructions, `image-prompt` and `image-generate` turn it into a short visual tone line, and `image-edit` applies it when you send `use_brand_voice: true`. `image-variations` and `image-alt-text` never use it (alt text must describe the image literally). Send `use_brand_voice: false` to skip it on a call; responses report `meta.brand_voice_applied`.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PostBoostClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PostBoostClient\Api\AIApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
+
+try {
+    $result = $apiInstance->getBrandVoice($workspace_uuid);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AIApi->getBrandVoice: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **workspace_uuid** | **string**| UUID of the workspace. | |
+
+### Return type
+
+[**\PostBoostClient\Model\GetBrandVoice200Response**](../Model/GetBrandVoice200Response.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
@@ -370,6 +556,194 @@ try {
 ### Return type
 
 [**\PostBoostClient\Model\ImageVariations200Response**](../Model/ImageVariations200Response.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `learnBrandVoice()`
+
+```php
+learnBrandVoice($workspace_uuid, $learn_brand_voice_input): \PostBoostClient\Model\LearnBrandVoiceResponse
+```
+
+Learn a brand voice from past posts
+
+Reads the workspace's latest published posts (original text) and proposes a brand voice in the same shape as `GET /brand-voice`. Returns a draft and saves nothing unless `apply: true`.  Without `overwrite`, learned values only fill fields that are empty (tone sliders and styles still at their defaults count as empty); with `overwrite: true` they replace them. The first five sampled posts become `example_posts`. Needs at least 3 published posts (`422`, `code: not_enough_posts`). Costs one AI text credit per AI call (one retry when the reply is not usable). Admins and members only. A key limited to some accounts must send `account_ids`; only posts whose accounts are all among them are read. `apply` also needs the `write` ability.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PostBoostClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PostBoostClient\Api\AIApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
+$learn_brand_voice_input = new \PostBoostClient\Model\LearnBrandVoiceInput(); // \PostBoostClient\Model\LearnBrandVoiceInput
+
+try {
+    $result = $apiInstance->learnBrandVoice($workspace_uuid, $learn_brand_voice_input);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AIApi->learnBrandVoice: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **workspace_uuid** | **string**| UUID of the workspace. | |
+| **learn_brand_voice_input** | [**\PostBoostClient\Model\LearnBrandVoiceInput**](../Model/LearnBrandVoiceInput.md)|  | [optional] |
+
+### Return type
+
+[**\PostBoostClient\Model\LearnBrandVoiceResponse**](../Model/LearnBrandVoiceResponse.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `repurposeContent()`
+
+```php
+repurposeContent($workspace_uuid, $repurpose_input, $idempotency_key): \PostBoostClient\Model\RepurposeContent200Response
+```
+
+Repurpose long-form content into a draft post set with a carousel
+
+Turns an article URL, a YouTube video, a PDF or pasted text into one **draft** post with a caption for every target account, plus a carousel of rendered slide images (hook, 1 to 6 idea slides, call to action; 1080×1350 PNG). Nothing is published or scheduled.  **Sources** (`source_type`): - `url`: the article is fetched and its main text extracted. - `youtube`: title, description and chapters come from YouTube; send the transcript in   `transcript` for better results (required when the description is short). - `pdf`: `pdf_url` must be a public PDF of at most 20 MB; the first 30 pages are read. - `text`: send `title` and `text`.  **Carousel per network**: Instagram, Facebook, Threads up to 10 slides; LinkedIn up to 9; X and Bluesky up to 4; other networks get the cover slide; YouTube and TikTok get none (listed in `warnings`). Without a carousel, the source image (article image or video thumbnail) is attached when available.  **AI credits**: one per target account plus one for the carousel outline. Slides are drawn without AI and cost nothing. The workspace brand voice applies unless `use_brand_voice` is `false`. Send an `Idempotency-Key` so a retried call does not create a second draft. Limited to 10 calls per minute.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PostBoostClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PostBoostClient\Api\AIApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
+$repurpose_input = {"source_type":"url","url":"https://example.com/blog/my-post","platforms":["instagram","linkedin_page"],"slide_count":7}; // \PostBoostClient\Model\RepurposeInput
+$idempotency_key = 'idempotency_key_example'; // string | Unique key (for example a UUID) that makes the request safe to retry. A repeat with the same key and body within 24 hours returns the stored response with `Idempotent-Replayed: true` and has no further effect. Keys are scoped to your user, the workspace, the method and the path.
+
+try {
+    $result = $apiInstance->repurposeContent($workspace_uuid, $repurpose_input, $idempotency_key);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AIApi->repurposeContent: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **workspace_uuid** | **string**| UUID of the workspace. | |
+| **repurpose_input** | [**\PostBoostClient\Model\RepurposeInput**](../Model/RepurposeInput.md)|  | |
+| **idempotency_key** | **string**| Unique key (for example a UUID) that makes the request safe to retry. A repeat with the same key and body within 24 hours returns the stored response with &#x60;Idempotent-Replayed: true&#x60; and has no further effect. Keys are scoped to your user, the workspace, the method and the path. | [optional] |
+
+### Return type
+
+[**\PostBoostClient\Model\RepurposeContent200Response**](../Model/RepurposeContent200Response.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `updateBrandVoice()`
+
+```php
+updateBrandVoice($workspace_uuid, $brand_voice_input): \PostBoostClient\Model\GetBrandVoice200Response
+```
+
+Create or update the brand voice
+
+Creates the workspace's brand voice or updates it. Fields you leave out keep their current value. Admins and members only (not viewers); the workspace must have AI enabled.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PostBoostClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PostBoostClient\Api\AIApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
+$brand_voice_input = {"business_name":"Northwind Coffee","industry":"Specialty coffee roasting","personality":"Warm and curious about every bean. Never pushy.","audience":["home baristas","cafe owners"],"tone_formal":2,"tone_playful":4,"tone_technical":3,"emoji_style":"rare","hashtag_strategy":"branded","avoid_words":["cheap","best ever"]}; // \PostBoostClient\Model\BrandVoiceInput
+
+try {
+    $result = $apiInstance->updateBrandVoice($workspace_uuid, $brand_voice_input);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AIApi->updateBrandVoice: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **workspace_uuid** | **string**| UUID of the workspace. | |
+| **brand_voice_input** | [**\PostBoostClient\Model\BrandVoiceInput**](../Model/BrandVoiceInput.md)|  | |
+
+### Return type
+
+[**\PostBoostClient\Model\GetBrandVoice200Response**](../Model/GetBrandVoice200Response.md)
 
 ### Authorization
 
