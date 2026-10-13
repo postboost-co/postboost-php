@@ -208,7 +208,7 @@ class PostsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PostBoostClient\Model\ScheduleResult|object|object|object|object
+     * @return \PostBoostClient\Model\ScheduleResult|object|object|object|\PostBoostClient\Model\GuardrailError|object|\PostBoostClient\Model\GuardrailError
      */
     public function addPostToQueue($workspace_uuid, $post_uuid, $idempotency_key = null, $add_post_to_queue_request = null, string $contentType = self::contentTypes['addPostToQueue'][0])
     {
@@ -229,7 +229,7 @@ class PostsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PostBoostClient\Model\ScheduleResult|object|object|object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PostBoostClient\Model\ScheduleResult|object|object|object|\PostBoostClient\Model\GuardrailError|object|\PostBoostClient\Model\GuardrailError, HTTP status code, HTTP response headers (array of strings)
      */
     public function addPostToQueueWithHttpInfo($workspace_uuid, $post_uuid, $idempotency_key = null, $add_post_to_queue_request = null, string $contentType = self::contentTypes['addPostToQueue'][0])
     {
@@ -367,6 +367,33 @@ class PostsApi
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
+                case 409:
+                    if ('\PostBoostClient\Model\GuardrailError' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\PostBoostClient\Model\GuardrailError' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\PostBoostClient\Model\GuardrailError', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 case 422:
                     if ('object' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -391,6 +418,33 @@ class PostsApi
 
                     return [
                         ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 429:
+                    if ('\PostBoostClient\Model\GuardrailError' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\PostBoostClient\Model\GuardrailError' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\PostBoostClient\Model\GuardrailError', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -471,10 +525,26 @@ class PostsApi
                     );
                     $e->setResponseObject($data);
                     break;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\PostBoostClient\Model\GuardrailError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
                 case 422:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\PostBoostClient\Model\GuardrailError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -9146,7 +9216,7 @@ class PostsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \PostBoostClient\Model\ScheduleResult|object|object|object|object
+     * @return \PostBoostClient\Model\ScheduleResult|object|object|object|\PostBoostClient\Model\GuardrailError|object|\PostBoostClient\Model\GuardrailError
      */
     public function schedulePost($workspace_uuid, $post_uuid, $schedule_post_request, $idempotency_key = null, string $contentType = self::contentTypes['schedulePost'][0])
     {
@@ -9167,7 +9237,7 @@ class PostsApi
      *
      * @throws \PostBoostClient\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \PostBoostClient\Model\ScheduleResult|object|object|object|object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \PostBoostClient\Model\ScheduleResult|object|object|object|\PostBoostClient\Model\GuardrailError|object|\PostBoostClient\Model\GuardrailError, HTTP status code, HTTP response headers (array of strings)
      */
     public function schedulePostWithHttpInfo($workspace_uuid, $post_uuid, $schedule_post_request, $idempotency_key = null, string $contentType = self::contentTypes['schedulePost'][0])
     {
@@ -9305,6 +9375,33 @@ class PostsApi
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
+                case 409:
+                    if ('\PostBoostClient\Model\GuardrailError' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\PostBoostClient\Model\GuardrailError' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\PostBoostClient\Model\GuardrailError', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 case 422:
                     if ('object' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
@@ -9329,6 +9426,33 @@ class PostsApi
 
                     return [
                         ObjectSerializer::deserialize($content, 'object', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 429:
+                    if ('\PostBoostClient\Model\GuardrailError' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ('\PostBoostClient\Model\GuardrailError' !== 'string') {
+                            try {
+                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                            } catch (\JsonException $exception) {
+                                throw new ApiException(
+                                    sprintf(
+                                        'Error JSON decoding server response (%s)',
+                                        $request->getUri()
+                                    ),
+                                    $statusCode,
+                                    $response->getHeaders(),
+                                    $content
+                                );
+                            }
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\PostBoostClient\Model\GuardrailError', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -9409,10 +9533,26 @@ class PostsApi
                     );
                     $e->setResponseObject($data);
                     break;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\PostBoostClient\Model\GuardrailError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
                 case 422:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\PostBoostClient\Model\GuardrailError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
