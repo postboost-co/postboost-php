@@ -9,5 +9,6 @@ Name | Type | Description | Notes
 **banned_phrases** | **string[]** | Phrases to propose removing from captions. | [optional]
 **ai_review** | **bool** | Ask AI to review captions (one AI credit per reviewed post). | [optional] [default to false]
 **max_ai_reviews_per_run** | **int** |  | [optional] [default to 10]
+**lookback_hours** | **int** | Look at posts that failed within this many hours. | [optional] [default to 24]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)
