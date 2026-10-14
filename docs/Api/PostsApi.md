@@ -166,7 +166,7 @@ try {
 ## `createPost()`
 
 ```php
-createPost($workspace_uuid, $post_input, $idempotency_key): \PostBoostClient\Model\Post
+createPost($workspace_uuid, $post_input, $idempotency_key): \PostBoostClient\Model\CreatePost201Response
 ```
 
 Create post
@@ -212,7 +212,7 @@ try {
 
 ### Return type
 
-[**\PostBoostClient\Model\Post**](../Model/Post.md)
+[**\PostBoostClient\Model\CreatePost201Response**](../Model/CreatePost201Response.md)
 
 ### Authorization
 
@@ -1350,7 +1350,7 @@ try {
 ## `updatePost()`
 
 ```php
-updatePost($workspace_uuid, $post_uuid, $post_input): object
+updatePost($workspace_uuid, $post_uuid, $post_input): \PostBoostClient\Model\UpdatePost200Response
 ```
 
 Update post
@@ -1396,7 +1396,7 @@ try {
 
 ### Return type
 
-**object**
+[**\PostBoostClient\Model\UpdatePost200Response**](../Model/UpdatePost200Response.md)
 
 ### Authorization
 
