@@ -13,7 +13,7 @@ composer require postboost/php-sdk
 | **Packagist** | [packagist.org/packages/postboost/php-sdk](https://packagist.org/packages/postboost/php-sdk) |
 | **GitHub** | [postboost-co/postboost-php](https://github.com/postboost-co/postboost-php) |
 | **Docs** | [postboost.co/docs/api](https://postboost.co/docs/api) |
-| **Version** | v1.18.0 |
+| **Version** | v1.19.0 |
 
 ## Quick start
 
@@ -43,6 +43,7 @@ Class | Method | HTTP request | Description
 *AIApi* | [**deleteBrandVoice**](docs/Api/AIApi.md#deletebrandvoice) | **DELETE** /{workspaceUuid}/brand-voice | Delete the brand voice
 *AIApi* | [**getAIUsage**](docs/Api/AIApi.md#getaiusage) | **GET** /{workspaceUuid}/usage/ai | AI credit usage
 *AIApi* | [**getBrandVoice**](docs/Api/AIApi.md#getbrandvoice) | **GET** /{workspaceUuid}/brand-voice | Get the brand voice
+*AIApi* | [**getRepurposeRun**](docs/Api/AIApi.md#getrepurposerun) | **GET** /{workspaceUuid}/ai/repurpose/runs/{runId} | Get a repurpose run
 *AIApi* | [**imageAltText**](docs/Api/AIApi.md#imagealttext) | **POST** /{workspaceUuid}/ai/image-alt-text | Generate alt text for a media image using AI
 *AIApi* | [**imageEdit**](docs/Api/AIApi.md#imageedit) | **POST** /{workspaceUuid}/ai/image-edit | Edit an existing media image using AI
 *AIApi* | [**imageGenerate**](docs/Api/AIApi.md#imagegenerate) | **POST** /{workspaceUuid}/ai/image-generate | Generate social media images from a caption

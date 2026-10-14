@@ -23,5 +23,6 @@ Name | Type | Description | Notes
 **theme** | [**\PostBoostClient\Model\RepurposeInputTheme**](RepurposeInputTheme.md) |  | [optional]
 **create_post** | **bool** | Create the draft post. &#x60;false&#x60; returns captions and slides only. | [optional] [default to true]
 **use_brand_voice** | **bool** |  | [optional] [default to true]
+**async** | **bool** | Answer &#x60;202&#x60; with a run id right away instead of waiting up to 20 seconds for the result. | [optional] [default to false]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)
