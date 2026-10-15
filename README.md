@@ -13,7 +13,7 @@ composer require postboost/php-sdk
 | **Packagist** | [packagist.org/packages/postboost/php-sdk](https://packagist.org/packages/postboost/php-sdk) |
 | **GitHub** | [postboost-co/postboost-php](https://github.com/postboost-co/postboost-php) |
 | **Docs** | [postboost.co/docs/api](https://postboost.co/docs/api) |
-| **Version** | v1.26.2 |
+| **Version** | v1.27.0 |
 
 ## Quick start
 
@@ -92,6 +92,7 @@ Class | Method | HTTP request | Description
 *CompetitorsApi* | [**listCompetitors**](docs/Api/CompetitorsApi.md#listcompetitors) | **GET** /{workspaceUuid}/competitors | List competitors
 *FreeToolsApi* | [**buildUtmUrl**](docs/Api/FreeToolsApi.md#buildutmurl) | **POST** /tools/utm-builder | Build a UTM-tagged campaign URL
 *FreeToolsApi* | [**calculateEngagementRate**](docs/Api/FreeToolsApi.md#calculateengagementrate) | **POST** /tools/engagement-rate-calculator | Calculate an engagement rate
+*FreeToolsApi* | [**checkPost**](docs/Api/FreeToolsApi.md#checkpost) | **POST** /tools/social-media-post-checker | Check a post against each network&#39;s publishing rules
 *FreeToolsApi* | [**cleanText**](docs/Api/FreeToolsApi.md#cleantext) | **POST** /tools/ai-text-cleaner | Clean AI-written text: dashes, quotes, invisible characters, markdown
 *FreeToolsApi* | [**countCharacters**](docs/Api/FreeToolsApi.md#countcharacters) | **POST** /tools/social-media-character-counter | Count characters as each network counts them
 *FreeToolsApi* | [**formatLinkedInPost**](docs/Api/FreeToolsApi.md#formatlinkedinpost) | **POST** /tools/linkedin-post-formatter | Format a LinkedIn post with bold, italic and lists
