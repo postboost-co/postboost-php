@@ -10,7 +10,9 @@ All URIs are relative to https://postboost.co/app/api, except if the operation d
 | [**cleanText()**](FreeToolsApi.md#cleanText) | **POST** /tools/ai-text-cleaner | Clean AI-written text: dashes, quotes, invisible characters, markdown |
 | [**countCharacters()**](FreeToolsApi.md#countCharacters) | **POST** /tools/social-media-character-counter | Count characters as each network counts them |
 | [**formatLinkedInPost()**](FreeToolsApi.md#formatLinkedInPost) | **POST** /tools/linkedin-post-formatter | Format a LinkedIn post with bold, italic and lists |
+| [**generateCaption()**](FreeToolsApi.md#generateCaption) | **POST** /tools/instagram-caption-generator | Write three post captions for a topic with AI (needs a token, spends AI credits) |
 | [**generateFancyText()**](FreeToolsApi.md#generateFancyText) | **POST** /tools/fancy-text-generator | Convert text to fancy Unicode styles |
+| [**generateHashtags()**](FreeToolsApi.md#generateHashtags) | **POST** /tools/instagram-hashtag-generator | Generate hashtags for a post topic with AI (needs a token, spends AI credits) |
 | [**listFreeTools()**](FreeToolsApi.md#listFreeTools) | **GET** /tools | List the free tools |
 | [**splitThread()**](FreeToolsApi.md#splitThread) | **POST** /tools/x-thread-maker | Split long text into a thread |
 
@@ -351,6 +353,66 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `generateCaption()`
+
+```php
+generateCaption($free_tool_generate_caption_request): \PostBoostClient\Model\FreeToolGenerateCaptionResponse
+```
+
+Write three post captions for a topic with AI (needs a token, spends AI credits)
+
+Write three post captions for a topic with AI (needs a token, spends AI credits). The same logic as the free web tool at https://postboost.co/tools/instagram-caption-generator. Needs an API token (a scoped key needs the `ai` ability and pays with its own workspace). A new generation spends 1 AI credit of the workspace you name (or your active workspace); a repeated identical request is answered from the cache for free.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PostBoostClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PostBoostClient\Api\FreeToolsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$free_tool_generate_caption_request = {"text":"Weekend sale on all candles","network":"instagram","tone":"playful","hashtags":true}; // \PostBoostClient\Model\FreeToolGenerateCaptionRequest
+
+try {
+    $result = $apiInstance->generateCaption($free_tool_generate_caption_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling FreeToolsApi->generateCaption: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **free_tool_generate_caption_request** | [**\PostBoostClient\Model\FreeToolGenerateCaptionRequest**](../Model/FreeToolGenerateCaptionRequest.md)|  | |
+
+### Return type
+
+[**\PostBoostClient\Model\FreeToolGenerateCaptionResponse**](../Model/FreeToolGenerateCaptionResponse.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `generateFancyText()`
 
 ```php
@@ -397,6 +459,66 @@ try {
 ### Authorization
 
 No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `generateHashtags()`
+
+```php
+generateHashtags($free_tool_generate_hashtags_request): \PostBoostClient\Model\FreeToolGenerateHashtagsResponse
+```
+
+Generate hashtags for a post topic with AI (needs a token, spends AI credits)
+
+Generate hashtags for a post topic with AI (needs a token, spends AI credits). The same logic as the free web tool at https://postboost.co/tools/instagram-hashtag-generator. Needs an API token (a scoped key needs the `ai` ability and pays with its own workspace). A new generation spends 1 AI credit of the workspace you name (or your active workspace); a repeated identical request is answered from the cache for free.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PostBoostClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PostBoostClient\Api\FreeToolsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$free_tool_generate_hashtags_request = {"topic":"Morning routine for busy founders","network":"instagram"}; // \PostBoostClient\Model\FreeToolGenerateHashtagsRequest
+
+try {
+    $result = $apiInstance->generateHashtags($free_tool_generate_hashtags_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling FreeToolsApi->generateHashtags: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **free_tool_generate_hashtags_request** | [**\PostBoostClient\Model\FreeToolGenerateHashtagsRequest**](../Model/FreeToolGenerateHashtagsRequest.md)|  | |
+
+### Return type
+
+[**\PostBoostClient\Model\FreeToolGenerateHashtagsResponse**](../Model/FreeToolGenerateHashtagsResponse.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
 
 ### HTTP request headers
 
