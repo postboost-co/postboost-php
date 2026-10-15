@@ -5,6 +5,7 @@ All URIs are relative to https://postboost.co/app/api, except if the operation d
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
 | [**connectChannel()**](AccountsApi.md#connectChannel) | **POST** /{workspaceUuid}/accounts/connect/{provider} | Connect a Telegram, Discord or Slack channel |
+| [**createConnectLink()**](AccountsApi.md#createConnectLink) | **POST** /{workspaceUuid}/accounts/connect-links | Create a connect link |
 | [**createReconnectLink()**](AccountsApi.md#createReconnectLink) | **POST** /{workspaceUuid}/accounts/{accountUuid}/reconnect-links | Create a reconnect link |
 | [**getAccount()**](AccountsApi.md#getAccount) | **GET** /{workspaceUuid}/accounts/{accountUuid} | Get account |
 | [**getAccountHealth()**](AccountsApi.md#getAccountHealth) | **GET** /{workspaceUuid}/account-health | Account health |
@@ -61,6 +62,68 @@ try {
 ### Return type
 
 [**\PostBoostClient\Model\ChannelAccount**](../Model/ChannelAccount.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `createConnectLink()`
+
+```php
+createConnectLink($workspace_uuid, $create_connect_link_request): \PostBoostClient\Model\ConnectLink
+```
+
+Create a connect link
+
+Creates a single-use link (valid 15 minutes) that lets the user connect a new account on an OAuth network to this workspace. Ask the user to open this link in their browser while logged in to PostBoost, wait until they confirm, then call `list-accounts` to get the new account id. The link signs no one in: only the user who created it, while a workspace admin, can use it. Telegram, Discord and Slack need no browser: connect them with `connectChannel`. Mastodon, Pixelfed and Bluesky ask for a server or handle first, so the user connects them in the app. Workspace admins only; at most 10 links per minute.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PostBoostClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PostBoostClient\Api\AccountsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$workspace_uuid = 'workspace_uuid_example'; // string | UUID of the workspace.
+$create_connect_link_request = new \PostBoostClient\Model\CreateConnectLinkRequest(); // \PostBoostClient\Model\CreateConnectLinkRequest
+
+try {
+    $result = $apiInstance->createConnectLink($workspace_uuid, $create_connect_link_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AccountsApi->createConnectLink: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **workspace_uuid** | **string**| UUID of the workspace. | |
+| **create_connect_link_request** | [**\PostBoostClient\Model\CreateConnectLinkRequest**](../Model/CreateConnectLinkRequest.md)|  | |
+
+### Return type
+
+[**\PostBoostClient\Model\ConnectLink**](../Model/ConnectLink.md)
 
 ### Authorization
 
