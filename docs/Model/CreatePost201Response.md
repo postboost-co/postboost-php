@@ -11,9 +11,9 @@ Name | Type | Description | Notes
 **accounts** | [**\PostBoostClient\Model\Account[]**](Account.md) |  |
 **versions** | [**\PostBoostClient\Model\PostVersion[]**](PostVersion.md) |  |
 **tags** | [**\PostBoostClient\Model\Tag[]**](Tag.md) |  |
-**scheduled_at** | **\DateTime** |  | [optional]
-**published_at** | **\DateTime** |  | [optional]
-**created_at** | **\DateTime** |  |
+**scheduled_at** | **string** | &#x60;Y-m-d H:i:s&#x60; in UTC (not RFC 3339). | [optional]
+**published_at** | **string** | &#x60;Y-m-d H:i:s&#x60; in UTC (not RFC 3339). | [optional]
+**created_at** | **string** | &#x60;Y-m-d H:i:s&#x60; in UTC (not RFC 3339). |
 **trashed** | **bool** |  |
 **warnings** | [**\PostBoostClient\Model\PostWarning[]**](PostWarning.md) | Present only when there is at least one warning. | [optional]
 
