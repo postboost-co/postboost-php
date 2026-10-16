@@ -15,6 +15,7 @@ All URIs are relative to https://postboost.co/app/api, except if the operation d
 | [**generateCaption()**](FreeToolsApi.md#generateCaption) | **POST** /tools/instagram-caption-generator | Write three post captions for a topic with AI (needs a token, spends AI credits) |
 | [**generateFancyText()**](FreeToolsApi.md#generateFancyText) | **POST** /tools/fancy-text-generator | Convert text to fancy Unicode styles |
 | [**generateHashtags()**](FreeToolsApi.md#generateHashtags) | **POST** /tools/instagram-hashtag-generator | Generate hashtags for a post topic with AI (needs a token, spends AI credits) |
+| [**generateQrCode()**](FreeToolsApi.md#generateQrCode) | **POST** /tools/qr-code-generator | Generate a QR code (SVG) for a link or text, with optional UTM tags |
 | [**getBestTimesToPost()**](FreeToolsApi.md#getBestTimesToPost) | **GET** /tools/best-time-to-post | Get the best times to post per network from published studies, with sources |
 | [**getImageSizes()**](FreeToolsApi.md#getImageSizes) | **GET** /tools/social-media-image-sizes | Get social media image sizes per network, each with its source |
 | [**listFreeTools()**](FreeToolsApi.md#listFreeTools) | **GET** /tools | List the free tools |
@@ -636,6 +637,62 @@ try {
 ### Authorization
 
 [bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `generateQrCode()`
+
+```php
+generateQrCode($free_tool_generate_qr_code_request): \PostBoostClient\Model\FreeToolGenerateQrCodeResponse
+```
+
+Generate a QR code (SVG) for a link or text, with optional UTM tags
+
+Generate a QR code (SVG) for a link or text, with optional UTM tags. The same logic as the free web tool at https://postboost.co/tools/qr-code-generator. No account needed: call it without a token, or with any API token.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new PostBoostClient\Api\FreeToolsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$free_tool_generate_qr_code_request = {"data":"https://postboost.co","utm":{"source":"flyer"},"size":128}; // \PostBoostClient\Model\FreeToolGenerateQrCodeRequest
+
+try {
+    $result = $apiInstance->generateQrCode($free_tool_generate_qr_code_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling FreeToolsApi->generateQrCode: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **free_tool_generate_qr_code_request** | [**\PostBoostClient\Model\FreeToolGenerateQrCodeRequest**](../Model/FreeToolGenerateQrCodeRequest.md)|  | |
+
+### Return type
+
+[**\PostBoostClient\Model\FreeToolGenerateQrCodeResponse**](../Model/FreeToolGenerateQrCodeResponse.md)
+
+### Authorization
+
+No authorization required
 
 ### HTTP request headers
 

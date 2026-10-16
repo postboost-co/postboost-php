@@ -13,7 +13,7 @@ composer require postboost/php-sdk
 | **Packagist** | [packagist.org/packages/postboost/php-sdk](https://packagist.org/packages/postboost/php-sdk) |
 | **GitHub** | [postboost-co/postboost-php](https://github.com/postboost-co/postboost-php) |
 | **Docs** | [postboost.co/docs/api](https://postboost.co/docs/api) |
-| **Version** | v1.34.0 |
+| **Version** | v1.35.0 |
 
 ## Quick start
 
@@ -101,6 +101,7 @@ Class | Method | HTTP request | Description
 *FreeToolsApi* | [**generateCaption**](docs/Api/FreeToolsApi.md#generatecaption) | **POST** /tools/instagram-caption-generator | Write three post captions for a topic with AI (needs a token, spends AI credits)
 *FreeToolsApi* | [**generateFancyText**](docs/Api/FreeToolsApi.md#generatefancytext) | **POST** /tools/fancy-text-generator | Convert text to fancy Unicode styles
 *FreeToolsApi* | [**generateHashtags**](docs/Api/FreeToolsApi.md#generatehashtags) | **POST** /tools/instagram-hashtag-generator | Generate hashtags for a post topic with AI (needs a token, spends AI credits)
+*FreeToolsApi* | [**generateQrCode**](docs/Api/FreeToolsApi.md#generateqrcode) | **POST** /tools/qr-code-generator | Generate a QR code (SVG) for a link or text, with optional UTM tags
 *FreeToolsApi* | [**getBestTimesToPost**](docs/Api/FreeToolsApi.md#getbesttimestopost) | **GET** /tools/best-time-to-post | Get the best times to post per network from published studies, with sources
 *FreeToolsApi* | [**getImageSizes**](docs/Api/FreeToolsApi.md#getimagesizes) | **GET** /tools/social-media-image-sizes | Get social media image sizes per network, each with its source
 *FreeToolsApi* | [**listFreeTools**](docs/Api/FreeToolsApi.md#listfreetools) | **GET** /tools | List the free tools
