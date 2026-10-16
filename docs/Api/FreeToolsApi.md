@@ -8,6 +8,7 @@ All URIs are relative to https://postboost.co/app/api, except if the operation d
 | [**calculateAspectRatio()**](FreeToolsApi.md#calculateAspectRatio) | **POST** /tools/aspect-ratio-calculator | Calculate an aspect ratio, or the missing side of an image at a given ratio |
 | [**calculateCrop()**](FreeToolsApi.md#calculateCrop) | **POST** /tools/social-media-image-sizes/crop | Calculate the crop box that fits an image to a social media size |
 | [**calculateEngagementRate()**](FreeToolsApi.md#calculateEngagementRate) | **POST** /tools/engagement-rate-calculator | Calculate an engagement rate |
+| [**checkLinkPreview()**](FreeToolsApi.md#checkLinkPreview) | **POST** /tools/link-preview-checker | Check how a link previews on X, LinkedIn, Facebook and chat apps (Open Graph and Twitter card tags) |
 | [**checkPost()**](FreeToolsApi.md#checkPost) | **POST** /tools/social-media-post-checker | Check a post against each network&#39;s publishing rules |
 | [**cleanText()**](FreeToolsApi.md#cleanText) | **POST** /tools/ai-text-cleaner | Clean AI-written text: dashes, quotes, invisible characters, markdown |
 | [**countCharacters()**](FreeToolsApi.md#countCharacters) | **POST** /tools/social-media-character-counter | Count characters as each network counts them |
@@ -233,6 +234,62 @@ try {
 ### Return type
 
 [**\PostBoostClient\Model\FreeToolCalculateEngagementRateResponse**](../Model/FreeToolCalculateEngagementRateResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `checkLinkPreview()`
+
+```php
+checkLinkPreview($free_tool_check_link_preview_request): \PostBoostClient\Model\FreeToolCheckLinkPreviewResponse
+```
+
+Check how a link previews on X, LinkedIn, Facebook and chat apps (Open Graph and Twitter card tags)
+
+Check how a link previews on X, LinkedIn, Facebook and chat apps (Open Graph and Twitter card tags). The same logic as the free web tool at https://postboost.co/tools/link-preview-checker. No account needed: call it without a token, or with any API token.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new PostBoostClient\Api\FreeToolsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$free_tool_check_link_preview_request = {"url":"https://example.com/features"}; // \PostBoostClient\Model\FreeToolCheckLinkPreviewRequest
+
+try {
+    $result = $apiInstance->checkLinkPreview($free_tool_check_link_preview_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling FreeToolsApi->checkLinkPreview: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **free_tool_check_link_preview_request** | [**\PostBoostClient\Model\FreeToolCheckLinkPreviewRequest**](../Model/FreeToolCheckLinkPreviewRequest.md)|  | |
+
+### Return type
+
+[**\PostBoostClient\Model\FreeToolCheckLinkPreviewResponse**](../Model/FreeToolCheckLinkPreviewResponse.md)
 
 ### Authorization
 
