@@ -19,6 +19,7 @@ All URIs are relative to https://postboost.co/app/api, except if the operation d
 | [**generateHashtags()**](FreeToolsApi.md#generateHashtags) | **POST** /tools/instagram-hashtag-generator | Generate hashtags for a post topic with AI (needs a token, spends AI credits) |
 | [**generateHooks()**](FreeToolsApi.md#generateHooks) | **POST** /tools/hook-generator | Generate hooks (opening lines) for a social media post with AI (needs a token, spends AI credits) |
 | [**generateQrCode()**](FreeToolsApi.md#generateQrCode) | **POST** /tools/qr-code-generator | Generate a QR code (SVG) for a link or text, with optional UTM tags |
+| [**generateSocialPostsFromBlog()**](FreeToolsApi.md#generateSocialPostsFromBlog) | **POST** /tools/blog-to-social-media | Turn a blog post (URL or text) into one social post per network with AI (needs a token, spends AI credits) |
 | [**getBestTimesToPost()**](FreeToolsApi.md#getBestTimesToPost) | **GET** /tools/best-time-to-post | Get the best times to post per network from published studies, with sources |
 | [**getHookTemplates()**](FreeToolsApi.md#getHookTemplates) | **GET** /tools/hook-generator/library | Get free hook templates for social media posts, filtered by style and network |
 | [**getImageSizes()**](FreeToolsApi.md#getImageSizes) | **GET** /tools/social-media-image-sizes | Get social media image sizes per network, each with its source |
@@ -870,6 +871,66 @@ try {
 ### Authorization
 
 No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `generateSocialPostsFromBlog()`
+
+```php
+generateSocialPostsFromBlog($free_tool_generate_social_posts_from_blog_request): \PostBoostClient\Model\FreeToolGenerateSocialPostsFromBlogResponse
+```
+
+Turn a blog post (URL or text) into one social post per network with AI (needs a token, spends AI credits)
+
+Turn a blog post (URL or text) into one social post per network with AI (needs a token, spends AI credits). The same logic as the free web tool at https://postboost.co/tools/blog-to-social-media. Needs an API token (a scoped key needs the `ai` ability and pays with its own workspace). Each post spends 1 AI credit of the workspace you name (or your active workspace), so a call costs one credit per platform that comes back; results are not cached.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PostBoostClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PostBoostClient\Api\FreeToolsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$free_tool_generate_social_posts_from_blog_request = {"url":"https://example.com/blog/utm-links","platforms":["x","linkedin"],"tone":"professional","hashtags":"few"}; // \PostBoostClient\Model\FreeToolGenerateSocialPostsFromBlogRequest
+
+try {
+    $result = $apiInstance->generateSocialPostsFromBlog($free_tool_generate_social_posts_from_blog_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling FreeToolsApi->generateSocialPostsFromBlog: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **free_tool_generate_social_posts_from_blog_request** | [**\PostBoostClient\Model\FreeToolGenerateSocialPostsFromBlogRequest**](../Model/FreeToolGenerateSocialPostsFromBlogRequest.md)|  | |
+
+### Return type
+
+[**\PostBoostClient\Model\FreeToolGenerateSocialPostsFromBlogResponse**](../Model/FreeToolGenerateSocialPostsFromBlogResponse.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
 
 ### HTTP request headers
 
