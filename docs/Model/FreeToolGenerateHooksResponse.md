@@ -1,0 +1,12 @@
+# # FreeToolGenerateHooksResponse
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**hooks** | [**\PostBoostClient\Model\FreeToolGenerateHooksResponseHooksInner[]**](FreeToolGenerateHooksResponseHooksInner.md) | &#x60;count&#x60; hooks in several styles. | [optional]
+**notice** | **string** | Only while AI is switched off: the hooks are templates from the free library (getHookTemplates) with the topic filled in, free of charge. | [optional]
+**credits_spent** | **int** | AI credits this call took from the workspace: 1, or 0 for a cached result. | [optional]
+**cached** | **bool** | True when the same request was answered before (free). | [optional]
+
+[[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)
