@@ -10,6 +10,7 @@ All URIs are relative to https://postboost.co/app/api, except if the operation d
 | [**calculateEngagementRate()**](FreeToolsApi.md#calculateEngagementRate) | **POST** /tools/engagement-rate-calculator | Calculate an engagement rate |
 | [**checkLinkPreview()**](FreeToolsApi.md#checkLinkPreview) | **POST** /tools/link-preview-checker | Check how a link previews on X, LinkedIn, Facebook and chat apps (Open Graph and Twitter card tags) |
 | [**checkPost()**](FreeToolsApi.md#checkPost) | **POST** /tools/social-media-post-checker | Check a post against each network&#39;s publishing rules |
+| [**checkYoutubeThumbnail()**](FreeToolsApi.md#checkYoutubeThumbnail) | **POST** /tools/youtube-thumbnail-size-checker | Check a YouTube thumbnail&#39;s ratio, width, file size and format against YouTube&#39;s requirements |
 | [**cleanText()**](FreeToolsApi.md#cleanText) | **POST** /tools/ai-text-cleaner | Clean AI-written text: dashes, quotes, invisible characters, markdown |
 | [**countCharacters()**](FreeToolsApi.md#countCharacters) | **POST** /tools/social-media-character-counter | Count characters as each network counts them |
 | [**formatLinkedInPost()**](FreeToolsApi.md#formatLinkedInPost) | **POST** /tools/linkedin-post-formatter | Format a LinkedIn post with bold, italic and lists |
@@ -21,6 +22,7 @@ All URIs are relative to https://postboost.co/app/api, except if the operation d
 | [**getBestTimesToPost()**](FreeToolsApi.md#getBestTimesToPost) | **GET** /tools/best-time-to-post | Get the best times to post per network from published studies, with sources |
 | [**getHookTemplates()**](FreeToolsApi.md#getHookTemplates) | **GET** /tools/hook-generator/library | Get free hook templates for social media posts, filtered by style and network |
 | [**getImageSizes()**](FreeToolsApi.md#getImageSizes) | **GET** /tools/social-media-image-sizes | Get social media image sizes per network, each with its source |
+| [**getVideoSpecs()**](FreeToolsApi.md#getVideoSpecs) | **GET** /tools/social-media-video-specs | Get social media video ratios, resolutions, lengths and file size limits per network, with sources |
 | [**listFreeTools()**](FreeToolsApi.md#listFreeTools) | **GET** /tools | List the free tools |
 | [**previewPost()**](FreeToolsApi.md#previewPost) | **POST** /tools/social-media-post-preview | Preview where a post folds and when its image is cropped on Instagram, X, LinkedIn and Facebook |
 | [**splitThread()**](FreeToolsApi.md#splitThread) | **POST** /tools/x-thread-maker | Split long text into a thread |
@@ -348,6 +350,62 @@ try {
 ### Return type
 
 [**\PostBoostClient\Model\FreeToolCheckPostResponse**](../Model/FreeToolCheckPostResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `checkYoutubeThumbnail()`
+
+```php
+checkYoutubeThumbnail($free_tool_check_youtube_thumbnail_request): \PostBoostClient\Model\FreeToolCheckYoutubeThumbnailResponse
+```
+
+Check a YouTube thumbnail's ratio, width, file size and format against YouTube's requirements
+
+Check a YouTube thumbnail's ratio, width, file size and format against YouTube's requirements. The same logic as the free web tool at https://postboost.co/tools/youtube-thumbnail-size-checker. No account needed: call it without a token, or with any API token.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new PostBoostClient\Api\FreeToolsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$free_tool_check_youtube_thumbnail_request = {"width":1280,"height":720,"file_size_bytes":921600,"format":"image/png"}; // \PostBoostClient\Model\FreeToolCheckYoutubeThumbnailRequest
+
+try {
+    $result = $apiInstance->checkYoutubeThumbnail($free_tool_check_youtube_thumbnail_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling FreeToolsApi->checkYoutubeThumbnail: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **free_tool_check_youtube_thumbnail_request** | [**\PostBoostClient\Model\FreeToolCheckYoutubeThumbnailRequest**](../Model/FreeToolCheckYoutubeThumbnailRequest.md)|  | |
+
+### Return type
+
+[**\PostBoostClient\Model\FreeToolCheckYoutubeThumbnailResponse**](../Model/FreeToolCheckYoutubeThumbnailResponse.md)
 
 ### Authorization
 
@@ -982,6 +1040,62 @@ try {
 ### Return type
 
 [**\PostBoostClient\Model\FreeToolGetImageSizesResponse**](../Model/FreeToolGetImageSizesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getVideoSpecs()`
+
+```php
+getVideoSpecs($network): \PostBoostClient\Model\FreeToolGetVideoSpecsResponse
+```
+
+Get social media video ratios, resolutions, lengths and file size limits per network, with sources
+
+Get social media video ratios, resolutions, lengths and file size limits per network, with sources. The same logic as the free web tool at https://postboost.co/tools/social-media-video-specs. No account needed: call it without a token, or with any API token.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new PostBoostClient\Api\FreeToolsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$network = 'network_example'; // string
+
+try {
+    $result = $apiInstance->getVideoSpecs($network);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling FreeToolsApi->getVideoSpecs: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **network** | **string**|  | [optional] |
+
+### Return type
+
+[**\PostBoostClient\Model\FreeToolGetVideoSpecsResponse**](../Model/FreeToolGetVideoSpecsResponse.md)
 
 ### Authorization
 
