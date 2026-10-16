@@ -5,6 +5,7 @@ All URIs are relative to https://postboost.co/app/api, except if the operation d
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
 | [**buildUtmUrl()**](FreeToolsApi.md#buildUtmUrl) | **POST** /tools/utm-builder | Build a UTM-tagged campaign URL |
+| [**calculateAspectRatio()**](FreeToolsApi.md#calculateAspectRatio) | **POST** /tools/aspect-ratio-calculator | Calculate an aspect ratio, or the missing side of an image at a given ratio |
 | [**calculateCrop()**](FreeToolsApi.md#calculateCrop) | **POST** /tools/social-media-image-sizes/crop | Calculate the crop box that fits an image to a social media size |
 | [**calculateEngagementRate()**](FreeToolsApi.md#calculateEngagementRate) | **POST** /tools/engagement-rate-calculator | Calculate an engagement rate |
 | [**checkPost()**](FreeToolsApi.md#checkPost) | **POST** /tools/social-media-post-checker | Check a post against each network&#39;s publishing rules |
@@ -63,6 +64,62 @@ try {
 ### Return type
 
 [**\PostBoostClient\Model\FreeToolBuildUtmUrlResponse**](../Model/FreeToolBuildUtmUrlResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `calculateAspectRatio()`
+
+```php
+calculateAspectRatio($free_tool_calculate_aspect_ratio_request): \PostBoostClient\Model\FreeToolCalculateAspectRatioResponse
+```
+
+Calculate an aspect ratio, or the missing side of an image at a given ratio
+
+Calculate an aspect ratio, or the missing side of an image at a given ratio. The same logic as the free web tool at https://postboost.co/tools/aspect-ratio-calculator. No account needed: call it without a token, or with any API token.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new PostBoostClient\Api\FreeToolsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$free_tool_calculate_aspect_ratio_request = {"width":1080,"height":1350}; // \PostBoostClient\Model\FreeToolCalculateAspectRatioRequest
+
+try {
+    $result = $apiInstance->calculateAspectRatio($free_tool_calculate_aspect_ratio_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling FreeToolsApi->calculateAspectRatio: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **free_tool_calculate_aspect_ratio_request** | [**\PostBoostClient\Model\FreeToolCalculateAspectRatioRequest**](../Model/FreeToolCalculateAspectRatioRequest.md)|  | |
+
+### Return type
+
+[**\PostBoostClient\Model\FreeToolCalculateAspectRatioResponse**](../Model/FreeToolCalculateAspectRatioResponse.md)
 
 ### Authorization
 
