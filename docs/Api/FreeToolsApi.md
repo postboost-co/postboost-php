@@ -6,8 +6,10 @@ All URIs are relative to https://postboost.co/app/api, except if the operation d
 | ------------- | ------------- | ------------- |
 | [**buildUtmUrl()**](FreeToolsApi.md#buildUtmUrl) | **POST** /tools/utm-builder | Build a UTM-tagged campaign URL |
 | [**calculateAspectRatio()**](FreeToolsApi.md#calculateAspectRatio) | **POST** /tools/aspect-ratio-calculator | Calculate an aspect ratio, or the missing side of an image at a given ratio |
+| [**calculateCarouselSlices()**](FreeToolsApi.md#calculateCarouselSlices) | **POST** /tools/instagram-carousel-splitter | Split a wide image into seamless Instagram carousel slides |
 | [**calculateCrop()**](FreeToolsApi.md#calculateCrop) | **POST** /tools/social-media-image-sizes/crop | Calculate the crop box that fits an image to a social media size |
 | [**calculateEngagementRate()**](FreeToolsApi.md#calculateEngagementRate) | **POST** /tools/engagement-rate-calculator | Calculate an engagement rate |
+| [**calculateInfluencerRate()**](FreeToolsApi.md#calculateInfluencerRate) | **POST** /tools/influencer-rate-calculator | Estimate an influencer&#39;s rate for one sponsored deliverable |
 | [**calculateSocialRoi()**](FreeToolsApi.md#calculateSocialRoi) | **POST** /tools/social-media-roi-calculator | Calculate social media ROI |
 | [**calculateXApiCost()**](FreeToolsApi.md#calculateXApiCost) | **POST** /tools/x-api-cost-calculator | Calculate the monthly X API cost |
 | [**checkLinkPreview()**](FreeToolsApi.md#checkLinkPreview) | **POST** /tools/link-preview-checker | Check how a link previews on X, LinkedIn, Facebook and chat apps (Open Graph and Twitter card tags) |
@@ -27,9 +29,11 @@ All URIs are relative to https://postboost.co/app/api, except if the operation d
 | [**getBestTimesToPost()**](FreeToolsApi.md#getBestTimesToPost) | **GET** /tools/best-time-to-post | Get the best times to post per network from published studies, with sources |
 | [**getHookTemplates()**](FreeToolsApi.md#getHookTemplates) | **GET** /tools/hook-generator/library | Get free hook templates for social media posts, filtered by style and network |
 | [**getImageSizes()**](FreeToolsApi.md#getImageSizes) | **GET** /tools/social-media-image-sizes | Get social media image sizes per network, each with its source |
+| [**getSafeZones()**](FreeToolsApi.md#getSafeZones) | **POST** /tools/safe-zone-checker | Get the TikTok, Instagram Reels or YouTube Shorts safe zones for a vertical frame |
 | [**getVideoSpecs()**](FreeToolsApi.md#getVideoSpecs) | **GET** /tools/social-media-video-specs | Get social media video ratios, resolutions, lengths and file size limits per network, with sources |
 | [**listFreeTools()**](FreeToolsApi.md#listFreeTools) | **GET** /tools | List the free tools |
 | [**planContentCalendar()**](FreeToolsApi.md#planContentCalendar) | **POST** /tools/social-media-content-calendar-generator | Plan a social media content calendar and get it as CSV and ICS |
+| [**planPostingFrequency()**](FreeToolsApi.md#planPostingFrequency) | **POST** /tools/posting-frequency-planner | Plan how often to post on each network |
 | [**previewPost()**](FreeToolsApi.md#previewPost) | **POST** /tools/social-media-post-preview | Preview where a post folds and when its image is cropped on Instagram, X, LinkedIn and Facebook |
 | [**searchEmoji()**](FreeToolsApi.md#searchEmoji) | **POST** /tools/social-media-emoji-picker | Search emoji by name or keyword, to copy and paste into a post |
 | [**splitThread()**](FreeToolsApi.md#splitThread) | **POST** /tools/x-thread-maker | Split long text into a thread |
@@ -147,6 +151,62 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `calculateCarouselSlices()`
+
+```php
+calculateCarouselSlices($free_tool_calculate_carousel_slices_request): \PostBoostClient\Model\FreeToolCalculateCarouselSlicesResponse
+```
+
+Split a wide image into seamless Instagram carousel slides
+
+Split a wide image into seamless Instagram carousel slides. The same logic as the free web tool at https://postboost.co/tools/instagram-carousel-splitter. No account needed: call it without a token, or with any API token.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new PostBoostClient\Api\FreeToolsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$free_tool_calculate_carousel_slices_request = {"width":3240,"height":1350,"slides":3,"ratio":"4:5"}; // \PostBoostClient\Model\FreeToolCalculateCarouselSlicesRequest
+
+try {
+    $result = $apiInstance->calculateCarouselSlices($free_tool_calculate_carousel_slices_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling FreeToolsApi->calculateCarouselSlices: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **free_tool_calculate_carousel_slices_request** | [**\PostBoostClient\Model\FreeToolCalculateCarouselSlicesRequest**](../Model/FreeToolCalculateCarouselSlicesRequest.md)|  | |
+
+### Return type
+
+[**\PostBoostClient\Model\FreeToolCalculateCarouselSlicesResponse**](../Model/FreeToolCalculateCarouselSlicesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `calculateCrop()`
 
 ```php
@@ -245,6 +305,62 @@ try {
 ### Return type
 
 [**\PostBoostClient\Model\FreeToolCalculateEngagementRateResponse**](../Model/FreeToolCalculateEngagementRateResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `calculateInfluencerRate()`
+
+```php
+calculateInfluencerRate($free_tool_calculate_influencer_rate_request): \PostBoostClient\Model\FreeToolCalculateInfluencerRateResponse
+```
+
+Estimate an influencer's rate for one sponsored deliverable
+
+Estimate an influencer's rate for one sponsored deliverable. The same logic as the free web tool at https://postboost.co/tools/influencer-rate-calculator. No account needed: call it without a token, or with any API token.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new PostBoostClient\Api\FreeToolsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$free_tool_calculate_influencer_rate_request = {"network":"instagram","followers":25000,"deliverable":"reel","usage_rights_months":3}; // \PostBoostClient\Model\FreeToolCalculateInfluencerRateRequest
+
+try {
+    $result = $apiInstance->calculateInfluencerRate($free_tool_calculate_influencer_rate_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling FreeToolsApi->calculateInfluencerRate: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **free_tool_calculate_influencer_rate_request** | [**\PostBoostClient\Model\FreeToolCalculateInfluencerRateRequest**](../Model/FreeToolCalculateInfluencerRateRequest.md)|  | |
+
+### Return type
+
+[**\PostBoostClient\Model\FreeToolCalculateInfluencerRateResponse**](../Model/FreeToolCalculateInfluencerRateResponse.md)
 
 ### Authorization
 
@@ -1345,6 +1461,62 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getSafeZones()`
+
+```php
+getSafeZones($free_tool_get_safe_zones_request): \PostBoostClient\Model\FreeToolGetSafeZonesResponse
+```
+
+Get the TikTok, Instagram Reels or YouTube Shorts safe zones for a vertical frame
+
+Get the TikTok, Instagram Reels or YouTube Shorts safe zones for a vertical frame. The same logic as the free web tool at https://postboost.co/tools/safe-zone-checker. No account needed: call it without a token, or with any API token.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new PostBoostClient\Api\FreeToolsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$free_tool_get_safe_zones_request = {"platform":"tiktok"}; // \PostBoostClient\Model\FreeToolGetSafeZonesRequest
+
+try {
+    $result = $apiInstance->getSafeZones($free_tool_get_safe_zones_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling FreeToolsApi->getSafeZones: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **free_tool_get_safe_zones_request** | [**\PostBoostClient\Model\FreeToolGetSafeZonesRequest**](../Model/FreeToolGetSafeZonesRequest.md)|  | |
+
+### Return type
+
+[**\PostBoostClient\Model\FreeToolGetSafeZonesResponse**](../Model/FreeToolGetSafeZonesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `getVideoSpecs()`
 
 ```php
@@ -1496,6 +1668,62 @@ try {
 ### Return type
 
 [**\PostBoostClient\Model\FreeToolPlanContentCalendarResponse**](../Model/FreeToolPlanContentCalendarResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `planPostingFrequency()`
+
+```php
+planPostingFrequency($free_tool_plan_posting_frequency_request): \PostBoostClient\Model\FreeToolPlanPostingFrequencyResponse
+```
+
+Plan how often to post on each network
+
+Plan how often to post on each network. The same logic as the free web tool at https://postboost.co/tools/posting-frequency-planner. No account needed: call it without a token, or with any API token.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new PostBoostClient\Api\FreeToolsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$free_tool_plan_posting_frequency_request = {"networks":["instagram","linkedin","tiktok"],"posts_per_week_capacity":12}; // \PostBoostClient\Model\FreeToolPlanPostingFrequencyRequest
+
+try {
+    $result = $apiInstance->planPostingFrequency($free_tool_plan_posting_frequency_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling FreeToolsApi->planPostingFrequency: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **free_tool_plan_posting_frequency_request** | [**\PostBoostClient\Model\FreeToolPlanPostingFrequencyRequest**](../Model/FreeToolPlanPostingFrequencyRequest.md)|  | |
+
+### Return type
+
+[**\PostBoostClient\Model\FreeToolPlanPostingFrequencyResponse**](../Model/FreeToolPlanPostingFrequencyResponse.md)
 
 ### Authorization
 
