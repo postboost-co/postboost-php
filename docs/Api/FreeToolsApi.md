@@ -31,10 +31,12 @@ All URIs are relative to https://postboost.co/app/api, except if the operation d
 | [**getImageSizes()**](FreeToolsApi.md#getImageSizes) | **GET** /tools/social-media-image-sizes | Get social media image sizes per network, each with its source |
 | [**getSafeZones()**](FreeToolsApi.md#getSafeZones) | **POST** /tools/safe-zone-checker | Get the TikTok, Instagram Reels or YouTube Shorts safe zones for a vertical frame |
 | [**getVideoSpecs()**](FreeToolsApi.md#getVideoSpecs) | **GET** /tools/social-media-video-specs | Get social media video ratios, resolutions, lengths and file size limits per network, with sources |
+| [**listAwarenessDays()**](FreeToolsApi.md#listAwarenessDays) | **GET** /tools/social-media-holiday-calendar | List public holidays, awareness days and social media days by date, country, type and topic, with sources |
 | [**listFreeTools()**](FreeToolsApi.md#listFreeTools) | **GET** /tools | List the free tools |
 | [**planContentCalendar()**](FreeToolsApi.md#planContentCalendar) | **POST** /tools/social-media-content-calendar-generator | Plan a social media content calendar and get it as CSV and ICS |
 | [**planPostingFrequency()**](FreeToolsApi.md#planPostingFrequency) | **POST** /tools/posting-frequency-planner | Plan how often to post on each network |
 | [**previewPost()**](FreeToolsApi.md#previewPost) | **POST** /tools/social-media-post-preview | Preview where a post folds and when its image is cropped on Instagram, X, LinkedIn and Facebook |
+| [**scoreSocialAudit()**](FreeToolsApi.md#scoreSocialAudit) | **POST** /tools/social-media-audit-template | Score a social media audit checklist and get the top fixes |
 | [**searchEmoji()**](FreeToolsApi.md#searchEmoji) | **POST** /tools/social-media-emoji-picker | Search emoji by name or keyword, to copy and paste into a post |
 | [**splitThread()**](FreeToolsApi.md#splitThread) | **POST** /tools/x-thread-maker | Split long text into a thread |
 
@@ -1573,6 +1575,70 @@ No authorization required
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `listAwarenessDays()`
+
+```php
+listAwarenessDays($from, $to, $country, $type, $topic): \PostBoostClient\Model\FreeToolListAwarenessDaysResponse
+```
+
+List public holidays, awareness days and social media days by date, country, type and topic, with sources
+
+List public holidays, awareness days and social media days by date, country, type and topic, with sources. The same logic as the free web tool at https://postboost.co/tools/social-media-holiday-calendar. No account needed: call it without a token, or with any API token.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new PostBoostClient\Api\FreeToolsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$from = 'from_example'; // string
+$to = 'to_example'; // string
+$country = 'country_example'; // string
+$type = 'type_example'; // string
+$topic = 'topic_example'; // string
+
+try {
+    $result = $apiInstance->listAwarenessDays($from, $to, $country, $type, $topic);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling FreeToolsApi->listAwarenessDays: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **from** | **string**|  | [optional] |
+| **to** | **string**|  | [optional] |
+| **country** | **string**|  | [optional] |
+| **type** | **string**|  | [optional] |
+| **topic** | **string**|  | [optional] |
+
+### Return type
+
+[**\PostBoostClient\Model\FreeToolListAwarenessDaysResponse**](../Model/FreeToolListAwarenessDaysResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `listFreeTools()`
 
 ```php
@@ -1780,6 +1846,62 @@ try {
 ### Return type
 
 [**\PostBoostClient\Model\FreeToolPreviewPostResponse**](../Model/FreeToolPreviewPostResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `scoreSocialAudit()`
+
+```php
+scoreSocialAudit($free_tool_score_social_audit_request): \PostBoostClient\Model\FreeToolScoreSocialAuditResponse
+```
+
+Score a social media audit checklist and get the top fixes
+
+Score a social media audit checklist and get the top fixes. The same logic as the free web tool at https://postboost.co/tools/social-media-audit-template. No account needed: call it without a token, or with any API token.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new PostBoostClient\Api\FreeToolsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$free_tool_score_social_audit_request = {"target_posts_per_week":4,"instagram":{"profile":"yes","bio":"yes","link_tracking":"no","frequency":"partly","replies":"yes","native_formats":"yes","pinned":"no","engagement_rate":"partly"},"linkedin":{"profile":"yes","bio":"partly","link_tracking":"no","frequency":"yes","replies":"partly","native_formats":"no","pinned":"yes","engagement_rate":"no"}}; // \PostBoostClient\Model\FreeToolScoreSocialAuditRequest
+
+try {
+    $result = $apiInstance->scoreSocialAudit($free_tool_score_social_audit_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling FreeToolsApi->scoreSocialAudit: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **free_tool_score_social_audit_request** | [**\PostBoostClient\Model\FreeToolScoreSocialAuditRequest**](../Model/FreeToolScoreSocialAuditRequest.md)|  | |
+
+### Return type
+
+[**\PostBoostClient\Model\FreeToolScoreSocialAuditResponse**](../Model/FreeToolScoreSocialAuditResponse.md)
 
 ### Authorization
 

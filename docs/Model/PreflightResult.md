@@ -4,9 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**valid** | **bool** | True when create-post with the same body would succeed. |
+**valid** | **bool** | True when create-post with the same body would succeed. Warnings do not change it. |
 **errors** | **array<string,string[]>** | Validation and network-requirement errors keyed by field, as create-post would report them in a &#x60;422&#x60;. |
 **issues** | [**\PostBoostClient\Model\GuardrailError[]**](GuardrailError.md) | Guardrail problems, in the order create-post would report the first of them. |
+**warnings** | [**\PostBoostClient\Model\PostWarning[]**](PostWarning.md) | The warnings create-post would return for the same body (same codes and messages); empty when there are none. |
 **publish_at** | **\DateTime** | UTC time the post would publish at; null for a draft. |
 **accounts** | [**\PostBoostClient\Model\AccountHealth[]**](AccountHealth.md) |  |
 
