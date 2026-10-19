@@ -407,7 +407,7 @@ getRemoteUploadStatus($workspace_uuid, $download_id): \PostBoostClient\Model\Get
 
 Get remote upload status
 
-Poll the status of an in-progress remote media download.
+Poll a background download started by `initiateRemoteUpload` until `status` is `completed` or `failed`. `status` moves from `pending` to `downloading` and `processing`, and ends as `completed` (with `media`) or `failed` (with `error`). The final result is returned once: after a `completed` or `failed` response the download id is forgotten and later polls return `404`, as do ids older than one hour.
 
 ### Example
 
@@ -528,12 +528,12 @@ try {
 ## `initiateRemoteUpload()`
 
 ```php
-initiateRemoteUpload($workspace_uuid, $initiate_remote_upload_request, $idempotency_key): \PostBoostClient\Model\InitiateRemoteUpload201Response
+initiateRemoteUpload($workspace_uuid, $initiate_remote_upload_request, $idempotency_key): \PostBoostClient\Model\InitiateRemoteUpload200Response
 ```
 
 Initiate remote upload
 
-Download a file from a remote URL into the media library. For small files the media object is returned immediately. For large files a `download_id` is returned — poll the status endpoint.
+Download a file from a remote URL into the media library. A file under 10 MB (or one whose server does not send its size) is downloaded during the request: the response has `status: completed` and the `media` object, or `status: failed` and an `error`. A larger file downloads in the background: the response has `status: pending` and a `download_id`; poll `getRemoteUploadStatus` with it until `status` is `completed` or `failed`.
 
 ### Example
 
@@ -574,7 +574,7 @@ try {
 
 ### Return type
 
-[**\PostBoostClient\Model\InitiateRemoteUpload201Response**](../Model/InitiateRemoteUpload201Response.md)
+[**\PostBoostClient\Model\InitiateRemoteUpload200Response**](../Model/InitiateRemoteUpload200Response.md)
 
 ### Authorization
 
