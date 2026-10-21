@@ -4,6 +4,7 @@ All URIs are relative to https://postboost.co/app/api, except if the operation d
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
+| [**buildAgentSkill()**](FreeToolsApi.md#buildAgentSkill) | **POST** /tools/social-media-agent-skill-builder | Build a SKILL.md, AGENTS.md or system prompt for a social media agent |
 | [**buildHashtagGroups()**](FreeToolsApi.md#buildHashtagGroups) | **POST** /tools/hashtag-group-builder | Clean, dedupe and split hashtags into groups that fit a network&#39;s hashtag cap |
 | [**buildUtmUrl()**](FreeToolsApi.md#buildUtmUrl) | **POST** /tools/utm-builder | Build a UTM-tagged campaign URL |
 | [**calculateAspectRatio()**](FreeToolsApi.md#calculateAspectRatio) | **POST** /tools/aspect-ratio-calculator | Calculate an aspect ratio, or the missing side of an image at a given ratio |
@@ -55,6 +56,62 @@ All URIs are relative to https://postboost.co/app/api, except if the operation d
 | [**summarizeReport()**](FreeToolsApi.md#summarizeReport) | **POST** /tools/social-media-report-generator | Summarize social media post metrics into a report |
 | [**verifyWebhookSignature()**](FreeToolsApi.md#verifyWebhookSignature) | **POST** /tools/webhook-signature-verifier | Verify an HMAC webhook signature |
 
+
+## `buildAgentSkill()`
+
+```php
+buildAgentSkill($free_tool_build_agent_skill_request): \PostBoostClient\Model\FreeToolBuildAgentSkillResponse
+```
+
+Build a SKILL.md, AGENTS.md or system prompt for a social media agent
+
+Build a SKILL.md, AGENTS.md or system prompt for a social media agent. The same logic as the free web tool at https://postboost.co/tools/social-media-agent-skill-builder. No account needed: call it without a token, or with any API token.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new PostBoostClient\Api\FreeToolsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$free_tool_build_agent_skill_request = {"brand":"Acme Bakery","tasks":["draft_posts"],"networks":["instagram"],"daily_cap":3}; // \PostBoostClient\Model\FreeToolBuildAgentSkillRequest
+
+try {
+    $result = $apiInstance->buildAgentSkill($free_tool_build_agent_skill_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling FreeToolsApi->buildAgentSkill: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **free_tool_build_agent_skill_request** | [**\PostBoostClient\Model\FreeToolBuildAgentSkillRequest**](../Model/FreeToolBuildAgentSkillRequest.md)|  | |
+
+### Return type
+
+[**\PostBoostClient\Model\FreeToolBuildAgentSkillResponse**](../Model/FreeToolBuildAgentSkillResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
 
 ## `buildHashtagGroups()`
 

@@ -13,7 +13,7 @@ composer require postboost/php-sdk
 | **Packagist** | [packagist.org/packages/postboost/php-sdk](https://packagist.org/packages/postboost/php-sdk) |
 | **GitHub** | [postboost-co/postboost-php](https://github.com/postboost-co/postboost-php) |
 | **Docs** | [postboost.co/docs/api](https://postboost.co/docs/api) |
-| **Version** | v1.61.1 |
+| **Version** | v1.62.0 |
 
 ## Quick start
 
@@ -90,6 +90,7 @@ Class | Method | HTTP request | Description
 *CompetitorsApi* | [**deleteCompetitor**](docs/Api/CompetitorsApi.md#deletecompetitor) | **DELETE** /{workspaceUuid}/competitors/{competitorId} | Stop tracking a competitor
 *CompetitorsApi* | [**getCompetitor**](docs/Api/CompetitorsApi.md#getcompetitor) | **GET** /{workspaceUuid}/competitors/{competitorId} | Get a competitor
 *CompetitorsApi* | [**listCompetitors**](docs/Api/CompetitorsApi.md#listcompetitors) | **GET** /{workspaceUuid}/competitors | List competitors
+*FreeToolsApi* | [**buildAgentSkill**](docs/Api/FreeToolsApi.md#buildagentskill) | **POST** /tools/social-media-agent-skill-builder | Build a SKILL.md, AGENTS.md or system prompt for a social media agent
 *FreeToolsApi* | [**buildHashtagGroups**](docs/Api/FreeToolsApi.md#buildhashtaggroups) | **POST** /tools/hashtag-group-builder | Clean, dedupe and split hashtags into groups that fit a network&#39;s hashtag cap
 *FreeToolsApi* | [**buildUtmUrl**](docs/Api/FreeToolsApi.md#buildutmurl) | **POST** /tools/utm-builder | Build a UTM-tagged campaign URL
 *FreeToolsApi* | [**calculateAspectRatio**](docs/Api/FreeToolsApi.md#calculateaspectratio) | **POST** /tools/aspect-ratio-calculator | Calculate an aspect ratio, or the missing side of an image at a given ratio
