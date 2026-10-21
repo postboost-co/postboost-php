@@ -21,6 +21,7 @@ All URIs are relative to https://postboost.co/app/api, except if the operation d
 | [**cleanText()**](FreeToolsApi.md#cleanText) | **POST** /tools/ai-text-cleaner | Clean AI-written text: dashes, quotes, invisible characters, markdown |
 | [**countCharacters()**](FreeToolsApi.md#countCharacters) | **POST** /tools/social-media-character-counter | Count characters as each network counts them |
 | [**findAutomationRecipes()**](FreeToolsApi.md#findAutomationRecipes) | **GET** /tools/social-media-automation-recipes | Find n8n, Zapier and Make recipes that automate social media posting through the PostBoost API |
+| [**formatCrossPost()**](FreeToolsApi.md#formatCrossPost) | **POST** /tools/cross-post-formatter | Format one post for X, Threads, Bluesky, Mastodon and LinkedIn |
 | [**formatInstagramCaption()**](FreeToolsApi.md#formatInstagramCaption) | **POST** /tools/instagram-line-break-generator | Keep blank lines in an Instagram caption with spacer lines, and count it |
 | [**formatLinkedInPost()**](FreeToolsApi.md#formatLinkedInPost) | **POST** /tools/linkedin-post-formatter | Format a LinkedIn post with bold, italic and lists |
 | [**generateAltText()**](FreeToolsApi.md#generateAltText) | **POST** /tools/alt-text-generator | Write alt text for an image with AI (needs a token, spends AI credits) |
@@ -43,6 +44,7 @@ All URIs are relative to https://postboost.co/app/api, except if the operation d
 | [**getVideoSpecs()**](FreeToolsApi.md#getVideoSpecs) | **GET** /tools/social-media-video-specs | Get social media video ratios, resolutions, lengths and file size limits per network, with sources |
 | [**listAwarenessDays()**](FreeToolsApi.md#listAwarenessDays) | **GET** /tools/social-media-holiday-calendar | List public holidays, awareness days and social media days by date, country, type and topic, with sources |
 | [**listFreeTools()**](FreeToolsApi.md#listFreeTools) | **GET** /tools | List the free tools |
+| [**pickGiveawayWinners()**](FreeToolsApi.md#pickGiveawayWinners) | **POST** /tools/giveaway-comment-picker | Pick giveaway winners with a draw anyone can verify |
 | [**pickSocialMediaTool()**](FreeToolsApi.md#pickSocialMediaTool) | **POST** /tools/social-media-tool-picker | Match your needs against social media management tools and see what each one misses |
 | [**planContentCalendar()**](FreeToolsApi.md#planContentCalendar) | **POST** /tools/social-media-content-calendar-generator | Plan a social media content calendar and get it as CSV and ICS |
 | [**planPostingFrequency()**](FreeToolsApi.md#planPostingFrequency) | **POST** /tools/posting-frequency-planner | Plan how often to post on each network |
@@ -1004,6 +1006,62 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `formatCrossPost()`
+
+```php
+formatCrossPost($free_tool_format_cross_post_request): \PostBoostClient\Model\FreeToolFormatCrossPostResponse
+```
+
+Format one post for X, Threads, Bluesky, Mastodon and LinkedIn
+
+Format one post for X, Threads, Bluesky, Mastodon and LinkedIn. The same logic as the free web tool at https://postboost.co/tools/cross-post-formatter. No account needed: call it without a token, or with any API token.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new PostBoostClient\Api\FreeToolsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$free_tool_format_cross_post_request = {"text":"Our spring menu is live, thanks @alice for the photos: https://example.com/menu","networks":["x","mastodon","linkedin"]}; // \PostBoostClient\Model\FreeToolFormatCrossPostRequest
+
+try {
+    $result = $apiInstance->formatCrossPost($free_tool_format_cross_post_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling FreeToolsApi->formatCrossPost: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **free_tool_format_cross_post_request** | [**\PostBoostClient\Model\FreeToolFormatCrossPostRequest**](../Model/FreeToolFormatCrossPostRequest.md)|  | |
+
+### Return type
+
+[**\PostBoostClient\Model\FreeToolFormatCrossPostResponse**](../Model/FreeToolFormatCrossPostResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
 - **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
@@ -2285,6 +2343,62 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `pickGiveawayWinners()`
+
+```php
+pickGiveawayWinners($free_tool_pick_giveaway_winners_request): \PostBoostClient\Model\FreeToolPickGiveawayWinnersResponse
+```
+
+Pick giveaway winners with a draw anyone can verify
+
+Pick giveaway winners with a draw anyone can verify. The same logic as the free web tool at https://postboost.co/tools/giveaway-comment-picker. No account needed: call it without a token, or with any API token.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new PostBoostClient\Api\FreeToolsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$free_tool_pick_giveaway_winners_request = {"entrants":[{"username":"@Bob","comment":"c"},{"username":"alice","comment":"x"},{"username":"bob","comment":"again"},{"username":"carol"}],"seed":"000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f","winners":2,"alternates":1}; // \PostBoostClient\Model\FreeToolPickGiveawayWinnersRequest
+
+try {
+    $result = $apiInstance->pickGiveawayWinners($free_tool_pick_giveaway_winners_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling FreeToolsApi->pickGiveawayWinners: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **free_tool_pick_giveaway_winners_request** | [**\PostBoostClient\Model\FreeToolPickGiveawayWinnersRequest**](../Model/FreeToolPickGiveawayWinnersRequest.md)|  | |
+
+### Return type
+
+[**\PostBoostClient\Model\FreeToolPickGiveawayWinnersResponse**](../Model/FreeToolPickGiveawayWinnersResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
 - **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
