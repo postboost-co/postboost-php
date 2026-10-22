@@ -6,6 +6,7 @@ All URIs are relative to https://postboost.co/app/api, except if the operation d
 | ------------- | ------------- | ------------- |
 | [**buildAgentSkill()**](FreeToolsApi.md#buildAgentSkill) | **POST** /tools/social-media-agent-skill-builder | Build a SKILL.md, AGENTS.md or system prompt for a social media agent |
 | [**buildHashtagGroups()**](FreeToolsApi.md#buildHashtagGroups) | **POST** /tools/hashtag-group-builder | Clean, dedupe and split hashtags into groups that fit a network&#39;s hashtag cap |
+| [**buildLinkedinCarousel()**](FreeToolsApi.md#buildLinkedinCarousel) | **POST** /tools/linkedin-carousel-maker | Turn text into LinkedIn carousel (PDF document) slides |
 | [**buildUtmUrl()**](FreeToolsApi.md#buildUtmUrl) | **POST** /tools/utm-builder | Build a UTM-tagged campaign URL |
 | [**calculateAspectRatio()**](FreeToolsApi.md#calculateAspectRatio) | **POST** /tools/aspect-ratio-calculator | Calculate an aspect ratio, or the missing side of an image at a given ratio |
 | [**calculateCarouselSlices()**](FreeToolsApi.md#calculateCarouselSlices) | **POST** /tools/instagram-carousel-splitter | Split a wide image into seamless Instagram carousel slides |
@@ -34,6 +35,7 @@ All URIs are relative to https://postboost.co/app/api, except if the operation d
 | [**generateLinkedInHeadline()**](FreeToolsApi.md#generateLinkedInHeadline) | **POST** /tools/linkedin-headline-generator | Write five LinkedIn profile headlines with AI (needs a token, spends AI credits) |
 | [**generateQrCode()**](FreeToolsApi.md#generateQrCode) | **POST** /tools/qr-code-generator | Generate a QR code (SVG) for a link or text, with optional UTM tags |
 | [**generateSocialPostsFromBlog()**](FreeToolsApi.md#generateSocialPostsFromBlog) | **POST** /tools/blog-to-social-media | Turn a blog post (URL or text) into one social post per network with AI (needs a token, spends AI credits) |
+| [**generateSocialPostsFromVideo()**](FreeToolsApi.md#generateSocialPostsFromVideo) | **POST** /tools/youtube-to-social-posts | Turn a YouTube video&#39;s captions into an X thread and social captions with AI (needs a token, spends AI credits) |
 | [**generateUsernames()**](FreeToolsApi.md#generateUsernames) | **POST** /tools/social-media-username-generator | Generate social media usernames |
 | [**generateYoutubeDescription()**](FreeToolsApi.md#generateYoutubeDescription) | **POST** /tools/youtube-description-generator | Write three YouTube video descriptions with AI (needs a token, spends AI credits) |
 | [**generateYoutubeTitles()**](FreeToolsApi.md#generateYoutubeTitles) | **POST** /tools/youtube-title-generator | Write five YouTube video titles with AI (needs a token, spends AI credits) |
@@ -155,6 +157,62 @@ try {
 ### Return type
 
 [**\PostBoostClient\Model\FreeToolBuildHashtagGroupsResponse**](../Model/FreeToolBuildHashtagGroupsResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `buildLinkedinCarousel()`
+
+```php
+buildLinkedinCarousel($free_tool_build_linkedin_carousel_request): \PostBoostClient\Model\FreeToolBuildLinkedinCarouselResponse
+```
+
+Turn text into LinkedIn carousel (PDF document) slides
+
+Turn text into LinkedIn carousel (PDF document) slides. The same logic as the free web tool at https://postboost.co/tools/linkedin-carousel-maker. No account needed: call it without a token, or with any API token.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new PostBoostClient\Api\FreeToolsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+$free_tool_build_linkedin_carousel_request = {"text":"# 5 hooks that work\n\nOne.\n\nTwo"}; // \PostBoostClient\Model\FreeToolBuildLinkedinCarouselRequest
+
+try {
+    $result = $apiInstance->buildLinkedinCarousel($free_tool_build_linkedin_carousel_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling FreeToolsApi->buildLinkedinCarousel: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **free_tool_build_linkedin_carousel_request** | [**\PostBoostClient\Model\FreeToolBuildLinkedinCarouselRequest**](../Model/FreeToolBuildLinkedinCarouselRequest.md)|  | |
+
+### Return type
+
+[**\PostBoostClient\Model\FreeToolBuildLinkedinCarouselResponse**](../Model/FreeToolBuildLinkedinCarouselResponse.md)
 
 ### Authorization
 
@@ -1755,6 +1813,66 @@ try {
 ### Return type
 
 [**\PostBoostClient\Model\FreeToolGenerateSocialPostsFromBlogResponse**](../Model/FreeToolGenerateSocialPostsFromBlogResponse.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `generateSocialPostsFromVideo()`
+
+```php
+generateSocialPostsFromVideo($free_tool_generate_social_posts_from_video_request): \PostBoostClient\Model\FreeToolGenerateSocialPostsFromVideoResponse
+```
+
+Turn a YouTube video's captions into an X thread and social captions with AI (needs a token, spends AI credits)
+
+Turn a YouTube video's captions into an X thread and social captions with AI (needs a token, spends AI credits). The same logic as the free web tool at https://postboost.co/tools/youtube-to-social-posts. Needs an API token (a scoped key needs the `ai` ability and pays with its own workspace). A new generation spends 1 AI credit of the workspace you name (or your active workspace); a repeated identical request is answered from the cache for free.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PostBoostClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PostBoostClient\Api\FreeToolsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$free_tool_generate_social_posts_from_video_request = {"text":"1\n00:00:00,000 --> 00:00:04,000\n[Music]\n\n2\n00:00:04,000 --> 00:00:09,000\nToday I'm showing you how I plan a week of social posts in about twenty minutes.\n\n3\n00:00:09,000 --> 00:00:15,000\nFirst I write down three things I want people to know, then I turn each one into a short post.","video_url":"https://youtu.be/dQw4w9WgXcQ?si=share","outputs":["x_thread","linkedin"]}; // \PostBoostClient\Model\FreeToolGenerateSocialPostsFromVideoRequest
+
+try {
+    $result = $apiInstance->generateSocialPostsFromVideo($free_tool_generate_social_posts_from_video_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling FreeToolsApi->generateSocialPostsFromVideo: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **free_tool_generate_social_posts_from_video_request** | [**\PostBoostClient\Model\FreeToolGenerateSocialPostsFromVideoRequest**](../Model/FreeToolGenerateSocialPostsFromVideoRequest.md)|  | |
+
+### Return type
+
+[**\PostBoostClient\Model\FreeToolGenerateSocialPostsFromVideoResponse**](../Model/FreeToolGenerateSocialPostsFromVideoResponse.md)
 
 ### Authorization
 
