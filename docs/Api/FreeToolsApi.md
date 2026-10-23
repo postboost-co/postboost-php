@@ -28,6 +28,7 @@ All URIs are relative to https://postboost.co/app/api, except if the operation d
 | [**formatLinkedInPost()**](FreeToolsApi.md#formatLinkedInPost) | **POST** /tools/linkedin-post-formatter | Format a LinkedIn post with bold, italic and lists |
 | [**generateAltText()**](FreeToolsApi.md#generateAltText) | **POST** /tools/alt-text-generator | Write alt text for an image with AI (needs a token, spends AI credits) |
 | [**generateBio()**](FreeToolsApi.md#generateBio) | **POST** /tools/instagram-bio-generator | Write five profile bios with AI (needs a token, spends AI credits) |
+| [**generateBrandVoice()**](FreeToolsApi.md#generateBrandVoice) | **POST** /tools/brand-voice-generator | Derive a brand voice from 3 to 10 of your posts with AI: traits with quoted evidence, a guide, an AI system prompt and PostBoost brand voice JSON (needs a token, spends AI credits) |
 | [**generateCaption()**](FreeToolsApi.md#generateCaption) | **POST** /tools/instagram-caption-generator | Write three post captions for a topic with AI (needs a token, spends AI credits) |
 | [**generateFancyText()**](FreeToolsApi.md#generateFancyText) | **POST** /tools/fancy-text-generator | Convert text to fancy Unicode styles |
 | [**generateHashtags()**](FreeToolsApi.md#generateHashtags) | **POST** /tools/instagram-hashtag-generator | Generate hashtags for a post topic with AI (needs a token, spends AI credits) |
@@ -1401,6 +1402,66 @@ try {
 ### Return type
 
 [**\PostBoostClient\Model\FreeToolGenerateBioResponse**](../Model/FreeToolGenerateBioResponse.md)
+
+### Authorization
+
+[bearerAuth](../../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `generateBrandVoice()`
+
+```php
+generateBrandVoice($free_tool_generate_brand_voice_request): \PostBoostClient\Model\FreeToolGenerateBrandVoiceResponse
+```
+
+Derive a brand voice from 3 to 10 of your posts with AI: traits with quoted evidence, a guide, an AI system prompt and PostBoost brand voice JSON (needs a token, spends AI credits)
+
+Derive a brand voice from 3 to 10 of your posts with AI: traits with quoted evidence, a guide, an AI system prompt and PostBoost brand voice JSON (needs a token, spends AI credits). The same logic as the free web tool at https://postboost.co/tools/brand-voice-generator. Needs an API token (a scoped key needs the `ai` ability and pays with its own workspace). A new generation spends 1 AI credit of the workspace you name (or your active workspace); a repeated identical request is answered from the cache for free.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: bearerAuth
+$config = PostBoostClient\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new PostBoostClient\Api\FreeToolsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$free_tool_generate_brand_voice_request = {"posts":["Monday fact: a cooled espresso shot loses most of its aroma in 3 minutes. Drink it while it's warm ☕\n\nWhat's your go-to morning order?","New on the shelf: our Ethiopia Guji, washed process. Think peach, black tea and a clean finish. Roasted on Tuesday, shipped on Wednesday.","We don't do flavoured syrups. Good beans don't need them. Ask us for a recommendation instead ☕","Brew guide, part 3: grind for the V60 should look like coarse sand. Too fine and it drips forever, too coarse and it tastes thin.\n\nSave this for your next pour-over.","Thank you for 5 years on Mill Street! Coffee is on us this Saturday from 8 to 10. Bring a friend."],"business_name":"Mill Street Roasters"}; // \PostBoostClient\Model\FreeToolGenerateBrandVoiceRequest
+
+try {
+    $result = $apiInstance->generateBrandVoice($free_tool_generate_brand_voice_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling FreeToolsApi->generateBrandVoice: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **free_tool_generate_brand_voice_request** | [**\PostBoostClient\Model\FreeToolGenerateBrandVoiceRequest**](../Model/FreeToolGenerateBrandVoiceRequest.md)|  | |
+
+### Return type
+
+[**\PostBoostClient\Model\FreeToolGenerateBrandVoiceResponse**](../Model/FreeToolGenerateBrandVoiceResponse.md)
 
 ### Authorization
 
